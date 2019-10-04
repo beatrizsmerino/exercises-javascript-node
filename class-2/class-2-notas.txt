@@ -1,0 +1,52 @@
+EMAIL
+_________________________
+
+reyesbalejandro@gmail.com
+
+
+
+
+
+MAC
+_________________________
+
+- User
+Fullstack
+
+- Password
+Ficticia
+
+
+
+
+
+COMANDOS
+_________________________
+
+ls    ———> directorio en el q estas
+q     ———> quit
+cd    ———> entrar en el directorio
+cd..  ———> ir a la raiz
+
+git init ———> inicializar repositorio git
+
+Git status
+Git add fichero.txt ———> solo 1 archivo
+
+Añadir todo
+git add . 
+git add -A
+
+Git commit -m “Menssage”
+git log
+
+defaults write com.apple.finder AppleShowAllFiles TRUE KillAll Finder
+
+
+
+
+
+WEBS
+____________
+
+https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-config
