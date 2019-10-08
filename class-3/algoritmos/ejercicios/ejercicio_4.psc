@@ -1,4 +1,5 @@
 Algoritmo ejercicio_4
+	
 	// Dise–a un programa que simula el lanzamiento de una moneda al aire e imprimir si ha salido cara o cruz.
 	
 	valor = azar(2)
@@ -12,4 +13,5 @@ Algoritmo ejercicio_4
 	Fin Segun
 	
 	Escribir "Ha salido ", moneda
+	
 FinAlgoritmo
