@@ -1,10 +1,17 @@
 Algoritmo ejercicio_6
-	//Dise–a un programa para calcular el porcentaje de hombres y mujeres en nuestro curso.
+	
+	// Dise–a un programa para calcular el porcentaje de hombres y mujeres en nuestro curso.
+	// Trucos:
+	// Calcular porcentajes (segmento*100)/total
+	
 	Escribir "Numero de mujeres y de hombres"
+	Leer numeroMujeres
+	Leer numeroHombres
 	
-	total= mujeres + hombres
-	porcentajeMujeres = (mujeres*100 /total)
-	porcentajeHombres = (hombres*100 /total)
+	total= numeroMujeres + numeroHombres
+	porcentajeMujeres = (numeroMujeres*100 /total)
+	porcentajeHombres = (numeroHombres*100 /total)
 	
-	Escribir "Hay porcentaje de mujeres ", porcentajeMujeres, " y prcentaje hombres", porcentajeHombres
+	Escribir "Hay ", porcentajeMujeres, "% de mujeres y ", porcentajeHombres "% de hombres"
+	
 FinAlgoritmo
