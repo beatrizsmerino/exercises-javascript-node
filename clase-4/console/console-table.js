@@ -31,7 +31,7 @@ var team = [
         "puesto": "6",
     },
     {
-        "nombre": "",
+        "nombre": "Ronald",
         "puesto": "7",
     },
     {
