@@ -98,10 +98,13 @@ function ejercicio2() {
 			result.innerHTML += "<p><strong>Mujeres: </strong> " + num1 + "</p>";
 			result.innerHTML += "<p><strong>Hombres: </strong> " + num2 + "</p>";
 
-			result.innerHTML += "<p><strong>Porcentaje de  Mujeres: </strong> " + percentageOfWomen.toFixed(2) + "% " + "<br>" + "(" + percentageOfWomen + ")" + "</p>";
-			result.innerHTML += "<p><strong>Porcentaje de  Hombres: </strong> " + percentageOfMen.toFixed(2) + "% " + "<br>" + "(" + percentageOfMen + ")" + "</p>";
+			result.innerHTML += "<p><strong>Porcentaje de  Mujeres: </strong> " + (percentageOfWomen.toFixed(2) * 1) + "% " + "<br>" + "(" + percentageOfWomen + ")" + "</p>";
+			result.innerHTML += "<p><strong>Porcentaje de  Hombres: </strong> " + (percentageOfMen.toFixed(2) * 1) + "% " + "<br>" + "(" + percentageOfMen + ")" + "</p>";
 
 			result.style.display = "block";
+
+			// Si multiplicas por 1 se convierte el dato de tipo string en numero
+			// console.log(typeof (percentageOfWomen.toFixed(2) * 1));
 		}
 
 		if (validation(num1) === 0 && validation(num2) === 0) {
