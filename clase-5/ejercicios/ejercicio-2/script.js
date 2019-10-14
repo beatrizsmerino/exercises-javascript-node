@@ -117,7 +117,7 @@ function ejercicio2() {
 			alert("¡Inserta un numero entero!");
 			break;
 		} else if (num1 == 'exit' || num2 == 'exit') {
-			alert("¡Has salido de la aplicacion!");
+			confirm("¿Quieres salir de la aplicacion?");
 			break;
 		} else if (validation(num1) === 1 && validation(num2) === 1) {
 			alert("No es un numero!!");
