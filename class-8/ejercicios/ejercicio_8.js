@@ -1,0 +1,1 @@
+// 8 - Imprimir por consola la fecha completa (formato texto) en koreano y japones.
