@@ -1,6 +1,6 @@
-Algoritmo ejercicio_4
+Algoritmo algoritmo_moneda
 	
-	// Dise–a un programa que simula el lanzamiento de una moneda al aire e imprimir si ha salido cara o cruz.
+	// Programa que simula el lanzamiento de una moneda al aire e imprimir si ha salido cara o cruz.
 	
 	valor = azar(2)
 	Escribir valor
