@@ -22,17 +22,18 @@ function compareNumbers(num1, num2, num3){
         if(num1>num2){
             //console.log(num1 + " es el mayor");
             if(num1>num3){
-                console.log(num1 + " es el mayor");
+                alert(num1 + " es el mayor");
             }else{
-                console.log(num3 + " es el mayor");
+                alert(num3 + " es el mayor");
             }
         }else{
-            console.log(num2 + " es el mayor");
+            alert(num2 + " es el mayor");
         }
         */
 
+
         // - Resulto con el operador ternario
-        num1>num2 ? num1>num3 ? console.log(num1 + " es el mayor") : console.log(num3 + " es el mayor") : console.log(num2 + " es el mayor")
+        num1>num2 ? num1>num3 ? alert(num1 + " es el mayor") : alert(num3 + " es el mayor") : alert(num2 + " es el mayor")
     }
 }
 
