@@ -24,6 +24,7 @@ function numberPositiveNegative(num1) {
         */
 
         // - Resuelto con Switch
+        /*
         switch (true) {
             case (num1 < 0):
                 alert("Tu numero es negativo: " + num1);
@@ -32,6 +33,10 @@ function numberPositiveNegative(num1) {
                 alert("Tu numero es positivo " + num1);
                 break;
         }
+        */
+
+        // - Resuelto con Ternario
+        (num1 < 0) ? alert("Tu numero es negativo: " + num1) : alert("Tu numero es positivo " + num1);
     }
 }
 
