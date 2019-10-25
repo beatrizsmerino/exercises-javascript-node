@@ -12,9 +12,8 @@
 
 
 function compareNumbers(num1, num2){
-    if((isNaN(num1) || num1 === "undefined" || num1 === null || num1 === "") &&
+    if((isNaN(num1) || num1 === "undefined" || num1 === null || num1 === "") ||
        (isNaN(num2) || num2 === "undefined" || num2 === null || num2 === "")){
-        console.info("Son numeros");
 
         alert("Inserta un numero");
     }else{
