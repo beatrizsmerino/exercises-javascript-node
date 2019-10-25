@@ -47,7 +47,10 @@ function compareNumbers(num1, num2){
         }*/
 
         // - Resuelto con ternario
-        
+        (num1>num2) ? alert("El primer numero " + "(" + num1 + ")" + " es mayor que el segundo numero " + "(" + num2 + ")")
+            : (num2>num1) ? alert("El primer numero " + "(" + num1 + ")" + " es menor que el segundo numero " + "(" + num2 + ")")
+            : alert(num2 + " y " + num1 + " son iguales")
+
     }
 }
 
