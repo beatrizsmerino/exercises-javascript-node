@@ -15,10 +15,23 @@ function numberEvenOdd(num1) {
     } else {
 
         // - Resuelto con if/else if
+        /*
         if (num1%2 === 0) {
             alert("Tu numero es par: " + num1);
         } else {
             alert("Tu numero es impar " + num1);
+        }
+        */
+
+
+        // - Resuelto con Switch
+        switch (true) {
+            case (num1%2 === 0):
+                alert("Tu numero es par: " + num1);
+                break;
+            default:
+                alert("Tu numero es impar " + num1);
+                break;
         }
 
     }
