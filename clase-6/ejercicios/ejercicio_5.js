@@ -15,12 +15,23 @@ function numberPositiveNegative(num1) {
     } else {
 
         // - Resuelto con if/else if
+        /*
         if (num1 < 0) {
             alert("Tu numero es negativo: " + num1);
         } else {
             alert("Tu numero es positivo " + num1);
         }
+        */
 
+        // - Resuelto con Switch
+        switch (true) {
+            case (num1 < 0):
+                alert("Tu numero es negativo: " + num1);
+                break;
+            default:
+                alert("Tu numero es positivo " + num1);
+                break;
+        }
     }
 }
 
