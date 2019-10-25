@@ -25,6 +25,7 @@ function numberEvenOdd(num1) {
 
 
         // - Resuelto con Switch
+        /*
         switch (true) {
             case (num1%2 === 0):
                 alert("Tu numero es par: " + num1);
@@ -33,7 +34,11 @@ function numberEvenOdd(num1) {
                 alert("Tu numero es impar " + num1);
                 break;
         }
+        */
 
+
+        // - Resuelto con Ternario
+        (num1%2 === 0) ? alert("Tu numero es par: " + num1) : alert("Tu numero es impar " + num1);
     }
 }
 
