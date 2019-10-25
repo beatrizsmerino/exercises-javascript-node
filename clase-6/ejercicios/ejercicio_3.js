@@ -49,11 +49,12 @@ function operation(num1, num2, num3) {
             var productNumbersOperation = num1 + "*" + num2 + "*" + num3 + "=",
                 productsNumberResult = (num1 * num2 * num3);
             alert("El primer numero no es negativo: " + num1);
-            alert("El producto  2 y 3 es: " + productNumbersOperation + productsNumberResult);
+            alert("El producto de los numeros 2 y 3 es: " + productNumbersOperation + productsNumberResult);
         }
         */
 
         // - Resuelto con Switch
+        /*
         switch (true) {
             case num1 < 0:
                 var sumNumbersOperation = num2 + "+" + num3 + "=",
@@ -65,11 +66,19 @@ function operation(num1, num2, num3) {
                 var productNumbersOperation = num1 + "*" + num2 + "*" + num3 + "=",
                     productsNumberResult = (num1 * num2 * num3);
                 alert("El primer numero no es negativo: " + num1);
-                alert("El producto  2 y 3 es: " + productNumbersOperation + productsNumberResult);
+                alert("El producto de los numeros 2 y 3 es: " + productNumbersOperation + productsNumberResult);
                 break;
         }
+        */
 
         // - Resulto con el operador ternario
+        var sumNumbersOperation = num2 + "+" + num3 + "=",
+            sumNumbersResult = (num2 + num3);
+        var productNumbersOperation = num1 + "*" + num2 + "*" + num3 + "=",
+            productsNumberResult = (num1 * num2 * num3);
+
+        (num1 < 0) ? alert("El primer numero es negativo: " + num1 + ". " + "La suma de los numeros 2 y 3 es: " + sumNumbersOperation + sumNumbersResult)
+            : alert("El primer numero no es negativo: " + num1 + ". " + "El producto de los numeros 2 y 3 es: " + productNumbersOperation + productsNumberResult);
     }
 }
 
