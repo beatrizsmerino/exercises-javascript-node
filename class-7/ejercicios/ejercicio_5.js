@@ -1,4 +1,4 @@
-// 5 - Diseña un algoritmo que imprima los números impares entre un número dado por el usuario y los siguientes 50 números.
+// 5 - Diseña un algoritmo que imprima los números imimpares entre un número dado por el usuario y los siguientes 50 números.
 
 // - Usando for:
 // - Usando while y break:
@@ -10,7 +10,7 @@
 // - Resuelto con for:
 /*
 function getOdd50(num) {
-  console.group("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
+  console.group("Numeros impares del " + num + "-" + (num + 50) + " con for: ");
 
   for (let index = num; index <= (num + 50); index++) {
     //console.log(index);
@@ -20,7 +20,7 @@ function getOdd50(num) {
     }
   }
 
-  console.groupEnd("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
+  console.groupEnd("Numeros impares del " + num + "-" + (num + 50) + " con for: ");
 }
 
 getOdd50(50);
@@ -30,7 +30,7 @@ getOdd50(50);
 // - Resuelto con while:
 /*
 function getOdd50(num) {
-  console.group("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
+  console.group("Numeros impares del " + num + "-" + (num + 50) + " con while: ");
 
   var index = num;
 
@@ -41,7 +41,7 @@ function getOdd50(num) {
     index++;
   }
 
-  console.groupEnd("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
+  console.groupEnd("Numeros impares del " + num + "-" + (num + 50) + " con while: ");
 }
 
 getOdd50(20);
@@ -51,7 +51,7 @@ getOdd50(20);
 
 // - Resuelto con Do...While:
 function getOdd50(num) {
-  console.group("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
+  console.group("Numeros impares del " + num + "-" + (num + 50) + " con do...while: ");
 
   var index = num;
 
@@ -62,7 +62,7 @@ function getOdd50(num) {
     index++;
   } while (index <= (num + 50));
 
-  console.groupEnd("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
+  console.groupEnd("Numeros impares del " + num + "-" + (num + 50) + " con do...while: ");
 }
 
 getOdd50(15);
