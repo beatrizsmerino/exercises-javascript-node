@@ -21,6 +21,7 @@ console.groupEnd("Numeros del 1-100 con for: ");
 
 
 // - Resuelto con while:
+/*
 console.group("Numeros del 1-100 con while: ");
 let counter = 100;
 while (counter >= 0) {
@@ -28,5 +29,15 @@ while (counter >= 0) {
   counter--;
 }
 console.groupEnd("Numeros del 1-100 con while: ");
+*/
 
 
+
+// - Resuelto con Do...While:
+console.group("Numeros del 1-100 con do...while: ");
+let counter = 100;
+do {
+  console.log("Numero " + counter);
+  counter--;
+} while (counter >= 0);
+console.groupEnd("Numeros del 1-100 con do...while: ");
