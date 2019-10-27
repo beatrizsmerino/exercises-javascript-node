@@ -7,10 +7,23 @@
 
 
 // - Resuelto con for:
+/*
 console.group("Numeros pares del 0-100 con for: ");
 for (let index = 0; index <= 100; index += 2) {
   console.log("Numero " + index);
 }
 console.groupEnd("Numeros pares del 0-100 con for: ");
+*/
+
+
+
+// - Resuelto con while:
+console.group("Numeros del 0-100 con while: ");
+let counter = 0;
+while (counter <= 100) {
+  console.log("Numero " + counter);
+  counter += 2;
+}
+console.groupEnd("Numeros del 0-100 con while: ");
 
 
