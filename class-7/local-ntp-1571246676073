@@ -1,0 +1,77 @@
+var arr = [];
+arr["pp"]="valor 1";
+console.log(arr[0]);
+
+var arr = [];
+arr["pp"]="valor 1";
+console.log(arr["pp"]);
+
+var arr = [{pp:"valor 1"}];
+//arr["pp"]="valor 1";
+console.log(arr[pp]);
+
+var arr = [{pp:"valor 1"}];
+//arr["pp"]="valor 1";
+console.log(arr[0]);
+
+var arr = [];
+arr["pp"]="valor 1";
+
+arr["aa"]= "valor 1";
+
+arr
+-> [pp: "valor 1", aa: "valor 1"]
+
+typeof(arr)
+-> objeto
+
+arrN = ["valor 1", "valor 2"];
+
+var clase = [
+    {
+        "nombre": "Alejandro",
+        "puesto": "0",
+    },
+    {
+        "nombre": "Juan",
+        "puesto": "1",
+    },
+    {
+        "nombre": "Joaquín",
+        "puesto": "2",
+    },
+    {
+        "nombre": "Aurora",
+        "puesto": "3",
+    },
+    {
+        "nombre": "Pedro",
+        "puesto": "4",
+    },
+    {
+        "nombre": "Emilio",
+        "puesto": "5",
+    },
+    {
+        "nombre": "Miguel",
+        "puesto": "6",
+    },
+    {
+        "nombre": "Ronald",
+        "puesto": "7",
+    },
+    {
+        "nombre": "Beatriz",
+        "puesto": "8",
+    }
+];
+-> undefined
+
+clase
+-> (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]0: {nombre: "Alejandro", puesto: "0"}nombre: "Alejandro"puesto: "0"__proto__: Object1: {nombre: "Juan", puesto: "1"}2: {nombre: "Joaquín", puesto: "2"}3: {nombre: "Aurora", puesto: "3"}4: {nombre: "Pedro", puesto: "4"}5: {nombre: "Emilio", puesto: "5"}6: {nombre: "Miguel", puesto: "6"}7: {nombre: "Ronald", puesto: "7"}8: {nombre: "Beatriz", puesto: "8"}length: 9__proto__: Array(0)
+
+clase[0].nombre
+-> "Alejandro"
+
+clase[0].puesto
+-> "0"
