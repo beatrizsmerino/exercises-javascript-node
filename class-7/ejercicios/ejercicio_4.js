@@ -18,6 +18,7 @@ console.groupEnd("Numeros pares del 0-100 con for: ");
 
 
 // - Resuelto con while:
+/*
 console.group("Numeros del 0-100 con while: ");
 let counter = 0;
 while (counter <= 100) {
@@ -25,5 +26,14 @@ while (counter <= 100) {
   counter += 2;
 }
 console.groupEnd("Numeros del 0-100 con while: ");
+*/
 
 
+// - Resuelto con Do...While:
+console.group("Numeros del 0-100 con do...while: ");
+let counter = 0;
+do {
+  console.log("Numero " + counter);
+  counter += 2;
+} while (counter <= 100);
+console.groupEnd("Numeros del 0-100 con do...while: ");
