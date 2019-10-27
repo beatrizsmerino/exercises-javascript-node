@@ -23,3 +23,12 @@ while (counter < 100) {
 }
 console.groupEnd("Numeros del 1-100 con while: ");
 
+
+// - Resuelto con Do...While:
+console.group("Numeros del 1-100 con do...while: ");
+let counter = 0;
+do {
+  console.log("Numero " + (counter + 1));
+  counter++
+} while (counter < 100);
+console.groupEnd("Numeros del 1-100 con do...while: ");
