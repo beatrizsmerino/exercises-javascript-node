@@ -13,6 +13,7 @@
 // - Usando Do...While:
 
 
+
 // - Resuelto con for:
 /*
 function access() {
@@ -46,7 +47,10 @@ function access() {
 access();
 */
 
+
+
 // - Usando while y break:
+/*
 function access() {
   var key = "Fictizia mola mucho";
   var maxTries = 3;
@@ -74,6 +78,38 @@ function access() {
     console.log(counter);
     console.groupEnd("Intento " + counter);
   }
+}
+
+access();
+*/
+
+
+
+// - Usando do...while :
+function access() {
+  var key = "Fictizia mola mucho";
+  var maxTries = 3;
+  var counter = maxTries;
+
+  do {
+    var getKey = prompt("Introduce la contraseña: ");
+
+    --counter;
+
+    if (getKey === key) {
+      alert("Puedes entrar");
+      break;
+    } else {
+      if (counter === 0) {
+        alert("Has superado el numero de intentos, vuelve mas tarde");
+        break;
+      } else {
+        alert("Contraseña incorrecta.");
+        alert("Te quedan " + (counter) + " intentos");
+      }
+    }
+
+  } while (counter !== 0);
 }
 
 access();
