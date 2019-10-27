@@ -8,6 +8,7 @@
 
 
 // - Resuelto con for:
+/*
 function getOdd50(num) {
   console.group("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
 
@@ -23,3 +24,26 @@ function getOdd50(num) {
 }
 
 getOdd50(50);
+*/
+
+
+// - Resuelto con while:
+function getOdd50(num) {
+  console.group("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
+
+  var index = num;
+
+  while (index <= (num + 50)) {
+    if (index % 2 !== 0) {
+      console.log("Numero " + index);
+    }
+    index++;
+  }
+
+  console.groupEnd("Numeros pares del " + num + "-" + (num + 50) + " con for: ");
+}
+
+getOdd50(20);
+
+
+
