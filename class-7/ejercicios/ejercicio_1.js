@@ -12,4 +12,32 @@
 // - Usando while y break:
 // - Usando Do...While:
 
- 
+function access() {
+  var key = "Fictizia mola mucho";
+  var maxTries = 3;
+  var counter = 0;
+
+  for (var i = 0; i < maxTries; i++) {
+
+    var getKey = prompt("Introduce la contraseña: ");
+
+    if (getKey === key) {
+      alert("Puedes entrar");
+      break;
+    } else {
+      ++counter;
+
+      if (maxTries === counter) {
+        alert("Has superado el numero de intentos, vuelve mas tarde");
+      } else {
+        alert("Te quedan " + (maxTries - counter) + " intentos");
+      }
+    }
+
+    console.group("Intento " + i);
+    console.log(getKey);
+    console.log(counter);
+    console.groupEnd("Intento " + i);
+  }
+}
+access();
