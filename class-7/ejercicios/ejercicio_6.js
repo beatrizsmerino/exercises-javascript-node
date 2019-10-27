@@ -76,7 +76,7 @@ getOdd50(30);
 
 // - Resuelto con Do...While:
 function getOdd50(num) {
-  console.group("Numeros del " + num + "-" + (num + 50) + " con while: ");
+  console.group("Numeros del " + num + "-" + (num + 50) + " con do...while: ");
 
   var sumOdd = 0;
   var sumOddOperation = "";
@@ -99,7 +99,7 @@ function getOdd50(num) {
 
   sumOddOperation = sumOddOperation.slice(0, -2) + " = ";
   console.log("Suma total de numeros impares: \n" + sumOddOperation + sumOdd);
-  console.groupEnd("Numeros del " + num + "-" + (num + 50) + " con while: ");
+  console.groupEnd("Numeros del " + num + "-" + (num + 50) + " con do...while: ");
 }
 
 getOdd50(0);
