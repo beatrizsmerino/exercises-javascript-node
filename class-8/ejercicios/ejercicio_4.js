@@ -9,4 +9,4 @@ function sumDays(date, days) {
     return date;
 }
 
-alert("La fecha de hoy es: \n" + nowDate + "\n" + "La fecha dentro de " + days + " dias es de: \n" + sumDays(nowDate, days));
+alert("La fecha de hoy es: \n" + nowDate.toDateString() + "\n\n" + "La fecha dentro de " + days + " dias es de: \n" + sumDays(nowDate, days).toDateString());
