@@ -10,3 +10,5 @@ function coins(){
         console.log("ha salido cruz");
     }
 }
+
+coins();
