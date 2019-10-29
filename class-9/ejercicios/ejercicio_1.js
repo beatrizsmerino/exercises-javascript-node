@@ -1,6 +1,35 @@
 // 1 - Diseña un algoritmo que cuente las veces que aparece una determinada letra en una frase.
 
 
+// function cuantasVeces(letra, texto) {
+//     var totalVeces = 0;
+//     var seleccionTexto = texto.split("");
+//
+//     for (var i = 0; i <= seleccionTexto.length; i++) {
+//         if (seleccionTexto[i] === letra) {
+//             totalVeces++
+//         };
+//     };
+//
+//     return {
+//         letra: letra,
+//         totalVeces: totalVeces,
+//         texto: texto
+//     }
+// }
+//
+// var nombreVar = cuantasVeces("h", "hola");
+//
+// if (nombreVar.totalVeces > 0) {
+//     console.log("Tenemos resultados....")
+// }
+//
+// console.log("Se repite " + nombreVar.letra + " " + nombreVar.totalVeces + " veces... en " + nombreVar.texto);
+
+
+
+
+
 function findCharacter(phrase, letter) {
 
     // Comprobar que viene dato
@@ -25,7 +54,7 @@ function findCharacter(phrase, letter) {
     let phraseNumCharacters = phrase.length;
     console.log("Numero de caracteres de la Frase: ", phraseNumCharacters);
 
-    while(phraseNumCharacters === 1) {
+    while (phraseNumCharacters === 1) {
         console.warn("%cFrase Incorrecta: " + phrase, "padding: 0.1rem 0.2rem; background-color: tomato; color: #fff;");
         alert("Debes insertar una frase con mas de un caracter!");
         phrase = prompt("Inserta una Frase: ");
@@ -41,7 +70,7 @@ function findCharacter(phrase, letter) {
     let letterNumCharacters = letter.length;
     console.log("Numero de caracteres de la Letra: ", letterNumCharacters);
 
-    while(letterNumCharacters > 1) {
+    while (letterNumCharacters > 1) {
         console.warn("%cLetra Incorrecta: " + letter, "padding: 0.1rem 0.2rem; background-color: tomato; color: #fff;");
         alert("Solo puedes insertar un caracter a buscar!");
         letter = prompt("Inserta una letra: ");
@@ -61,7 +90,7 @@ function findCharacter(phrase, letter) {
         console.info("%cBuscando... " + phrase[index], "padding: 0.1rem 0.2rem; background-color: #797979; color: #c5c5c5;");
         console.info("%cHa encontrado: " + counter, "padding: 0.1rem 0.2rem; background-color: teal; color: #fff;");
 
-        if(phrase[index] === letter){
+        if (phrase[index] === letter) {
             counter++;
         }
     }
@@ -76,7 +105,7 @@ if (init) {
     let phrase = prompt("Inserta una frase: ");
     let letter = prompt("Inserta una letra: ");
 
-    alert("Hay " + findCharacter(phrase, letter) + " " + "'"+ letter + "'");
+    alert("Hay " + findCharacter(phrase, letter) + " " + "'" + letter + "'");
 } else {
     alert("Has salido de la aplicacion!");
 }
