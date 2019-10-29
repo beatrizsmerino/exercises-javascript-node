@@ -6,4 +6,4 @@
 
 ### This repository it is a recopilation of exercises for practice javascript and node js
 
-![Exercises Javascript Node](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/documentation/documentation/images/exercises-javascript-node.jpg)
+![Exercises Javascript Node](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/documentation/documentation/exercises-javascript-node.jpg)
