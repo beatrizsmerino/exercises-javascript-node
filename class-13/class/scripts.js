@@ -74,26 +74,46 @@ document.getElementById("boton").addEventListener("click", function () {
 });
 
 
-// Crear nuevo element en el DOM
+// Crear nuevo e lement en el DOM
 var main = document.querySelector("body main");
-var aside = document.createElement("aside");
+var asideElement = document.createElement("aside");
 //var asideContent = document.createTextNode("<h4>Aside</h4>"); // inserta las etiquetas como texto
 var asideTitle = document.createElement("h4");
 var asideTitleText = document.createTextNode("Aside");
 asideTitle.appendChild(asideTitleText);
-aside.appendChild(asideTitle);
-main.appendChild(aside);
+asideElement.appendChild(asideTitle);
+main.appendChild(asideElement);
 document.querySelector("aside h4").classList.add("aside__title");
 var asideTitleCss = document.querySelectorAll(".aside__title")[0];
+asideTitleCss.style.margin = "2rem";
 asideTitleCss.style.color = "#f8ed4e";
 asideTitleCss.style.fontSize = "3rem";
+var aside = document.querySelector("aside");
+aside.style.padding = "2rem";
+aside.style.backgroundColor = "#4ea1fc";
 
 
 // Crear una lista de ul li con js
 function addList(where) {
     let content = document.createElement("div");
-    //where.appendChild(content);
-    content.classList.add("aside__content");
+    content.classList.add("content");
 
+    let list = document.createElement("ul");
+    list.classList.add("list");
+
+    for (let index = 0; index < 6; index++) {
+        let listLi = document.createElement("li");
+        listLi.classList.add("list__item");
+        let listLiText = document.createTextNode("Item - " + index);
+        listLi.appendChild(listLiText);
+        list.appendChild(listLi);
+    }
+    console.info(list);
+
+    content.appendChild(list);
+    console.info(content);
+
+    where.appendChild(content);
+    console.info(where);
 }
-addList(document.getElementsByTagName("aside"));
+addList(document.getElementsByTagName("aside")[0]);
