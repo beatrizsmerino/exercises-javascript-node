@@ -1,0 +1,67 @@
+*,
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #cb91d7;
+    /* los estilos de js sobreescriben el al css */
+}
+
+h2 {
+    margin-bottom: 2rem;
+    color: #fc4e4e;
+}
+
+h3 {
+    color: #4ea1fc;
+}
+
+section {
+    margin: 3rem 0;
+    padding: 2rem;
+}
+
+article {
+    color: #2661ad;
+    background-color: #1d2a4f;
+}
+
+article:not(:last-child) {
+    margin-bottom: 2rem;
+}
+
+button{
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.button--hacktoberfest {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.button--hacktoberfest:hover {
+    color: #f8ed4e;
+    border-color: #f8ed4e;
+}
+
+.list {
+    margin-left: 4rem;
+    list-style-position: inside;
+}
+
+.list__item {
+    font-size: 1.5rem;
+    ;
+    color: #fff;
+}
+
+.list__item:not(:last-child) {
+    margin-bottom: 0.5rem;
+}

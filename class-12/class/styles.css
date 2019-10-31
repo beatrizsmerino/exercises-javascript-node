@@ -1,0 +1,19 @@
+h1{
+    color: #cb91d7; /* los estilos de js sobreescriben el al css */
+}
+h2{
+    color:#fc4e4e;
+}
+h3{
+    color: #4ea1fc;
+}
+section{
+    margin: 3rem 0;
+}
+article{
+    color:#2661ad;
+    background-color: #1d2a4f;
+}
+article:not(:last-child){
+    margin-bottom: 2rem;
+}
