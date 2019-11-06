@@ -7,7 +7,7 @@
     
 </head>
 <body>
-
+	<!--
     <div id="circulo" class="forma"></div>
 	<div id="cuadrado" class="forma"></div>
 	<div id="rombo" class="forma"></div>
@@ -18,9 +18,25 @@
 	<div id="rectangulo" class="forma"></div>
 	<div id="trapezoide" class="forma"></div>
 	<div id="triangulo" class="forma"></div>
-	
+	-->
 
-	<br>
+	<h1>Figuras geometricas</h1>
+	<form action="" method="get">
+		<label for="selectFigure">
+			Seleciona una figura
+		</label>
+		<br>
+		<select name="figures" id="selectFigure">
+			<option value="" disabled hidden selected>
+				--- Seleciona uno ---
+			</option>
+		</select>
+	</form>
+	<button id="buttonAddFigure" type="button">ADD</button>
+
+	<div id="canvas">	
+
+	</div>
 	
 	<script src="script.js"></script>
 	
