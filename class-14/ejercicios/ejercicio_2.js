@@ -24,6 +24,28 @@ function buttonShowViewParagraph() {
         paragraphDom.classList.toggle("is-view");
         console.log(paragraphDom);
     });
+    
+
+    // Solved variable state
+    function showHide(element, targetEvent){
+        function toggleClass(){
+            var state = false;
+
+            if(state){
+                element.classList.remove("is-view");
+                state = false;
+                console.log(state);
+            } else{
+                element.classList.add("is-view");
+                state = true;
+                console.log(state);
+            }
+        }
+        targetEvent.onclick = toggleClass;
+    }
+
+    showHide(paragraphDom, buttonDom);
+
 }
 
 buttonShowViewParagraph();
