@@ -58,16 +58,19 @@ function createListFigures(){
     //console.log(select);
 }
 
-function addFigure(event) {
-    event.preventDefault();
-    let valueSelected = select.value;
-    console.log("Has selecionado: " + valueSelected);
+function getFigureSelected(){
+    let figureSelected = select.value;
+    console.log("Has selecionado: " + figureSelected);
+}
 
-    let figureElem = document.createElement("div");
-    figureElem.setAttribute("class", "forma");
-    figureElem.setAttribute("id", selectVal);
-
-
+function addFigure() {
+    select.addEventListener("change", function(){
+        let getFigureSelected = getFigureSelected();
+        let figureElem = document.createElement("div");
+        figureElem.setAttribute("class", "forma");
+        figureElem.setAttribute("id", figureSelected);
+        myCanvas.appendChild(figureElem);
+    });
 }
 
 function removeFigure() {
@@ -75,8 +78,11 @@ function removeFigure() {
 }
 
 createListFigures();
+select.addEventListener("change", getFigureSelected);
 buttonAddFigure.addEventListener("click", addFigure);
 // removeButton.addEventListener.onclick = removeFigure;
+
+
 
 /*----------------------------------------------*/
 // Como leer el input de insertar
