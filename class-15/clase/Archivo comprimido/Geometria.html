@@ -1,44 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-</head>
-<body>
-	<!--
+    <link rel="stylesheet" href="../../../assets/icomoon/style.css">
+  </head>
+
+  <body>
+    <!--
     <div id="circulo" class="forma"></div>
-	<div id="cuadrado" class="forma"></div>
-	<div id="rombo" class="forma"></div>
-	<div id="hexagono" class="forma"></div>
-	<div id="ovalo" class="forma"></div>
-	<div id="paralelogramo" class="forma"></div>
-	<div id="pentagono" class="forma"></div>
-	<div id="rectangulo" class="forma"></div>
-	<div id="trapezoide" class="forma"></div>
-	<div id="triangulo" class="forma"></div>
-	-->
+    <div id="cuadrado" class="forma"></div>
+    <div id="rombo" class="forma"></div>
+    <div id="hexagono" class="forma"></div>
+    <div id="ovalo" class="forma"></div>
+    <div id="paralelogramo" class="forma"></div>
+    <div id="pentagono" class="forma"></div>
+    <div id="rectangulo" class="forma"></div>
+    <div id="trapezoide" class="forma"></div>
+    <div id="triangulo" class="forma"></div>
+    -->
 
-	<h1>Figuras geometricas</h1>
-	<form action="" method="get">
-		<label for="selectFigure">
-			Seleciona una figura
-		</label>
-		<br>
-		<select name="figures" id="selectFigure">
-			<option value="" disabled hidden selected>
-				--- Seleciona uno ---
-			</option>
-		</select>
-		<button id="buttonAddFigure" type="button">ADD</button>
-	</form>
+    <h1>Figuras geometricas</h1>
 
-	<div id="canvas">	
+    <form action="" method="get">
+      <label for="selectFigure" class="label">
+        Seleciona una figura
+      </label>
 
-	</div>
-	
-	<script src="script.js"></script>
-	
-</body>
+      <br>
+
+      <select id="selectFigure" class="select" name="figures">
+        <option value="" disabled hidden selected>
+          --- Seleciona uno ---
+        </option>
+      </select>
+
+      <button id="buttonAddFigure" class="button" type="button">
+        <span class="button__text">
+          ADD
+        </span>
+        <i class="button__icon icon-circle-with-plus"></i>
+      </button>
+    </form>
+
+    <div id="canvas"></div>
+
+    <script src="script.js"></script>
+  </body>
+
 </html>

@@ -23,67 +23,98 @@ document.head.appendChild(linkStyle);
 
 // FIGURES
 const figures = [
-    "circulo",
-    "cuadrado",
-    "rombo",
-    "hexagono",
-    "ovalo",
-    "paralelogramo",
-    "pentagono",
-    "rectangulo",
-    "trapezoide",
-    "triangulo"
+  "circulo",
+  "cuadrado",
+  "rombo",
+  "hexagono",
+  "ovalo",
+  "paralelogramo",
+  "pentagono",
+  "rectangulo",
+  "trapezoide",
+  "triangulo"
 ];
 
 let select = document.getElementById("selectFigure");
 let buttonAddFigure = document.getElementById("buttonAddFigure");
 let myCanvas = document.getElementById("canvas");
-// let removeButton = document.getElementById("buttonRemoveFigure");
-// console.log(select);
-// console.log(addButton);
+
 
 // ACTIONS
-function createListFigures(){
-    for (let index = 0; index < figures.length; index++) {
-        let element = figures[index];
-        //console.log(element);
+function createListFigures() {
+  for (let index = 0; index < figures.length; index++) {
+    let element = figures[index];
+    //console.log(element);
 
-        let optionElem = document.createElement("option");
-        let optionTextElem = document.createTextNode(element);
-        optionElem.setAttribute("value", element);
-        optionElem.appendChild(optionTextElem);
+    let optionElem = document.createElement("option");
+    let optionTextElem = document.createTextNode(element);
+    optionElem.setAttribute("value", element);
+    optionElem.appendChild(optionTextElem);
 
-        select.appendChild(optionElem);
-    }
-    //console.log(select);
+    select.appendChild(optionElem);
+  }
+  //console.log(select);
 }
 
-function getFigureSelected(){
-    let figureSelected = select.value;
-    console.log("Has selecionado: " + figureSelected);
+function getFigureSelected() {
+  let figureSelected = select.value;
+  // console.info("Has selecionado: " + figureSelected);
+  return figureSelected;
 }
 
 function addFigure() {
-    select.addEventListener("change", function(){
-        let getFigureSelected = getFigureSelected();
-        let figureElem = document.createElement("div");
-        figureElem.setAttribute("class", "forma");
-        figureElem.setAttribute("id", figureSelected);
-        myCanvas.appendChild(figureElem);
-    });
+  let figureSelected = getFigureSelected();
+
+  for (let index = 0; index < figures.length; index++) {
+    const figure = figures[index];
+
+    if (figure === figureSelected) {
+      let figureElem = document.createElement("div");
+      let stylesFigure = `
+        margin: 1rem;
+        position: relative;
+        display: inline-block;
+      `;
+      figureElem.setAttribute("class", "figure");
+      figureElem.setAttribute("id", figureSelected);
+      figureElem.style += `; ${stylesFigure}`;
+      figureElem.addEventListener("click", removeFigure);
+
+      let figureDrawElem = document.createElement("span");
+      let stylesFigureDraw = `
+        display: inline-block;
+      `;
+      figureDrawElem.style += `; ${stylesFigureDraw}`;
+
+      let buttonRemoveFigure = document.createElement("i");
+      let stylesButtonRemoveFigure = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 3rem;
+        color: white;
+        cursor: pointer;
+      `;
+      buttonRemoveFigure.setAttribute("class", "figure__button-remove icon-circle-with-cross");
+      buttonRemoveFigure.style += `; ${stylesButtonRemoveFigure}`;
+
+      figureElem.appendChild(figureDrawElem);
+      figureElem.appendChild(buttonRemoveFigure);
+      myCanvas.appendChild(figureElem);
+    }
+  }
 }
 
 function removeFigure() {
-
+  let figure = document.getElementsByClassName("figure");
+  for (let index = 0; index < figure.length; index++) {
+    const element = figure[index];
+    element.addEventListener("click", function () {
+      this.remove();
+    });
+  }
 }
 
 createListFigures();
-select.addEventListener("change", getFigureSelected);
 buttonAddFigure.addEventListener("click", addFigure);
-// removeButton.addEventListener.onclick = removeFigure;
-
-
-
-/*----------------------------------------------*/
-// Como leer el input de insertar
-// Solución JS aquí
