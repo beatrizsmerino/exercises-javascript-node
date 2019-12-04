@@ -2,13 +2,26 @@
 // https://github.com/octocat
 // https://api.github.com/users/%5Bnombre_usuario%5D/events
 
-
 let urlAPI = "https://api.github.com/users/";
+let urlEventsAPI = "/events";
 let bodyDom = document.body;
 let searchDom = document.getElementById("search");
-let buttonDom = document.getElementById("button");
+let searchButtonDom = document.getElementById("button");
 
+let color = {
+    "color_brand_1": "#eba764",
+    "color_brand_2": "#514e51",
+    "color_brand_3": "#e7dfdd",
+    "color_brand_4": "#f1c28f",
+    "color_brand_5": "#fd7667",
+    "color_brand_6": "#c48344",
+};
 
+let stylesConsole = `
+    padding: 0.5rem 1rem;
+    color: ${color.color_brand_2};
+    background-color: ${color.color_brand_1};
+`;
 
 
 // TOOLS
@@ -18,16 +31,14 @@ function delay(fn, ms) {
     return function (...args) {
         clearTimeout(timer);
         timer = setTimeout(fn.bind(this, ...args), ms || 0);
-    }
+    };
 }
-
-
-
-
 
 // AJAX HANDLER - FETCH
 //////////////////////////////////
-function ajaxHandler(url) {
+function ajaxHandler(url, action) {
+    console.info(url);
+
     addLoader(bodyDom);
 
     fetch(url)
@@ -37,8 +48,7 @@ function ajaxHandler(url) {
         .then(function (data) {
             let timer = setInterval(function () {
                 removeLoader(bodyDom);
-                insertData(data);
-
+                setAction(action, data);
                 clearInterval(timer);
             }, 5000);
         })
@@ -46,10 +56,6 @@ function ajaxHandler(url) {
             console.warn(error);
         });
 }
-
-
-
-
 
 // LOADER
 //////////////////////////////////
@@ -66,12 +72,21 @@ function removeLoader(elementDom) {
     elementDom.removeChild(loader);
 }
 
-
-
-
-
 // INSERT DATA
 //////////////////////////////////
+function setAction(action, responseData) {
+    switch (action) {
+        case "insertData":
+            insertData(responseData);
+            break;
+        case "insertDataEvents":
+            insertDataEvents(responseData);
+            break;
+        default:
+            break;
+    }
+}
+
 function insertData(responseData) {
     let popup = document.createElement("div");
     popup.setAttribute("id", "popup");
@@ -94,7 +109,8 @@ function insertData(responseData) {
         paragraph.appendChild(paragraphText);
         content.appendChild(paragraph);
     }
-    console.dir(content);
+
+    // console.dir(content);
 
     let template = `
         <div class="popup">
@@ -112,9 +128,9 @@ function insertData(responseData) {
 
     popup.innerHTML = template;
     bodyDom.appendChild(popup);
-    
+
     document.getElementsByClassName("popup__content")[0].appendChild(content);
-    document.getElementById("popupClose").addEventListener("click", function(){
+    document.getElementById("popupClose").addEventListener("click", function () {
         removeData();
     });
 }
@@ -124,12 +140,54 @@ function removeData() {
     bodyDom.removeChild(popup);
 }
 
+function insertDataEvents(responseData) {
+    console.log("%cfunction->insertDataEvents", `; ${stylesConsole}`);
+    console.table(responseData);
 
+    let popup = document.querySelector(".popup__content");
 
-searchDom.addEventListener("keyup", delay(function () {
-    let thisValue = this.value;
-    console.info(thisValue);
+    let eventsDom = document.createElement("div");
+    eventsDom.setAttribute("class", "dataEvents");
 
-    buttonDom.classList.add("is-searching");
-    ajaxHandler(urlAPI + thisValue);
-}, 500));
+    for (const key in responseData) {
+        const element = responseData[key];
+        let eventItemDom = document.createElement("div");
+
+        eventItemTextDom = document.createTextNode(element);
+        eventItemDom.setAttribute("class", "dataEvents__item");
+
+        for (const key in element) {
+            const element2 = element[key];
+            if (element.hasOwnProperty(key)) {
+
+            }
+        }
+
+        eventItemDom.appendChild(eventItemTextDom);
+        eventsDom.appendChild(eventItemDom);
+    }
+
+    popup.appendChild(eventsDom);
+}
+
+function init(searchValue) {
+    searchButtonDom.classList.add("is-searching");
+    ajaxHandler(urlAPI + searchValue, "insertData");
+
+    let timerPopUp = setInterval(function () {
+        let popup = document.querySelector(".popup__content");
+        if (popup) {
+            console.log("Existe popup");
+            clearInterval(timerPopUp);
+            ajaxHandler(urlAPI + searchValue + urlEventsAPI, "insertDataEvents");
+        }
+    }, 300);
+}
+
+searchDom.addEventListener(
+    "keyup",
+    delay(function () {
+        init(this.value);
+    }, 2000)
+);
+searchButtonDom.addEventListener("click", init(searchDom.value));
