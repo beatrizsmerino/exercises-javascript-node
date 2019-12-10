@@ -21,8 +21,9 @@ document.head.appendChild(linkStyle);
 
 ///////////////////////////////////////////////////////
 
+
 // FIGURES
-const figures = [
+const figuresArray = [
   "circulo",
   "cuadrado",
   "rombo",
@@ -35,15 +36,16 @@ const figures = [
   "triangulo"
 ];
 
+
 let select = document.getElementById("selectFigure");
 let buttonAddFigure = document.getElementById("buttonAddFigure");
 let myCanvas = document.getElementById("canvas");
 
 
-// ACTIONS
-function createListFigures() {
-  for (let index = 0; index < figures.length; index++) {
-    let element = figures[index];
+// GEOMETRIC FIGURE - CREATE
+function createSelectFigures() {
+  for (let index = 0; index < figuresArray.length; index++) {
+    let element = figuresArray[index];
     //console.log(element);
 
     let optionElem = document.createElement("option");
@@ -56,58 +58,46 @@ function createListFigures() {
   //console.log(select);
 }
 
-function getFigureSelected() {
-  let figureSelected = select.value;
+
+// GEOMETRIC FIGURE - SELECTED
+function getSelectedFigure(selectDom) {
+  let figureSelected = selectDom.value;
   // console.info("Has selecionado: " + figureSelected);
   return figureSelected;
 }
 
+
+// GEOMETRIC FIGURE - ADD
 function addFigure() {
-  let figureSelected = getFigureSelected();
+  let figureSelected = getSelectedFigure(select);
 
-  for (let index = 0; index < figures.length; index++) {
-    const figure = figures[index];
+  for (let index = 0; index < figuresArray.length; index++) {
+    const figureItem = figuresArray[index];
 
-    if (figure === figureSelected) {
+    if (figureItem === figureSelected) {
       let figureElem = document.createElement("div");
-      let stylesFigure = `
-        margin: 1rem;
-        position: relative;
-        display: inline-block;
-      `;
-      figureElem.setAttribute("class", "figure");
+      figureElem.setAttribute("class", "geometric-figure");
       figureElem.setAttribute("id", figureSelected);
-      figureElem.style += `; ${stylesFigure}`;
+      figureElem.setAttribute("title", figureSelected);
       figureElem.addEventListener("click", removeFigure);
 
       let figureDrawElem = document.createElement("span");
-      let stylesFigureDraw = `
-        display: inline-block;
-      `;
-      figureDrawElem.style += `; ${stylesFigureDraw}`;
+      figureDrawElem.setAttribute("class", "geometric-figure__picture");
 
-      let buttonRemoveFigure = document.createElement("i");
-      let stylesButtonRemoveFigure = `
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        font-size: 3rem;
-        color: white;
-        cursor: pointer;
-      `;
-      buttonRemoveFigure.setAttribute("class", "figure__button-remove icon-circle-with-cross");
-      buttonRemoveFigure.style += `; ${stylesButtonRemoveFigure}`;
+      let figureButtonRemove = document.createElement("i");
+      figureButtonRemove.setAttribute("class", "geometric-figure__button-remove icon-circle-with-cross");
 
       figureElem.appendChild(figureDrawElem);
-      figureElem.appendChild(buttonRemoveFigure);
+      figureElem.appendChild(figureButtonRemove);
       myCanvas.appendChild(figureElem);
     }
   }
 }
 
+
+// GEOMETRIC FIGURE - REMOVE
 function removeFigure() {
-  let figure = document.getElementsByClassName("figure");
+  let figure = document.getElementsByClassName("geometric-figure");
   for (let index = 0; index < figure.length; index++) {
     const element = figure[index];
     element.addEventListener("click", function () {
@@ -116,5 +106,6 @@ function removeFigure() {
   }
 }
 
-createListFigures();
+
+createSelectFigures();
 buttonAddFigure.addEventListener("click", addFigure);

@@ -20,7 +20,7 @@
 }
 
 body {
-  padding: 4rem;
+  padding: 4rem 5%;
   font-family: sans-serif;
   font-size: 10px;
 }
@@ -33,12 +33,42 @@ h1 {
 #canvas {
   min-height: 50rem;
   margin-top: 2rem;
-  padding: 2rem;
+  padding: 1rem 2%;
+  display: flex;
+  flex-wrap: wrap;
   position: relative;
   background-color: var(--color-gray-1);
 }
 
-#circulo span {
+/** geometric-figureS - start  ***********************/
+.geometric-figure {
+  margin: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*background-color: white;*/
+}
+.geometric-figure__picture {
+}
+.geometric-figure__button-remove {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: white;
+  opacity: 0;
+  cursor: pointer;
+}
+.geometric-figure:hover .geometric-figure__button-remove {
+  opacity: 1;
+}
+
+/***********/
+
+/* CIRCULO */
+#circulo .geometric-figure__picture {
   width: 10rem;
   height: 10rem;
   display: inline-block;
@@ -46,22 +76,25 @@ h1 {
   background-color: var(--color-circle);
 }
 
-#cuadrado span {
+/* CUADRADO */
+#cuadrado .geometric-figure__picture {
   width: 10rem;
   height: 10rem;
   display: inline-block;
   background-color: var(--color-square);
 }
 
-#rombo span {
+/* ROMBO */
+#rombo .geometric-figure__picture {
   width: 10rem;
   height: 10rem;
   display: inline-block;
+  transform: rotate(45deg) scale(0.7);
   background-color: var(--color-diamond);
-  transform: rotate(45deg) scale(0.8);
 }
 
-#hexagono span {
+/* HEXAGONO */
+#hexagono .geometric-figure__picture {
   width: 100px;
   height: 55px;
   display: inline-block;
@@ -69,7 +102,7 @@ h1 {
   background-color: var(--color-hexagon);
 }
 
-#hexagono span:before {
+#hexagono .geometric-figure__picture:before {
   content: "";
   width: 0;
   height: 0;
@@ -82,7 +115,7 @@ h1 {
   border-bottom: 25px solid var(--color-hexagon);
 }
 
-#hexagono span:after {
+#hexagono .geometric-figure__picture:after {
   content: "";
   width: 0;
   height: 0;
@@ -95,23 +128,34 @@ h1 {
   border-top: 25px solid var(--color-hexagon);
 }
 
-#ovalo span {
+/* OVALO */
+#ovalo .geometric-figure__picture {
   width: 20rem;
   height: 10rem;
   display: inline-block;
-  background-color: var(--color-oval);
   border-radius: 20rem / 10rem;
+  background-color: var(--color-oval);
 }
 
-#paralelogramo span {
+/* PARALELOGRAMO */
+#paralelogramo .geometric-figure__picture {
   width: 15rem;
   height: 10rem;
   display: inline-block;
-  transform: skew(20deg);
   background-color: var(--color-parallelogram);
+  transform: skew(20deg) scale(0.8);
 }
 
-#pentagono span {
+/* PENTAGONO */
+#pentagono .geometric-figure__picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#pentagono .geometric-figure__picture:after {
+  content: "";
   width: 54px;
   display: inline-block;
   position: relative;
@@ -120,36 +164,36 @@ h1 {
   border-color: var(--color-pentagon) transparent;
 }
 
-#pentagono span:before {
+#pentagono .geometric-figure__picture:before {
   content: "";
   height: 0;
   width: 0;
   display: inline-block;
-  position: absolute;
-  top: -85px;
-  left: -18px;
   border-width: 0 45px 35px;
   border-style: solid;
   border-color: transparent transparent var(--color-pentagon);
 }
 
-#rectangulo span {
+/* RECTANGULO */
+#rectangulo .geometric-figure__picture {
   width: 15rem;
   height: 8rem;
   display: inline-block;
   background-color: var(--color-rectangle);
 }
 
-#trapezoide span {
+/* TRAPEZOIDE */
+#trapezoide .geometric-figure__picture {
   width: 8rem;
   height: 0;
   display: inline-block;
-  border-bottom: 8rem solid var(--color-trapezoid);
   border-left: 5rem solid transparent;
   border-right: 5rem solid transparent;
+  border-bottom: 8rem solid var(--color-trapezoid);
 }
 
-#triangulo span {
+/* TRIANGULO */
+#triangulo .geometric-figure__picture {
   width: 0px;
   height: 0px;
   display: inline-block;
@@ -157,6 +201,7 @@ h1 {
   border-width: 0 8rem 8rem 8rem;
   border-color: transparent transparent var(--color-triangle) transparent;
 }
+/** geometric-figureS - end  ***********************/
 
 /* LABEL */
 .label {
