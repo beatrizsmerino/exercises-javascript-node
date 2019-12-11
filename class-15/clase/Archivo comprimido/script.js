@@ -24,16 +24,16 @@ document.head.appendChild(linkStyle);
 
 // FIGURES
 const figuresArray = [
-  "circulo",
-  "cuadrado",
-  "rombo",
-  "hexagono",
-  "ovalo",
-  "paralelogramo",
-  "pentagono",
-  "rectangulo",
-  "trapezoide",
-  "triangulo"
+  "circle",
+  "square",
+  "diamond",
+  "hexagon",
+  "oval",
+  "paralelogram",
+  "pentagon",
+  "rectangle",
+  "trapezoid",
+  "triangle"
 ];
 
 

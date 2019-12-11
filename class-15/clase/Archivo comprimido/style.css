@@ -72,8 +72,8 @@ h1 {
 
 /***********/
 
-/* CIRCULO */
-#circulo .geometric-figure__picture {
+/* CIRCLE */
+#circle .geometric-figure__picture {
 	width: 10rem;
 	height: 10rem;
 	display: inline-block;
@@ -81,16 +81,16 @@ h1 {
 	background-color: var(--color-circle);
 }
 
-/* CUADRADO */
-#cuadrado .geometric-figure__picture {
+/* SQUARE */
+#square .geometric-figure__picture {
 	width: 10rem;
 	height: 10rem;
 	display: inline-block;
 	background-color: var(--color-square);
 }
 
-/* ROMBO */
-#rombo .geometric-figure__picture {
+/* DIAMOND */
+#diamond .geometric-figure__picture {
 	width: 10rem;
 	height: 10rem;
 	display: inline-block;
@@ -98,8 +98,8 @@ h1 {
 	background-color: var(--color-diamond);
 }
 
-/* HEXAGONO */
-#hexagono .geometric-figure__picture {
+/* HEXAGON */
+#hexagon .geometric-figure__picture {
 	width: 100px;
 	height: 55px;
 	display: inline-block;
@@ -107,7 +107,7 @@ h1 {
 	background-color: var(--color-hexagon);
 }
 
-#hexagono .geometric-figure__picture:before {
+#hexagon .geometric-figure__picture:before {
 	content: "";
 	width: 0;
 	height: 0;
@@ -120,7 +120,7 @@ h1 {
 	border-bottom: 25px solid var(--color-hexagon);
 }
 
-#hexagono .geometric-figure__picture:after {
+#hexagon .geometric-figure__picture:after {
 	content: "";
 	width: 0;
 	height: 0;
@@ -134,7 +134,7 @@ h1 {
 }
 
 /* OVALO */
-#ovalo .geometric-figure__picture {
+#oval .geometric-figure__picture {
 	width: 20rem;
 	height: 10rem;
 	display: inline-block;
@@ -142,8 +142,8 @@ h1 {
 	background-color: var(--color-oval);
 }
 
-/* PARALELOGRAMO */
-#paralelogramo .geometric-figure__picture {
+/* PARALELOGRAM */
+#paralelogram .geometric-figure__picture {
 	width: 15rem;
 	height: 10rem;
 	display: inline-block;
@@ -151,15 +151,15 @@ h1 {
 	transform: skew(20deg) scale(0.8);
 }
 
-/* PENTAGONO */
-#pentagono .geometric-figure__picture {
+/* PENTAGON */
+#pentagon .geometric-figure__picture {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 }
 
-#pentagono .geometric-figure__picture:after {
+#pentagon .geometric-figure__picture:after {
 	content: "";
 	width: 54px;
 	display: inline-block;
@@ -169,7 +169,7 @@ h1 {
 	border-color: var(--color-pentagon) transparent;
 }
 
-#pentagono .geometric-figure__picture:before {
+#pentagon .geometric-figure__picture:before {
 	content: "";
 	height: 0;
 	width: 0;
@@ -179,16 +179,16 @@ h1 {
 	border-color: transparent transparent var(--color-pentagon);
 }
 
-/* RECTANGULO */
-#rectangulo .geometric-figure__picture {
+/* RECTANGLE */
+#rectangle .geometric-figure__picture {
 	width: 15rem;
 	height: 8rem;
 	display: inline-block;
 	background-color: var(--color-rectangle);
 }
 
-/* TRAPEZOIDE */
-#trapezoide .geometric-figure__picture {
+/* TRAPEZOID */
+#trapezoid .geometric-figure__picture {
 	width: 8rem;
 	height: 0;
 	display: inline-block;
@@ -197,8 +197,8 @@ h1 {
 	border-bottom: 8rem solid var(--color-trapezoid);
 }
 
-/* TRIANGULO */
-#triangulo .geometric-figure__picture {
+/* TRIANGLE */
+#triangle .geometric-figure__picture {
 	width: 0px;
 	height: 0px;
 	display: inline-block;
