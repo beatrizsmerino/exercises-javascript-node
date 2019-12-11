@@ -1,239 +1,333 @@
 :root {
-  --color-gray-1: #ededed;
-  --color-circle: #3498db;
-  --color-square: #d35400;
-  --color-diamond: #16a085;
-  --color-hexagon: #c0392b;
-  --color-oval: #f1c40f;
-  --color-parallelogram: #fd8f00;
-  --color-pentagon: #24415d;
-  --color-rectangle: #aa6ddb;
-  --color-triangle: #35cf76;
-  --color-trapezoid: #4435cf;
+	--color-gray-1: #ededed;
+	--color-circle: #3498db;
+	--color-square: #d35400;
+	--color-diamond: #16a085;
+	--color-hexagon: #c0392b;
+	--color-oval: #f1c40f;
+	--color-parallelogram: #fd8f00;
+	--color-pentagon: #24415d;
+	--color-rectangle: #aa6ddb;
+	--color-triangle: #35cf76;
+	--color-trapezoid: #4435cf;
 }
 
 *,
 *:after,
 *:before {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  padding: 4rem 5%;
-  font-family: sans-serif;
-  font-size: 10px;
+	padding: 4rem 5%;
+	font-family: sans-serif;
+	font-size: 10px;
 }
 
 h1 {
-  margin-bottom: 3rem;
-  font-size: 3rem;
+	margin-bottom: 3rem;
+	font-size: 3rem;
 }
 
 #canvas {
-  min-height: 50rem;
-  margin-top: 2rem;
-  padding: 1rem 2%;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  background-color: var(--color-gray-1);
+	min-height: 50rem;
+	margin-top: 2rem;
+	padding: 1rem 2%;
+	display: flow-root;
+	position: relative;
+	background-color: var(--color-gray-1);
 }
 
-/** geometric-figureS - start  ***********************/
+/** geometric-figures - start  ***********************/
 .geometric-figure {
-  margin: 1rem;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /*background-color: white;*/
+	min-height: 160px;
+	margin: 1rem;
+	position: relative;
+	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*background-color: white;*/
+	cursor: pointer;
 }
-.geometric-figure__picture {
-}
+
+.geometric-figure__picture {}
+
 .geometric-figure__button-remove {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3rem;
-  color: white;
-  opacity: 0;
-  cursor: pointer;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 3rem;
+	color: white;
+	opacity: 0;
+	pointer-events: none;
 }
+
 .geometric-figure:hover .geometric-figure__button-remove {
-  opacity: 1;
+	opacity: 1;
 }
 
 /***********/
 
 /* CIRCULO */
 #circulo .geometric-figure__picture {
-  width: 10rem;
-  height: 10rem;
-  display: inline-block;
-  border-radius: 50%;
-  background-color: var(--color-circle);
+	width: 10rem;
+	height: 10rem;
+	display: inline-block;
+	border-radius: 50%;
+	background-color: var(--color-circle);
 }
 
 /* CUADRADO */
 #cuadrado .geometric-figure__picture {
-  width: 10rem;
-  height: 10rem;
-  display: inline-block;
-  background-color: var(--color-square);
+	width: 10rem;
+	height: 10rem;
+	display: inline-block;
+	background-color: var(--color-square);
 }
 
 /* ROMBO */
 #rombo .geometric-figure__picture {
-  width: 10rem;
-  height: 10rem;
-  display: inline-block;
-  transform: rotate(45deg) scale(0.7);
-  background-color: var(--color-diamond);
+	width: 10rem;
+	height: 10rem;
+	display: inline-block;
+	transform: rotate(45deg) scale(0.7);
+	background-color: var(--color-diamond);
 }
 
 /* HEXAGONO */
 #hexagono .geometric-figure__picture {
-  width: 100px;
-  height: 55px;
-  display: inline-block;
-  position: relative;
-  background-color: var(--color-hexagon);
+	width: 100px;
+	height: 55px;
+	display: inline-block;
+	position: relative;
+	background-color: var(--color-hexagon);
 }
 
 #hexagono .geometric-figure__picture:before {
-  content: "";
-  width: 0;
-  height: 0;
-  display: inline-block;
-  position: absolute;
-  top: -25px;
-  left: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 25px solid var(--color-hexagon);
+	content: "";
+	width: 0;
+	height: 0;
+	display: inline-block;
+	position: absolute;
+	top: -25px;
+	left: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 25px solid var(--color-hexagon);
 }
 
 #hexagono .geometric-figure__picture:after {
-  content: "";
-  width: 0;
-  height: 0;
-  display: inline-block;
-  position: absolute;
-  bottom: -25px;
-  left: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-top: 25px solid var(--color-hexagon);
+	content: "";
+	width: 0;
+	height: 0;
+	display: inline-block;
+	position: absolute;
+	bottom: -25px;
+	left: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 25px solid var(--color-hexagon);
 }
 
 /* OVALO */
 #ovalo .geometric-figure__picture {
-  width: 20rem;
-  height: 10rem;
-  display: inline-block;
-  border-radius: 20rem / 10rem;
-  background-color: var(--color-oval);
+	width: 20rem;
+	height: 10rem;
+	display: inline-block;
+	border-radius: 20rem / 10rem;
+	background-color: var(--color-oval);
 }
 
 /* PARALELOGRAMO */
 #paralelogramo .geometric-figure__picture {
-  width: 15rem;
-  height: 10rem;
-  display: inline-block;
-  background-color: var(--color-parallelogram);
-  transform: skew(20deg) scale(0.8);
+	width: 15rem;
+	height: 10rem;
+	display: inline-block;
+	background-color: var(--color-parallelogram);
+	transform: skew(20deg) scale(0.8);
 }
 
 /* PENTAGONO */
 #pentagono .geometric-figure__picture {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 #pentagono .geometric-figure__picture:after {
-  content: "";
-  width: 54px;
-  display: inline-block;
-  position: relative;
-  border-width: 50px 18px 0;
-  border-style: solid;
-  border-color: var(--color-pentagon) transparent;
+	content: "";
+	width: 54px;
+	display: inline-block;
+	position: relative;
+	border-width: 50px 18px 0;
+	border-style: solid;
+	border-color: var(--color-pentagon) transparent;
 }
 
 #pentagono .geometric-figure__picture:before {
-  content: "";
-  height: 0;
-  width: 0;
-  display: inline-block;
-  border-width: 0 45px 35px;
-  border-style: solid;
-  border-color: transparent transparent var(--color-pentagon);
+	content: "";
+	height: 0;
+	width: 0;
+	display: inline-block;
+	border-width: 0 45px 35px;
+	border-style: solid;
+	border-color: transparent transparent var(--color-pentagon);
 }
 
 /* RECTANGULO */
 #rectangulo .geometric-figure__picture {
-  width: 15rem;
-  height: 8rem;
-  display: inline-block;
-  background-color: var(--color-rectangle);
+	width: 15rem;
+	height: 8rem;
+	display: inline-block;
+	background-color: var(--color-rectangle);
 }
 
 /* TRAPEZOIDE */
 #trapezoide .geometric-figure__picture {
-  width: 8rem;
-  height: 0;
-  display: inline-block;
-  border-left: 5rem solid transparent;
-  border-right: 5rem solid transparent;
-  border-bottom: 8rem solid var(--color-trapezoid);
+	width: 8rem;
+	height: 0;
+	display: inline-block;
+	border-left: 5rem solid transparent;
+	border-right: 5rem solid transparent;
+	border-bottom: 8rem solid var(--color-trapezoid);
 }
 
 /* TRIANGULO */
 #triangulo .geometric-figure__picture {
-  width: 0px;
-  height: 0px;
-  display: inline-block;
-  border-style: solid;
-  border-width: 0 8rem 8rem 8rem;
-  border-color: transparent transparent var(--color-triangle) transparent;
+	width: 0px;
+	height: 0px;
+	display: inline-block;
+	border-style: solid;
+	border-width: 0 8rem 8rem 8rem;
+	border-color: transparent transparent var(--color-triangle) transparent;
 }
-/** geometric-figureS - end  ***********************/
+
+/** geometric-figures - end  ***********************/
+
+
+
+/** form - start  ***********************/
+/* FORM */
+.c-form {
+	display: flow-root;
+}
+
+.c-form__group {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+@media (max-width: 800px) {
+	.c-form__group {
+		flex-direction: column;
+	}
+}
+
+.c-form__column {
+	flex: 1;
+}
+
+.c-form__column:not(:last-of-type) {
+	margin-right: 2rem;
+}
+
+.c-form__column--2 {
+	width: 45%;
+}
+
+
+@media (max-width: 800px) {
+	.c-form__column {
+		width: 100% !important;
+	}
+}
+
+.c-form__field {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 100%;
+	padding: 0.8rem 2rem 0.8rem 1.5rem;
+	display: inline-block;
+	font-size: 1.5rem;
+	border-radius: 0;
+	border: 0.1rem solid black;
+	outline: none;
+}
 
 /* LABEL */
-.label {
-  margin-bottom: 1rem;
-  display: inline-block;
-  font-size: 1.5rem;
+.c-label {
+	margin-bottom: 1rem;
+	display: inline-block;
+	font-weight: 300;
+	font-size: 1.5rem;
 }
 
-.select {
-  padding: 0.8rem 1.5rem;
-  display: inline-block;
-  font-size: 1.5rem;
-  border-radius: none;
-  border: 0.2rem solid black;
-  outline: none;
-  cursor: pointer;
+/* LEYEND */
+.c-leyend {
+	font-size: 2rem;
 }
+
+/* FIELDSET */
+.c-fieldset {
+	appearance: none;
+	-webkit-appearance: none;
+	border: none;
+	
+}
+
+@media (max-width: 800px) {
+	.c-form__column.c-fieldset:not(:last-of-type){
+		margin-bottom: 2rem;
+	}
+}
+
+/* SELECT */
+.c-select {
+	cursor: pointer;
+}
+
+.c-select__wrapper {
+	position: relative;
+}
+
+.c-select__arrow {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 50%;
+	right: 1.5rem;
+	transform: translate(0, -50%);
+	font-size: 2rem;
+	color: black;
+	pointer-events: none;
+}
+
 
 /* BUTTON */
-.button {
-  margin-top: 1.5rem;
-  padding: 0.8rem 1.5rem;
-  display: flex;
-  align-items: center;
-  font-size: 1.5rem;
-  border: 0.2rem solid black;
-  outline: none;
-  cursor: pointer;
+.c-button {
+	margin-top: 2rem;
+	padding: 0.8rem 1.5rem;
+	float: right;
+	display: flex;
+	align-items: center;
+	font-size: 1.5rem;
+	border: 0.1rem solid black;
+	background-color: white;
+	outline: none;
+	cursor: pointer;
 }
-.button__text {
-  margin-right: 1rem;
+
+.c-button__text {
+	margin-right: 1rem;
 }
-.button__icon {
-  font-size: 2rem;
+
+.c-button__icon {
+	font-size: 2rem;
 }
+/** form - end  ***********************/

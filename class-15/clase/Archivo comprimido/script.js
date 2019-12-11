@@ -37,7 +37,7 @@ const figuresArray = [
 ];
 
 
-let select = document.getElementById("selectFigure");
+let select = document.getElementById("option1Figures");
 let buttonAddFigure = document.getElementById("buttonAddFigure");
 let myCanvas = document.getElementById("canvas");
 
