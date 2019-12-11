@@ -1,5 +1,11 @@
 :root {
 	--color-gray-1: #ededed;
+	--color-gray-2: #c2c2c2;
+	/*****/
+	--color--button-1: slategray;
+	--color--button-2: darkslategray;
+	/*****/
+	--color-error: tomato;
 	--color-circle: #3498db;
 	--color-square: #d35400;
 	--color-diamond: #16a085;
@@ -31,8 +37,13 @@ h1 {
 	font-size: 3rem;
 }
 
+/* 
+display: flow-root;
+https://css-tricks.com/clearfix-a-lesson-in-web-development-evolution/
+https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css.aspx
+*/
 #canvas {
-	min-height: 50rem;
+	min-height: 30rem;
 	margin-top: 2rem;
 	padding: 1rem 2%;
 	display: flow-root;
@@ -143,7 +154,7 @@ h1 {
 }
 
 /* PARALELOGRAM */
-#paralelogram .geometric-figure__picture {
+#parallelogram .geometric-figure__picture {
 	width: 15rem;
 	height: 10rem;
 	display: inline-block;
@@ -161,7 +172,7 @@ h1 {
 
 #pentagon .geometric-figure__picture:after {
 	content: "";
-	width: 54px;
+	width: 100%;
 	display: inline-block;
 	position: relative;
 	border-width: 50px 18px 0;
@@ -259,6 +270,30 @@ h1 {
 	outline: none;
 }
 
+/* MESSAGE */
+.c-message-error{
+	width: 100%;
+	padding: 1.5rem 5%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	display: inline-block;
+	text-align: center;
+	font-size: 1.4rem;
+	font-weight: 900;
+	color: white;
+	background-color: var(--color-error);
+	transition: translate3d 1s ease-out;
+}
+
+.c-message-error.is-show{
+    transform: translate3d(0, 0, 0);
+}
+
+.c-message-error.is-hide{
+    transform: translate3d(0, 100%, 0);
+}
+
 /* LABEL */
 .c-label {
 	margin-bottom: 1rem;
@@ -269,7 +304,12 @@ h1 {
 
 /* LEYEND */
 .c-leyend {
+	width: 100%;
+	margin-bottom: 1.5rem;
+	display: inline-block;
+	font-weight: 900;
 	font-size: 2rem;
+	color: var(--color--button-2);
 }
 
 /* FIELDSET */
@@ -277,13 +317,19 @@ h1 {
 	appearance: none;
 	-webkit-appearance: none;
 	border: none;
-	
 }
 
 @media (max-width: 800px) {
 	.c-form__column.c-fieldset:not(:last-of-type){
 		margin-bottom: 2rem;
 	}
+}
+
+/* INPUT */
+.c-input::placeholder{
+	font-style: italic;
+	font-weight: 300;
+	color: var(--color-gray-2);
 }
 
 /* SELECT */
@@ -329,5 +375,15 @@ h1 {
 
 .c-button__icon {
 	font-size: 2rem;
+}
+
+.c-button--add{
+	color: var(--color--button-1);
+	border-color: var(--color--button-1);
+}
+
+.c-button--add:hover{
+	color: white;
+	background-color: var(--color--button-1);
 }
 /** form - end  ***********************/
