@@ -44,20 +44,6 @@ let myCanvas = document.getElementById("canvas");
 
 
 
-function addStylesToSelect(){
-	let selectDom = document.querySelectorAll("select option:first-child");
-
-	let stylesSelect = `{
-		font-style: italic;
-		font-weight: 300;
-		color: var(--color-gray-2);
-	}`;
-	selectDom.style = `; ${stylesSelect}`;
-}
-
-
-
-
 // GEOMETRIC FIGURE - CREATE SELECT
 function createSelectFigures(select) {
 	for (let index = 0; index < figuresArray.length; index++) {
@@ -117,63 +103,82 @@ function checkValueFigure(figuresPermited, value) {
 /*************************************************/
 
 
-// MESSAGE ERROR - CREATE
-function createMessageError(inputError, message){
-	let inputItem = document.getElementsByClassName("c-form__item");
-	let messageDom = document.getElementById("messageError");
+// MESSAGE - CREATE
+function createMessage(messageText) {
+	let messageDom = document.getElementById("message");
 
 	let messageElem = document.createElement("span");
-	let messageTextElement = document.createTextNode(message);
-	messageElem.setAttribute("class", "c-message-error");
-	messageElem.setAttribute("id", "messageError");
-	// let template = `<span class="c-form__message-error">${message}</span>`;
+	let messageTextElement = document.createTextNode(messageText);
+	messageElem.setAttribute("class", "c-message");
+	messageElem.setAttribute("id", "message");
+	// let template = `<span class="c-form__message">${message}</span>`;
 
-	if(!messageDom){
+	if (!messageDom) {
 		messageElem.appendChild(messageTextElement);
 		// console.dir(messageElem);
 		document.body.appendChild(messageElem);
-	}else{
+	} else {
 		// inputItem.parentNode.removeChild(messageDom);
-		messageDom.innerHTML = message;
+		messageDom.innerHTML = messageText;
 	}
 
-	showMessageError();
+	showMessage();
 }
 
+// MESSAGE - TYPE
+function addTypeMessage(typeMessage) {
+	let message = document.getElementById("message");
 
-// MESSAGE ERROR - REMOVE
-function removeMessageError(){
+	if (message.hasAttribute("data-type")) {
+		switch (typeMessage) {
+			case "error":
+				message.classList.replace("c-message--success", "c-message--error");
+				break;
+			case "success":
+				message.classList.replace("c-message--error", "c-message--success");
+				break;
+			default:
+				break;
+		}
+	} else {
+		message.setAttribute("data-type", typeMessage);
+		message.classList.add("c-message--" + typeMessage);
+	}
+}
+
+// MESSAGE - REMOVE
+function removeMessage() {
 	let inputItem = document.getElementsByClassName("c-form__item")[0];
-	let messageDom = document.getElementById("messageError");
+	let messageDom = document.getElementById("message");
 
-	if(messageDom){
+	if (messageDom) {
 		inputItem.parentNode.removeChild(messageDom);
 	}
 }
 
 
-// MESSAGE ERROR - HIDE
-function hideMessageError(){
-	let messageDom = document.getElementById("messageError");
+// MESSAGE - HIDE
+function hideMessage() {
+	let messageDom = document.getElementById("message");
 
-	if(messageDom){
-		if(messageDom.classList.contains("is-show")){
+	if (messageDom) {
+		if (messageDom.classList.contains("is-show")) {
 			messageDom.classList.replace("is-show", "is-hide");
-		}else{
+		} else {
 			messageDom.classList.add("is-hide");
 		}
 	}
 }
 
 
-// MESSAGE ERROR - SHOW 
-function showMessageError(){
-	let messageDom = document.getElementById("messageError");
+// MESSAGE - SHOW 
+function showMessage() {
+	let messageDom = document.getElementById("message");
 
-	if(messageDom){
-		if(messageDom.classList.contains("is-hide")){
+	if (messageDom) {
+		if (messageDom.classList.contains("is-hide")) {
 			messageDom.classList.replace("is-hide", "is-show");
-		}else{
+		} else {
 			messageDom.classList.add("is-show");
 		}
 	}
@@ -186,50 +191,53 @@ function showMessageError(){
 // GEOMETRIC FIGURE - ADD
 function addFigure(figureSelected) {
 	figureSelected.toLowerCase();
-	for (let index = 0; index < figuresArray.length; index++) {
-		const figureItem = figuresArray[index];
+	let found = figuresArray.includes(figureSelected);
 
-		if (figureItem === figureSelected) {
-			let figureElem = document.createElement("div");
-			figureElem.setAttribute("class", "geometric-figure");
-			figureElem.setAttribute("id", figureSelected);
-			figureElem.setAttribute("title", figureSelected);
-			figureElem.addEventListener("click", removeFigure);
+	if (found) {
+		let figureElem = document.createElement("div");
+		figureElem.setAttribute("class", "geometric-figure");
+		figureElem.setAttribute("id", figureSelected);
+		figureElem.setAttribute("title", figureSelected);
+		figureElem.addEventListener("click", removeFigure);
 
-			let figureDrawElem = document.createElement("span");
-			figureDrawElem.setAttribute("class", "geometric-figure__picture");
+		let figureDrawElem = document.createElement("span");
+		figureDrawElem.setAttribute("class", "geometric-figure__picture");
 
-			let figureButtonRemove = document.createElement("i");
-			figureButtonRemove.setAttribute(
-				"class",
-				"geometric-figure__button-remove icon-circle-with-cross"
-			);
+		let figureButtonRemove = document.createElement("i");
+		figureButtonRemove.setAttribute(
+			"class",
+			"geometric-figure__button-remove icon-circle-with-cross"
+		);
 
-			figureElem.appendChild(figureDrawElem);
-			figureElem.appendChild(figureButtonRemove);
-			myCanvas.appendChild(figureElem);
-		}
+		figureElem.appendChild(figureDrawElem);
+		figureElem.appendChild(figureButtonRemove);
+		myCanvas.appendChild(figureElem);
 	}
 }
 
 
 // GEOMETRIC FIGURE - CHECK ADDED
-function checkAddedFigure(nameFigure) {
+function checkFigureAdded(nameFigure) {
 	let figuresInCanvas = myCanvas.getElementsByClassName("geometric-figure");
 
+	let figuresCanvasArray = [];
 	for (let index = 0; index < figuresInCanvas.length; index++) {
 		const figureItem = figuresInCanvas[index];
-		
-		let result;
 		let foundNameFigure = figureItem.getAttribute("id");
-		if (foundNameFigure === nameFigure) {
-			result = true;
-		}else{
-			result = false;
-		}
-
-		return result;
+		figuresCanvasArray.push(foundNameFigure);
 	}
+
+	// console.info(figuresCanvasArray);
+	let found = figuresCanvasArray.includes(nameFigure);
+	let result;
+	if (found) {
+		result = true;
+	} else {
+		result = false;
+	}
+
+	// console.info("result",result);
+	return result;
 }
 
 
@@ -239,7 +247,15 @@ function removeFigure() {
 	for (let index = 0; index < figure.length; index++) {
 		const element = figure[index];
 		element.addEventListener("click", function () {
-			this.remove();
+			let thisElement = this;
+			thisElement.remove();
+			if (thisElement) {
+				createMessage("The figure '" + thisElement.getAttribute("id") + "' was removed successfully");
+				addTypeMessage("success");
+			} else {
+				createMessage("The figure '" + thisElement.getAttribute("id") + "' cannot be removed");
+				addTypeMessage("error");
+			}
 		});
 	}
 }
@@ -249,9 +265,17 @@ function removeFigure() {
 
 
 createSelectFigures(option1);
-buttonAddFigure.addEventListener("click", function(){
+buttonAddFigure.addEventListener("click", function () {
 	let selectValue = getSelectValue(option1);
-	addFigure(selectValue)
+	if (!addFigure(selectValue)) {
+		createMessage("The figure '" + selectValue + "' was added successfully");
+		addTypeMessage("success");
+	} else {
+		createMessage("The figure '" + selectValue + "' cannot be added");
+		addTypeMessage("error");
+	}
+
+	// console.dir(document.getElementsByClassName("geometric-figure"));
 });
 
 option2.addEventListener("keyup", function () {
@@ -260,19 +284,24 @@ option2.addEventListener("keyup", function () {
 	// console.info(option2Value);
 	// console.assert(option2Value !== "", "Esta vacio");
 
-	if(checkValueFigure(figuresArray, option2Value)){
+	if (checkValueFigure(figuresArray, option2Value)) {
 		// console.info("Existe figure");
-		if(checkAddedFigure(option2Value)){
-			createMessageError(option2Value, "This figure '"+ option2Value + "' has already been added");
-		}else{
-			hideMessageError();
+		if (checkFigureAdded(option2Value)) {
+			createMessage("This figure '" + option2Value + "' has already been added");
+			addTypeMessage("error");
+		} else {
+			createMessage("This figure '" + option2Value + "' was added successfully");
+			addTypeMessage("success");
 			addFigure(getInputValue(option2));
 		}
-	}else{
+	} else {
 		// console.info("No existe figure");
-		createMessageError(option2Value, "Figure '"+ option2Value + "' not available");
-		if(option2Value == ""){
-			hideMessageError();
+		createMessage("Figure '" + option2Value + "' not available");
+		addTypeMessage("error");
+		if (option2Value == "") {
+			hideMessage();
 		}
 	}
+
+	// console.dir(document.getElementsByClassName("geometric-figure"));
 });

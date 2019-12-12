@@ -2,10 +2,12 @@
 	--color-gray-1: #ededed;
 	--color-gray-2: #c2c2c2;
 	/*****/
-	--color--button-1: slategray;
-	--color--button-2: darkslategray;
+	--color-button-1: slategray;
+	--color-button-2: darkslategray;
 	/*****/
 	--color-error: tomato;
+	--color-success: teal;
+	/*****/
 	--color-circle: #3498db;
 	--color-square: #d35400;
 	--color-diamond: #16a085;
@@ -28,7 +30,7 @@
 
 body {
 	padding: 4rem 5%;
-	font-family: sans-serif;
+	font-family: 'Ubuntu', sans-serif;
 	font-size: 10px;
 }
 
@@ -266,12 +268,12 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 	display: inline-block;
 	font-size: 1.5rem;
 	border-radius: 0;
-	border: 0.1rem solid black;
+	border: 0.15rem solid black;
 	outline: none;
 }
 
 /* MESSAGE */
-.c-message-error{
+.c-message{
 	width: 100%;
 	padding: 1.5rem 5%;
 	position: fixed;
@@ -282,15 +284,23 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 	font-size: 1.4rem;
 	font-weight: 900;
 	color: white;
-	background-color: var(--color-error);
+	background-color: var(--color-gray-2);
 	transition: translate3d 1s ease-out;
 }
 
-.c-message-error.is-show{
+.c-message--success{
+	background-color: var(--color-success);
+}
+
+.c-message--error{
+	background-color: var(--color-error);
+}
+
+.c-message.is-show{
     transform: translate3d(0, 0, 0);
 }
 
-.c-message-error.is-hide{
+.c-message.is-hide{
     transform: translate3d(0, 100%, 0);
 }
 
@@ -328,7 +338,7 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 /* INPUT */
 .c-input::placeholder{
 	font-style: italic;
-	font-weight: 300;
+	font-weight: 100;
 	color: var(--color-gray-2);
 }
 
@@ -363,7 +373,7 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 	display: flex;
 	align-items: center;
 	font-size: 1.5rem;
-	border: 0.1rem solid black;
+	border: 0.15rem solid black;
 	background-color: white;
 	outline: none;
 	cursor: pointer;
@@ -378,12 +388,12 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 }
 
 .c-button--add{
-	color: var(--color--button-1);
-	border-color: var(--color--button-1);
+	color: var(--color-button-1);
+	border-color: var(--color-button-1);
 }
 
 .c-button--add:hover{
 	color: white;
-	background-color: var(--color--button-1);
+	background-color: var(--color-button-1);
 }
 /** form - end  ***********************/
