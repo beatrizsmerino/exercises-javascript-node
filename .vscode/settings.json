@@ -1,0 +1,6 @@
+{
+  "editor.tabCompletion": "on",
+"emmet.triggerExpansionOnTab": true,
+"editor.formatOnPaste": true,
+"editor.formatOnSave": true
+}
