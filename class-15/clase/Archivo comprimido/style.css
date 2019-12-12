@@ -29,8 +29,8 @@
 }
 
 body {
-	padding: 4rem 5%;
-	font-family: 'Ubuntu', sans-serif;
+	padding: 4rem 5% 10rem;
+	font-family: "Ubuntu", sans-serif;
 	font-size: 10px;
 }
 
@@ -66,7 +66,8 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 	cursor: pointer;
 }
 
-.geometric-figure__picture {}
+.geometric-figure__picture {
+}
 
 .geometric-figure__button-remove {
 	position: absolute;
@@ -222,8 +223,6 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 
 /** geometric-figures - end  ***********************/
 
-
-
 /** form - start  ***********************/
 /* FORM */
 .c-form {
@@ -253,7 +252,6 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 	width: 45%;
 }
 
-
 @media (max-width: 800px) {
 	.c-form__column {
 		width: 100% !important;
@@ -273,7 +271,7 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 }
 
 /* MESSAGE */
-.c-message{
+.c-message {
 	width: 100%;
 	padding: 1.5rem 5%;
 	position: fixed;
@@ -288,20 +286,20 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 	transition: translate3d 1s ease-out;
 }
 
-.c-message--success{
+.c-message--success {
 	background-color: var(--color-success);
 }
 
-.c-message--error{
+.c-message--error {
 	background-color: var(--color-error);
 }
 
-.c-message.is-show{
-    transform: translate3d(0, 0, 0);
+.c-message.is-show {
+	transform: translate3d(0, 0, 0);
 }
 
-.c-message.is-hide{
-    transform: translate3d(0, 100%, 0);
+.c-message.is-hide {
+	transform: translate3d(0, 100%, 0);
 }
 
 /* LABEL */
@@ -330,13 +328,13 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 }
 
 @media (max-width: 800px) {
-	.c-form__column.c-fieldset:not(:last-of-type){
+	.c-form__column.c-fieldset:not(:last-of-type) {
 		margin-bottom: 2rem;
 	}
 }
 
 /* INPUT */
-.c-input::placeholder{
+.c-input::placeholder {
 	font-style: italic;
 	font-weight: 100;
 	color: var(--color-gray-2);
@@ -364,7 +362,6 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 	pointer-events: none;
 }
 
-
 /* BUTTON */
 .c-button {
 	margin-top: 2rem;
@@ -387,12 +384,12 @@ https://www.campusmvp.es/recursos/post/display-flow-root-para-limpiar-floats-css
 	font-size: 2rem;
 }
 
-.c-button--add{
+.c-button--add {
 	color: var(--color-button-1);
 	border-color: var(--color-button-1);
 }
 
-.c-button--add:hover{
+.c-button--add:hover {
 	color: white;
 	background-color: var(--color-button-1);
 }
