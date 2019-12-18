@@ -1,5 +1,6 @@
 // 4 - Nos creamos un array de objetos con la informacion, links y fotografias de l@s profes de Fictizia
 // https://www.fictizia.com/profesorado
+// (ejercicio en la consola del navegador)
 
 function professors() {
   let professors = document.querySelectorAll(".microCardsWrapper .microCard");
@@ -21,10 +22,10 @@ function professors() {
     // console.log(professorLinksArray);
 
     let professorData = {
-      "name": professorName,
-      "imgSrc": professorImg,
-      "description": professorDescription,
-      "links": professorLinksArray
+      name: professorName,
+      imgSrc: professorImg,
+      description: professorDescription,
+      links: professorLinksArray
     };
     professorsData.push(professorData);
   }
