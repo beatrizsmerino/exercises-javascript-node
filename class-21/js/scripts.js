@@ -34,6 +34,64 @@ function delay(fn, ms) {
     };
 }
 
+function svgMe() {
+	let images = document.querySelectorAll("img.svgMe");
+
+	// console.info("Array of images -> ", images);
+
+	images.forEach(image => {
+		let imgId = image.getAttribute("id");
+		let imgClass = image.getAttribute("class");
+		let imgUrl = image.getAttribute("src");
+
+		let request = new XMLHttpRequest();
+		request.onreadystatechange = function () {
+			if (request.readyState == 4 && request.status == 200) {
+				// console.info("request in xml -> ", request.responseXML);
+				callback(request.responseXML);
+			}
+		};
+
+		function callback(requestXML) {
+			let imgSvg = requestXML.querySelector("svg");
+
+			// console.info("data type of 'data' -> ", typeof requestXML);
+			// console.info("'data' -> ", requestXML);
+			// console.info("images with svgMe -> ", imgSvg);
+
+			if (typeof imgId !== "undefined") {
+				// console.info(imgId);
+				imgSvg.setAttribute("id", imgId);
+			}
+
+			if (typeof imgClass !== "undefined") {
+				// console.info(imgClass);
+				imgSvg.setAttribute("class", imgClass);
+				imgSvg.classList.add("svgMe--replaced");
+			}
+
+			imgSvg.removeAttribute("xmlns:a");
+			if (
+				!imgSvg.getAttribute("viewBox") &&
+				imgSvg.getAttribute("height") &&
+				imgSvg.getAttribute("width")
+			) {
+				imgSvg.setAttribute(
+					"viewBox",
+					"0 0 " + imgSvg.getAttribute("height") + " " + imgSvg.getAttribute("width")
+				);
+			}
+
+			image.replaceWith(imgSvg);
+		}
+
+		request.open("GET", imgUrl);
+		request.send();
+	});
+}
+svgMe();
+
+
 // AJAX HANDLER - FETCH
 //////////////////////////////////
 function ajaxHandler(url, action) {
