@@ -192,26 +192,41 @@ function setUserData(responseData) {
         userData.setAttribute("id", "userData");
         document.getElementsByClassName("popup__content")[0].appendChild(userData);
 
-        // Si el nombre de usuario existe
-        if (
-            responseData.login !== null &&
-            responseData.login !== "undefined"
-        ) {
-            user.login = responseData.login;
-            user.name = responseData.name;
 
-            // Si encuentra su correo
-            if (responseData.email !== null) {
-                user.email = responseData.email;
-                insertUserData();
-
-                // Si no lo encuentra busca mas a fondo en los eventos del usuario	
-            } else {
-                ajaxHandler(urlAPI + user.login + urlEventsAPI, "getUserEmail");
-            }
+        // Si el usuario existe
+        let userLogin = "";
+        if (responseData.login === null || responseData.login === "" || responseData.login === "undefined") {
+            userLogin = "User not found";
         } else {
-            insertUserData();
+            userLogin = responseData.login;
         }
+        user.login = userLogin;
+
+
+        // Si el usuario existe buscamos su nombre y su email
+        if (userLogin !== "") {
+            // Si el nombre de usuario existe buscamos su nombre
+            let userName = "";
+            if (responseData.name === null || responseData.name === "" || responseData.name === "undefined") {
+                userName = "Name not found";
+            } else {
+                userName = responseData.name;
+            }
+            user.name = userName;
+
+            // Si el nombre de usuario existe buscamos su email
+            let userEmail = "";
+            if (responseData.email === null || responseData.email === "" || responseData.email === "undefined") {
+                // Si no lo encuentra busca mas a fondo en los eventos del usuario
+                userEmail = "Email not found";
+                ajaxHandler(urlAPI + user.login + urlEventsAPI, "getUserEmail");
+            } else {
+                userEmail = responseData.email;
+            }
+            user.email = userEmail;
+        }
+
+        insertUserData();
     }
 }
 
@@ -234,7 +249,7 @@ function getUserEmail(responseData) {
         // let userEmail = element.payload.commits[0].author.email;
 
         // console.log(user.email);
-        if (user.email === "") {
+        if (user.email === "Email not found") {
             if (element.hasOwnProperty("payload")) {
                 let payload = element.payload;
                 if (payload.hasOwnProperty("commits")) {
@@ -242,28 +257,40 @@ function getUserEmail(responseData) {
                         let commit = element.payload.commits[j];
                         if (commit.hasOwnProperty("author")) {
                             let author = commit.author;
+
                             if (author.hasOwnProperty("name")) {
-                                let userName = author.name;
+                                let userName = "";
+                                if (user.name === "Name not found") {
+                                    if (author !== null || author !== "" || author !== "undefined") {
+                                        userName = author.name;
+                                    }
+                                } else {
+                                    userName = user.name;
+                                }
 
-                                if (userName == user.name) {
-                                    if (author.hasOwnProperty("email")) {
-                                        let userEmail = author.email;
-                                        // console.info(userEmail);
+                                if (author.hasOwnProperty("email")) {
+                                    let userEmail = "";
 
-                                        // console.log(userEmail.search("noreply"));
-                                        if (userEmail.search("noreply") == -1) {
-                                            user.email = userEmail;
-                                            break;
+                                    if (user.email === "Email not found") {
+                                        if (userName == user.name || userName == user.login) {
+                                            userEmail = author.email;
+
+                                            // console.log(userEmail.search("noreply"));
+                                            if (userEmail.search("noreply") == -1) {
+                                                user.email = userEmail;
+                                                break;
+                                            } else {
+                                                continue;
+                                            }
                                         } else {
                                             continue;
                                         }
-
-                                    } else {
-                                        user.email = "Email not found";
                                     }
+
                                 } else {
                                     continue;
                                 }
+
                             } else {
                                 continue;
                             }
@@ -321,7 +348,9 @@ function insertUserData() {
 }
 
 function error404(userData) {
-    if (user.login === "" || user.name === "" || user.email === "") {
+    if (
+        user.login === "User not found"
+    ) {
         userData.classList.add("is-error404");
     }
 }
