@@ -107,17 +107,25 @@ function ajaxHandler(url, action) {
 
     fetch(url)
         .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            let timer = setInterval(function () {
-                removeLoader();
-                setAction(action, data);
-                clearInterval(timer);
-                return data;
-            }, 5000);
-        })
-        .catch(function (error) {
+            if (response.status == 200) {
+                response.json().then(function (data) {
+                    let timer = setInterval(function () {
+                        removeLoader();
+                        setAction(action, data);
+                        clearInterval(timer);
+                        return data;
+                    }, 3000);
+                });
+            } else if (response.status == 404) {
+                console.warn(response.status);
+                let timer = setInterval(function () {
+                    removeLoader();
+                    error404();
+                    clearInterval(timer);
+                    return response.status;
+                }, 1000);
+            }
+        }).catch(function (error) {
             console.warn(error);
         });
 }
@@ -235,10 +243,11 @@ function removeData() {
     if (popup) {
         document.body.removeChild(popup);
     }
+    searchDom.value = "";
 
-    user.name = "";
-    user.login = "";
-    user.email = "";
+    for (const key in user) {
+        user[key] = "";
+    }
 }
 
 function getUserEmail(responseData) {
@@ -344,15 +353,18 @@ function insertUserData() {
 
     let userData = document.getElementById("userData");
     userData.innerHTML = templateUser;
-    error404(userData);
-}
 
-function error404(userData) {
     if (
+        user.login === "undefined" ||
         user.login === "User not found"
     ) {
-        userData.classList.add("is-error404");
+        error404();
     }
+}
+
+function error404() {
+    templatePopup();
+    document.getElementById("popup").classList.add("is-error404");
 }
 
 
