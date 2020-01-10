@@ -1,7 +1,7 @@
 /************ COLOR **************/
 :root {
 	--color-brand-1: #eba764;
-	--color-brand-2: #6f6a6f;
+	--color-brand-2: #837e83;
 	--color-brand-3: #e7dfdd;
 	--color-brand-4: #f1c28f;
 	--color-brand-5: #fd7667;
@@ -202,10 +202,11 @@ svg {
 }
 
 .popup__inner {
-	max-width: 100rem;
 	width: 90%;
-	height: 70%;
-	padding: 5rem 7rem 5rem 3rem;
+	max-width: 70rem;
+	height: 80%;
+	max-height: 40rem;
+	padding: 3rem;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -216,16 +217,17 @@ svg {
 }
 
 .popup__close {
-	width: 5rem;
-	height: 5rem;
-	margin: 2rem;
+	width: 4.5rem;
+	height: 4.5rem;
 	display: inline-block;
 	position: absolute;
 	top: 0;
 	right: 0;
+	transform: translate(50%, -50%);
 	z-index: 999;
 	border: 0.3rem solid var(--color-brand-6);
 	border-radius: 50%;
+	background-color: var(--color-brand-3);
 	cursor: pointer;
 }
 
@@ -240,6 +242,8 @@ svg {
 	left: 50%;
 	border-radius: 1.2rem;
 	background-color: var(--color-brand-6);
+	transition: background-color 0.5s linear 0s, color 0.5s linear 0s,
+		transform 0.5s linear 0.5s;
 }
 
 .popup__close:after {
@@ -249,17 +253,74 @@ svg {
 	transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+.popup__close:hover {
+	border-color: var(--color-brand-3);
+	background-color: var(--color-brand-6);
+}
+
+.popup__close:hover:after {
+	background-color: var(--color-brand-3);
+	transform: translate(-50%, -50%) rotate(0deg);
+}
+.popup__close:hover:before {
+	background-color: var(--color-brand-3);
+	transform: translate(-50%, -50%) rotate(0deg);
+}
+
 .popup__content {
+	height: 100%;
 	position: relative;
 }
 
-.popup__content strong {
-	text-transform: uppercase;
-	color: var(--color-brand-2);
+/************ USER DATA **************/
+.user-data {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: 3.5rem;
 }
-.popup__content p:not(:last-of-type) {
+
+.user-data__login {
 	margin-bottom: 1.5rem;
 }
+.user-data__login a {
+	color: var(--color-brand-1);
+}
+.user-data__login a:hover {
+	color: var(--color-brand-6);
+}
+.user-data__name {
+	font-size: 3rem;
+	color: var(--color-brand-2);
+}
+.user-data__email {
+	font-size: 2.4rem;
+	color: var(--color-brand-2);
+}
+.user-data__email a {
+	color: var(--color-brand-2);
+}
+.user-data__email a:hover {
+	color: var(--color-brand-5);
+}
+
+.user-data.is-error404:before {
+	content: "";
+	display: inline-block;
+	width: 30rem;
+	height: 30rem;
+	position: absolute;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("../images/github-octocat-software.png");
+}
+.user-data.is-error404 .user-data__inner {
+	display: none;
+}
+s
 
 /************ SCROLL **************/
 .scroll {
