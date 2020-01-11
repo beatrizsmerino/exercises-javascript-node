@@ -25,6 +25,21 @@ body {
 	font-family: "Ubuntu", Arial, Helvetica, sans-serif;
 }
 
+/************* LOADER *************/
+.loader {
+	width: 50rem;
+	height: 50rem;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 999;
+	transform: translate(-50%, -50%);
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("../img/loader.gif");
+}
+
 /************* BUTTON *************/
 .button {
 	padding: 1rem 2rem;
@@ -130,7 +145,7 @@ body {
 }
 .book__title {
 	margin-bottom: 2rem;
-	font-size: 2.5rem;
+	font-size: 1.6rem;
 	font-weight: 400;
 }
 .book__image {
@@ -148,12 +163,17 @@ body {
 }
 
 .book__button {
-	display: flex;
-	align-items: center;
 	font-size: 1.2rem;
 	font-weight: 700;
 	color: #fff;
 	background-color: var(--color-brand-1);
+}
+.button a {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: #fff;
 }
 .book__button:hover {
 	background-color: #000;

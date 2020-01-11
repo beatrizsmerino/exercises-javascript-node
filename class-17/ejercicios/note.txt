@@ -14,3 +14,7 @@ Especificaciones:
 Trucos:
 - Mira en detalle la documentación oficial
 - Usa el Books API
+
+
+https://developer.nytimes.com/get-started
+https://developer.nytimes.com/my-apps/new-app
