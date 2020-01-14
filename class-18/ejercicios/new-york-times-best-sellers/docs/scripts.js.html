@@ -1,6 +1,34 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file Proyect of the best-selling books in the Hardcover Fiction category made with The New York Times API.
- * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
+ * @author Beatriz Sopeña Merino &lt;beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
 
@@ -149,9 +177,9 @@ function removeLoader() {
  */
 function error404() {
     let template = `
-		<div class="message-error">
-			<img class="message-error__image" src="img/error-404.svg">
-		</div>
+		&lt;div class="message-error">
+			&lt;img class="message-error__image" src="img/error-404.svg">
+		&lt;/div>
 		`;
     document.getElementsByClassName("page__content")[0].innerHTML = template;
     document.getElementsByClassName("page")[0].classList.add("is-error404");
@@ -188,43 +216,43 @@ function setDataListCategories(response) {
     listCategoriesDom.setAttribute("id", "listCategories");
     listCategoriesDom.setAttribute("class", "list-categories");
 
-    for (let index = 0; index < listCategories.length; index++) {
+    for (let index = 0; index &lt; listCategories.length; index++) {
         const category = listCategories[index];
 
         let categoryDom = document.createElement("article");
         categoryDom.setAttribute("class", "category");
         categoryDom.setAttribute("data-index", index.toString());
 
-        let template = `<div class='category__inner'>
-							<h3 class='category__title category__item'>
+        let template = `&lt;div class='category__inner'>
+							&lt;h3 class='category__title category__item'>
 								#${index + 1} ${category.list_name}
-							</h3>
+							&lt;/h3>
 							
-							<div class='category__text category__item'>
-								<p>
-									<strong>
+							&lt;div class='category__text category__item'>
+								&lt;p>
+									&lt;strong>
 										Oldest:
-									</strong>
+									&lt;/strong>
 									${category.oldest_published_date}
-								</p>
-								<p>
-									<strong>
+								&lt;/p>
+								&lt;p>
+									&lt;strong>
 										Newest:
-									</strong>
+									&lt;/strong>
 									${category.newest_published_date}
-								</p>
-								<p>
-									<strong>
+								&lt;/p>
+								&lt;p>
+									&lt;strong>
 										Updated:
-									</strong>
+									&lt;/strong>
 									${category.updated}
-								</p>
-							</div>
+								&lt;/p>
+							&lt;/div>
 
-							<button class='category__button category__item button--read-more button' data-category="${category.list_name_encoded}">
-								READ MORE <i class='button__icon button__icon--right fas fa-arrow-circle-right'></i>
-							</button>
-						</div>`;
+							&lt;button class='category__button category__item button--read-more button' data-category="${category.list_name_encoded}">
+								READ MORE &lt;i class='button__icon button__icon--right fas fa-arrow-circle-right'>&lt;/i>
+							&lt;/button>
+						&lt;/div>`;
 
         categoryDom.innerHTML = template;
         listCategoriesDom.appendChild(categoryDom);
@@ -245,7 +273,7 @@ function setDataListCategories(response) {
  */
 function setButtonReadMore() {
     let categoriesButton = document.querySelectorAll(".category__button");
-    for (let index = 0; index < categoriesButton.length; index++) {
+    for (let index = 0; index &lt; categoriesButton.length; index++) {
         const categoryDom = categoriesButton[index];
 
         let category = categoryDom.getAttribute("data-category");
@@ -266,9 +294,9 @@ function setDataCategoryTitle(response) {
     console.log(response.results.list_name);
 
     let template = `
-		<h2 class="list-books__category">
+		&lt;h2 class="list-books__category">
 			${response.results.list_name}
-		</h2>
+		&lt;/h2>
 	`;
     document.getElementsByClassName("page__content")[0].innerHTML = template;
 }
@@ -283,9 +311,9 @@ function setDataCategoryTitle(response) {
  */
 function setButtonBack(classElementDom) {
     let template = `
-				<button id="buttonBack" class="button--back button">
-					<i class="button__icon button__icon--left fas fa-arrow-circle-left"></i> Back to categories
-				</button>
+				&lt;button id="buttonBack" class="button--back button">
+					&lt;i class="button__icon button__icon--left fas fa-arrow-circle-left">&lt;/i> Back to categories
+				&lt;/button>
 				`;
     document.getElementsByClassName(classElementDom)[0].innerHTML += template;
     document.getElementById("buttonBack").addEventListener("click", function () {
@@ -312,31 +340,31 @@ function setDataListBooks(response) {
     listBooksDom.setAttribute("id", "listBooks");
     listBooksDom.setAttribute("class", "list-books");
 
-    for (let index = 0; index < listBooks.length; index++) {
+    for (let index = 0; index &lt; listBooks.length; index++) {
         const book = listBooks[index];
 
         let bookDom = document.createElement("article");
         bookDom.setAttribute("class", "book");
         bookDom.setAttribute("data-index", index.toString());
 
-        let template = `<div class='book__inner'>
-							<h3 class='book__title book__item'>
+        let template = `&lt;div class='book__inner'>
+							&lt;h3 class='book__title book__item'>
 								#${index + 1} ${book.title}
-							</h3>
-							<img class='book__image book__item' src='${book.book_image}' alt='Image Default'>
-							<span class='book__ranking book__item'>
+							&lt;/h3>
+							&lt;img class='book__image book__item' src='${book.book_image}' alt='Image Default'>
+							&lt;span class='book__ranking book__item'>
 								Weeks on list: ${book.weeks_on_list}
-							</span>
-							<div class='book__text book__item'>
-								<p>
+							&lt;/span>
+							&lt;div class='book__text book__item'>
+								&lt;p>
 									${book.description}
-								</p>
-							</div>
+								&lt;/p>
+							&lt;/div>
 
-							<a class='book__item button--amazon button' href="${book.amazon_product_url}" target='_blank'>
-								BUY AT AMAZON <i class='button__icon button__icon--right fas fa-arrow-circle-right'></i>
-							</a>
-						</div>`;
+							&lt;a class='book__item button--amazon button' href="${book.amazon_product_url}" target='_blank'>
+								BUY AT AMAZON &lt;i class='button__icon button__icon--right fas fa-arrow-circle-right'>&lt;/i>
+							&lt;/a>
+						&lt;/div>`;
 
         bookDom.innerHTML = template;
 
@@ -358,4 +386,26 @@ function setDataListBooks(response) {
  */
 (function () {
     ajaxHandler(urlAPIListCategories, "setDataListCategories");
-})()
+})()</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addLoader">addLoader</a></li><li><a href="global.html#ajaxHandler">ajaxHandler</a></li><li><a href="global.html#emptyContent">emptyContent</a></li><li><a href="global.html#error404">error404</a></li><li><a href="global.html#functionAnonimAutoExecuted">functionAnonimAutoExecuted</a></li><li><a href="global.html#keyAPI">keyAPI</a></li><li><a href="global.html#removeLoader">removeLoader</a></li><li><a href="global.html#setAction">setAction</a></li><li><a href="global.html#setButtonBack">setButtonBack</a></li><li><a href="global.html#setButtonReadMore">setButtonReadMore</a></li><li><a href="global.html#setDataBooks">setDataBooks</a></li><li><a href="global.html#setDataCategoryTitle">setDataCategoryTitle</a></li><li><a href="global.html#setDataListCategories">setDataListCategories</a></li><li><a href="global.html#urlAPIListBooks">urlAPIListBooks</a></li><li><a href="global.html#urlAPIListCategories">urlAPIListCategories</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Jan 14 2020 18:09:54 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
