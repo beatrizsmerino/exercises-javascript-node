@@ -57,8 +57,8 @@ let color = {
 
 /**
  * @var stylesConsoleUser
- * @description Styles for a message console for the user object.
- * @type {String} Template literal
+ * @description Template literal with the styles of a message console for the user object.
+ * @type {String}
  * @see Used inside: {@link color}
  * @see Used in: {@link insertUserData}
  */
@@ -70,8 +70,8 @@ let stylesConsoleUser = `
 
 /**
  * @var stylesConsoleFunction
- * @description Styles for a message console for function.
- * @type {String} Template literal
+ * @description Template literal with the styles of a message console for function.
+ * @type {String} 
  * @see Used inside: {@link color}
  * @see Used in: {@link setUserData}, {@link getUserEmail}
  */
@@ -83,8 +83,8 @@ let stylesConsoleFunction = `
 
 /**
  * @var user
- * @description Empty user to be filled in with the user data found.
- * @type {Object} Object json of the user with the properties name, login and email
+ * @description Object json of the user with the properties name, login and email. Empty user to be filled in with the user data found.
+ * @type {Object} 
  * @see Used in: {@link setUserData}, {@link getUserEmail}, {@link insertUserData}
  */
 let user = {
@@ -92,6 +92,9 @@ let user = {
     login: "",
     email: ""
 };
+
+
+
 
 
 
@@ -115,7 +118,6 @@ function delay(fn, ms) {
         timer = setTimeout(fn.bind(this, ...args), ms || 0);
     };
 }
-
 
 /**
  * @function svgMe
@@ -269,11 +271,10 @@ function addLoader() {
     }
 }
 
-
 /**
  * @function removeLoader
  * @description Remove loading animation.
- * @see Used in: {@link }
+ * @see Used in: {@link ajaxHandler}
  */
 function removeLoader() {
     let loader = document.getElementById("loader");
@@ -281,7 +282,6 @@ function removeLoader() {
         document.body.removeChild(loader);
     }
 }
-
 
 
 
@@ -415,7 +415,6 @@ function setUserData(responseData) {
     }
 }
 
-
 /**
  * @function removeData
  * @description Remove the pop-up window, empty the search field and the user object.
@@ -433,7 +432,6 @@ function removeData() {
         user[key] = "";
     }
 }
-
 
 /**
  * @function getUserEmail
@@ -520,7 +518,6 @@ function getUserEmail(responseData) {
 
     insertUserData();
 }
-
 
 /**
  * @function insertUserData
