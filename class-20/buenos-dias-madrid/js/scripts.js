@@ -14,9 +14,14 @@ const madridCameraAPI = "http://informo.munimadrid.es/cameras/Camara";
 
 
 // Estado de la contaminación en Madrid
-
 // Estado del tiempo ahora mismo en Madrid
-
 // Previsión meteorológica de los próximos 4/5 días en Madrid
-
 // Una imagen aleatoria del trafico de la ciudad usando las cámaras abiertas de la ciudad.
+
+
+
+
+
+function ajaxHandler() {
+
+}
