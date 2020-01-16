@@ -1,0 +1,121 @@
+https://lemoncode.net/lemoncode-blog/2018/1/29/javascript-asincrono
+http://latentflip.com/loupe/?code=JC5vbignYnV0dG9uJywgJ2NsaWNrJywgZnVuY3Rpb24gb25DbGljaygpIHsKICAgIHNldFRpbWVvdXQoZnVuY3Rpb24gdGltZXIoKSB7CiAgICAgICAgY29uc29sZS5sb2coJ1lvdSBjbGlja2VkIHRoZSBidXR0b24hJyk7ICAgIAogICAgfSwgMjAwMCk7Cn0pOwoKY29uc29sZS5sb2coIkhpISIpOwoKc2V0VGltZW91dChmdW5jdGlvbiB0aW1lb3V0KCkgewogICAgY29uc29sZS5sb2coIkNsaWNrIHRoZSBidXR0b24hIik7Cn0sIDUwMDApOwoKY29uc29sZS5sb2coIldlbGNvbWUgdG8gbG91cGUuIik7!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D
+
+
+
+Concurrencia VS Paralelismo
+--------------------------------
+- Concurrencia: cuando dos o mas tareas progresan simultáneamente.
+- Paralelismo: cuando dos o mas tareas se ejecutan, literalmente, a la vez, en el mismo instante de tiempo.
+
+
+
+Operaciones CPU-Bound VS I/O-Bound
+------------------------------------
+- CPU-Bound: tareas ejecutadas en nuestra aplicación que dependen de los recursos de la CPU para ser resueltos.
+- I/O-Bound: operaciones limitadas por la entrada/salida, que no corren o se ejecutan en nuestra app y necesitan consultar datos de la red.
+
+
+
+Comportamiento Bloqueante VS No Bloqueante
+----------------------------------------------------
+- Bloqueante: Devuelve el control a la app hasta que se ha completado quedando el thread (hilo) en estado de espera.
+ 
+- No Bloqueante: Devuelve inmediatamente con independencia del resultado. En caso de que se haya completado, devolverá los datos solicitados. En caso contrario devuelve un código de error o indicando que no esta listo posponiendo la llamada haciendo algún tipo de polling para completar el trabajo o para lanzar una nueva petición en un mejor momento.
+
+
+
+Sincrono VS Asincrono
+------------------------
+- Síncrono: la llamada se ejecuta de forma secuencial y debemos esperar a que se complete para procesar el resultado (bloqueante).
+ 
+- Asíncrono: la finalización de la operación I/O se señaliza más tarde, mediante un callback, una promesa o un evento (se explicarán después), lo que hace posible que la respuesta sea procesada en diferido (no bloqueante).
+
+
+Javascript utiliza un modelo asincrono, concurrente y no bloqueante con un loop de eventos de thread unico (secuencial) para sus interfaces de entrada y de salida (I/O).
+
+
+Call Stack
+------------------------
+Alberga las instrucciones que deben ejecutarse y el recorrido de su ejecucion. Cada funcion entra en la pila generando un nuevo frame (bloque de memoria reservada para los argumentos y variables locales de dicha función).
+
+
+Heap
+------------------------
+Espacio de memoria de la app para el alojamiento dinámico de objetos, se encarga de liberar aquello que no necesita.
+
+
+Queue (cola)
+------------------------
+Cola de operaciones pendientes, aqui es donde las funciones callback quedan en espera para se ejecutadas secuencialmente.
+
+
+Event Loop
+------------------------
+Mecanismo sincrono en el que cada mensaje de la cola debe ser procesado de forma completa para que pueda comenzar el siguiente.
+
+
+Patrones asincronos
+------------------------
+- Callbacks
+- Promises
+- Async / Await
+
+
+Callback
+------------------------
+Función que se pasa como argumento de otra función y que se ejecutara en algún momento gracias al event loop.
+Callback Hell / Pyramid of Doom / Hadouken -> un callback puede anidarse infinitas veces dificulatando la legibilidad, el mantenimiento y añadiendo complejidad ciclomática.
+Por ejemplo el setTimeout() es una funcion asincrona con 2 parametros una funcion callback y un numero que repesenta el tiempo en milisegundos que va a esperar antes de ejecutarse el callback. 
+
+
+Promises
+------------------------
+Objeto que representa el resultado de una operación asíncrona que podria estar disponible ahora o en el futuro. Le adjuntamos callbacks, en lugar de pasarlos directamente a la función asíncrona.
+Por ejemplo fetch() es una funcion asincrona que solicita una url y devuelve una promesa, que ejecuta 2 funciones diferentes dependiendo si se ejecuta con exito (resolveCallback) o no (rejectCallback).
+.then(resolveCallback, rejectCallback).
+
+.then()
+Pueden encadenarse multiples promesas mediante el metodo then().
+
+.catch(rejectCallback)
+Para evitar complejidad puede usarse .catch(rejectCallback) al final en el caso de que no se ejecute con exito ninguna.
+
+.all()
+Acepta un array de promesas y devuelve una nueva promesa cuya resolución se completará con éxito una vez que todas las promesas originales se hayan resuelto satisfactoriamente, o en caso de fallo, será rechazada en cuanto una de las promesas originales sea rechazada. Además, nos devolverá un array con los resultados de cada una de las promesas originales.
+
+.race()
+La promesa compuesta que devuelve será resuelta tan pronto como se resuelva alguna de las promesas originales, ya sea con éxito o fallo.
+
+Creacion
+Se instancia un objeto Promise, pasandole al contructor 2 funciones callback resolve (exito) y reject (error) que posteriormente se llamaran dentro.
+
+Cola de microtareas / microtask queue
+Cola de alta prioridad dedicada a la gestión de callbacks de promesas, de modo que cuando un nuevo tick del bucle de eventos tenga lugar, será atendida primero.
+Promise.resolve().then(() => console.log("2"));
+
+
+Generadores
+------------------------
+Funciones cuya ejecución podemos pausar, de las que se puede salir y volver a entrar, manteniendo su contexto tal cual lo habíamos dejado.  Existe una comunicación dúplex entre una función generadora y su contexto exterior.
+Como un algoritmo en donde podemos definir puntos de pausa con yield, de modo que al salir se devuelve el valor que marca, y al ponerlo en marcha de nuevo es posible pasar un argumento del exterior hacia el algoritmo.
+
+.next() 
+Los generadores se apoyan en objectos iteradores recorren una secuencia manteniendo un registro de su posición actual dentro de la secuencia. Estos objectos estan compruestos por 2 propiedades, el valor de retorno y un booleano que indica si la secuencia ha terminado.
+
+yield
+Determina que valor es devuelto (salida) y sirve como argumento de entrada que es pasado con el metodo next().
+
+Asincronia
+Los generadores son sincronos, cuando se ejecutan lo hacen en el thread principal. Podemos expresar de forma sincrona un flujo de codigo asincrono combinando promesas con generadores. Un generador devuelve una promesa en cada una de sus ejecuciones. Como se pausa con cada retorno, podríamos programarlo para "esperar" a dicha promesa y continuar una vez se haya resuelto.
+
+
+Async / Await
+------------------------
+Las palabras clave async y await surgieron para simplificar el manejo de las promesas.
+
+async
+Declara una función como asíncrona e indica que una promesa será automáticamente devuelta.
+
+await 
+Se usa dentro de una funcion declarada con await y esperara de forma asincrona y no bloqueante a que una promesa se resuelva.
