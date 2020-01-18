@@ -3,10 +3,11 @@ page.base('/');
 
 // Specifying routes
 page('/', getPageHome);
-page('/about', getPageAbout);
-page('/portfolio', getPagePortfolio);
-page('/services', getPageServices);
-page('/contact', getPageContact);
+page('home', getPageHome);
+page('about', getPageAbout);
+page('portfolio', getPagePortfolio);
+page('services', getPageServices);
+page('contact', getPageContact);
 page('*', getPageError404);
 
 // Init router
