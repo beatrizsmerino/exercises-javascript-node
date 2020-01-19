@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Rounting and templates</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Rounting and templates</title>
+		<script src="https://unpkg.com/page/page.js"></script>
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
 
-<body>
-    <header>
-        <h1 id="pageTitle">
-            Rounting and template <br>
-            with Page and Handelbars libraries <br>
-            <a href="http://airemad.com/api/v1/" target="_blank">
-                http://airemad.com/api/v1/
-            </a>
-        </h1>
+	<body>
+		<header>
+			<h1>
+				Rounting and template <br>
+				with Page and Handelbars libraries <br>
+				<a href="http://airemad.com/api/v1/" target="_blank">
+					http://airemad.com/api/v1/
+				</a>
+			</h1>
 
-        <nav>
-            <ul>
-                <li>
-                    <a href="home">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="stations">
-                        Stations
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main id="pageMain">
-        <section id="app">
-        </section>
-    </main>
-    <footer>
+			<nav>
+				<ul>
+					<li>
+						<a href="/">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="stations">
+							Stations
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-    </footer>
-    <script src="js/scripts.js"></script>
-</body>
+		<main id="pageMain">
+			<h2 id="pageTitle"></h2>
+			<section id="app"></section>
+		</main>
+
+		<footer>
+			Copyright 2020
+		</footer>
+		<script src="js/app-routes.js"></script>
+	</body>
 
 </html>
