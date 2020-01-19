@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="page">
 
 	<head>
 		<meta charset="UTF-8">
@@ -7,19 +7,12 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Rounting and templates</title>
 		<script src="https://unpkg.com/page/page.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 		<link rel="stylesheet" href="css/styles.css">
 	</head>
 
-	<body>
-		<header>
-			<h1>
-				Rounting and template <br>
-				with Page and Handelbars libraries <br>
-				<a href="http://airemad.com/api/v1/" target="_blank">
-					http://airemad.com/api/v1/
-				</a>
-			</h1>
-
+	<body class="page__body">
+		<header class="page__header">
 			<nav>
 				<ul>
 					<li>
@@ -36,14 +29,88 @@
 			</nav>
 		</header>
 
-		<main id="pageMain">
-			<h2 id="pageTitle"></h2>
-			<section id="app"></section>
+		<main id="pageMain" class="page__main">
+			<h1 id="pageTitle" class="page__title"></h1>
+			<div id="app"></div>
 		</main>
 
-		<footer>
+		<footer class="page__footer">
 			Copyright 2020
 		</footer>
+
+		<script id="home" type="text/x-handlebars-template">
+			<section>
+				<article>
+					<h2 class="page-home__subtitle page__subtitle">
+						<span class="page-home__subtitle--1">
+							Rounting and template
+						</span>
+						<span class="page-home__subtitle--2">
+							made with <a href="{{{urlPagejs}}}" target="_blank">page.js</a> and <a href="{{{urlHandlebars}}}" target="_blank">Handelbars</a> libraries
+						</span>
+						<span class="page-home__subtitle--3">
+							Exercise with the API <a href="{{{urlAPI}}}" target="_blank">aireMad</a>
+						</span>
+					</h2>
+				</article>
+			</section>
+		</script>
+
+		<script id="stations" type="text/x-handlebars-template">
+			<section>
+				<article>
+					<h2 class="page__subtitle">List of stations</h2>
+
+					<p class="station-total">Total: {{station.length}}</p>
+					
+					<div class="stations-list">
+						<ul>
+							{{#each station}}
+							<li class="station" data-index="{{@index}}">
+								<a class="button station__button" data-id="{{{id}}}" href="stations/{{id}}">
+									<strong>{{nombre_estacion}}</strong>
+								</a>
+							</li>
+							{{/each}}
+						</ul>
+					</div>
+				</article>
+			</section>
+		</script>
+
+		<script id="station" type="text/x-handlebars-template">
+			<section>
+				<article>
+					<h2 class="page__subtitle">
+						{{station.nombre_estacion}}
+					</h2>
+
+					<div class="station-info">
+						<p>
+							<strong>Station number:</strong> {{station.numero_estacion}}
+						</p>
+						<p>
+							<strong>Address:</strong> {{station.direccion}}
+						</p>
+						<p>
+							<strong>Station type:</strong> {{station.tipo_estacion}}
+						</p>
+						<p>
+							<strong>Altitude:</strong> {{station.altitud}}
+						</p>
+						<p>
+							<strong>Latitude:</strong> {{station.latitud}}
+						</p>
+						<p>
+							<strong>Logitude:</strong> {{station.longitud}}
+						</p>
+					</div>
+				</article>
+			</section>
+		</script>
+
+		<script src="js/scripts.js"></script>
+		<script src="js/app-templates.js"></script>
 		<script src="js/app-routes.js"></script>
 	</body>
 

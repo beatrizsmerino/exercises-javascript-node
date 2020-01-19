@@ -4,7 +4,8 @@ page.base('/');
 // Specifying routes
 page('/', getPageHome);
 page('home', getPageHome);
-page('stations', getPageStation);
+page('stations', getPageAllStations);
+page('stations/:id', getPageStation);
 page('*', getPageHome);
 
 // Init router
@@ -14,10 +15,17 @@ page.start();
 
 function getPageHome() {
 	document.getElementById("pageTitle").textContent = "Home";
+	getContentHome();
+}
+
+function getPageAllStations() {
+	document.getElementById("pageTitle").textContent = "Stations";
+	getContentAllStations();
 }
 
 function getPageStation() {
 	document.getElementById("pageTitle").textContent = "Station";
+	getContentStation();
 }
 
 function getPageError404() {
