@@ -6,11 +6,12 @@ page('/', getPageHome);
 page('home', getPageHome);
 page('stations', getPageAllStations);
 page('stations/:id', getPageStation);
-page('*', getPageHome);
+page('*', getPageError404);
 
 // Init router
 // page(); or page.start();
 page.start();
+page('/');
 
 
 function getPageHome() {
