@@ -77,7 +77,9 @@ function getAllName(array) {
                     const pokemonData = {
                         name: result.name,
                         weight: result.weight,
-                        height: result.height
+                        height: result.height,
+                        image_front: result.sprites.front_default,
+                        image_back: result.sprites.back_default
                     };
                     console.log(pokemonData.name);
 
@@ -91,21 +93,46 @@ function getAllName(array) {
                     if (pokemonData && pokemonContent) {
                         for (const key in pokemonData) {
                             const element = pokemonData[key];
-                            let paragraphElem = document.createElement("p");
 
-                            let strongElem = document.createElement("strong");
-                            let strongTextElem = document.createTextNode(key + ":");
+                            if (key === "image_front" || key === "image_back") {
+                                let imgContentElem = document.createElement("div");
+                                imgContentElem.setAttribute("class", "pokemon-info__image");
 
-                            let spanElem = document.createElement("span");
-                            let spanTextElem = document.createTextNode(element);
+                                let imgElem = document.createElement("img");
+                                imgElem.setAttribute("src", element);
 
-                            strongElem.appendChild(strongTextElem);
-                            spanElem.appendChild(spanTextElem);
-                            paragraphElem.appendChild(strongElem);
-                            paragraphElem.appendChild(spanElem);
-                            pokemonContent.appendChild(paragraphElem);
+                                switch (key) {
+                                    case "image_front":
+                                        imgElem.setAttribute("alt", "Pokemon image front");
+                                        break;
+                                    case "image_back":
+                                        imgElem.setAttribute("alt", "Pokemon image back");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                imgContentElem.appendChild(imgElem);
+                                pokemonContent.appendChild(imgContentElem);
+                            } else {
+                                let paragraphElem = document.createElement("p");
+
+                                let strongElem = document.createElement("strong");
+                                let strongTextElem = document.createTextNode(key + ":");
+
+                                let spanElem = document.createElement("span");
+                                let spanTextElem = document.createTextNode(element);
+
+                                strongElem.appendChild(strongTextElem);
+                                spanElem.appendChild(spanTextElem);
+                                paragraphElem.appendChild(strongElem);
+                                paragraphElem.appendChild(spanElem);
+                                pokemonContent.appendChild(paragraphElem);
+                            }
+
+
                         }
                     }
+
 
                 });
         });
