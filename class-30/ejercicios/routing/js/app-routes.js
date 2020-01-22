@@ -8,31 +8,29 @@ page('stations', getPageAllStations);
 page('stations/:id', getPageStation);
 page('*', getPageError404);
 
-// Init router
+// Set up the router to start and actively watch for changes
 // page(); or page.start();
 page.start();
 page('/');
 
 
-function getPageHome(ctx) {
-    document.getElementsByClassName("page")[0].setAttribute("id", "pageHome");
-    document.getElementById("pageTitle").textContent = "Home";
-    getContentHome();
-    console.log(ctx);
+function getPageHome() {
+	document.getElementsByClassName("page")[0].setAttribute("id", "pageHome");
+	document.getElementById("pageTitle").textContent = "Home";
+	getContentHome();
 }
 
-function getPageAllStations(ctx) {
-    document.getElementsByClassName("page")[0].setAttribute("id", "pageStations");
-    document.getElementById("pageTitle").textContent = "Stations";
-    getContentAllStations();
-    console.log(ctx);
+function getPageAllStations() {
+	document.getElementsByClassName("page")[0].setAttribute("id", "pageStations");
+	document.getElementById("pageTitle").textContent = "Stations";
+	getContentAllStations();
 }
 
 function getPageStation(ctx) {
-    document.getElementsByClassName("page")[0].setAttribute("id", "pageStation");
-    document.getElementById("pageTitle").textContent = "Station";
-    getContentStation();
-    console.log(ctx);
+	document.getElementsByClassName("page")[0].setAttribute("id", "pageStation");
+	document.getElementById("pageTitle").textContent = "Station";
+	// console.log(ctx);
+	getContentStation(ctx);
 }
 
 function getPageError404(ctx) {

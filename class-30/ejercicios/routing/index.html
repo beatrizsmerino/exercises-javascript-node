@@ -1,119 +1,123 @@
 <!DOCTYPE html>
 <html lang="en" id="page" class="page">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Rounting and templates</title>
-    <script src="https://unpkg.com/page/page.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Rounting and templates</title>
+		<script src="https://unpkg.com/page/page.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+		<link
+			href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap"
+			rel="stylesheet">
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
 
-<body class="page__body">
-    <header class="page__header">
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="/stations">
-                        Stations
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+	<body class="page__body">
+		<header class="page__header">
+			<nav>
+				<ul>
+					<li>
+						<a href="home">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/stations">
+							Stations
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-    <main id="pageMain" class="page__main">
-        <h1 id="pageTitle" class="page__title"></h1>
-        <div id="app"></div>
-    </main>
+		<main id="pageMain" class="page__main">
+			<h1 id="pageTitle" class="page__title"></h1>
+			<div id="app"></div>
+		</main>
 
-    <footer class="page__footer">
-        Copyright 2020
-    </footer>
+		<footer class="page__footer">
+			Copyright 2020
+		</footer>
 
-    <script id="home" type="text/x-handlebars-template">
-		<section>
-			<article>
-				<h2 class="page__subtitle">
-					<span class="page__subtitle--1">
-						Rounting and template
-					</span>
-					<span class="page__subtitle--2">
-						made with <a href="{{{urlPagejs}}}" target="_blank">page.js</a> and <a href="{{{urlHandlebars}}}" target="_blank">Handelbars</a> libraries
-					</span>
-					<span class="page__subtitle--3">
-						Exercise with the API <a href="{{{urlAPI}}}" target="_blank">aireMad</a>
-					</span>
-				</h2>
-			</article>
-		</section>
-	</script>
 
-    <script id="stations" type="text/x-handlebars-template">
-		<section>
-			<article>
-				<h2 class="page__subtitle">List of stations</h2>
-				<p class="station-total">Total: {{station.length}}</p>
-				
-				<div class="stations-list">
-					<ul>
-						{{#each station}}
-						<li class="station" data-index="{{@index}}">
-							<a class="button station__button" data-id="{{{id}}}" href="/stations/{{id}}">
-								{{nombre_estacion}}
-							</a>
-						</li>
-						{{/each}}
-					</ul>
-				</div>
-			</article>
-		</section>
-	</script>
+		<!-- TEMPLATES HANDLEBARS - start -->
+		<script id="home" type="text/x-handlebars-template">
+			<section class="page__section">
+				<article class="page__article">
+					<h2 class="page__subtitle">
+						<span class="page__subtitle--1">
+							Rounting and template
+						</span>
+						<span class="page__subtitle--2">
+							made with <a href="{{{urlPagejs}}}" target="_blank">page.js</a> and <a href="{{{urlHandlebars}}}" target="_blank">Handelbars</a> libraries
+						</span>
+						<span class="page__subtitle--3">
+							Exercise with the API <a href="{{{urlAPI}}}" target="_blank">aireMad</a>
+						</span>
+					</h2>
+				</article>
+			</section>
+		</script>
 
-    <script id="station" type="text/x-handlebars-template">
-		<section>
-			<article>
-				<h2 class="page__subtitle">
-					{{station.nombre_estacion}}
-				</h2>
-				<div class="station-info">
-					<span class="station-info__number">
-                        #{{station.numero_estacion}}
-                    </span>
-                    
-					<p>
-						<strong>Address:</strong> {{station.direccion}}
-					</p>
-					<p>
-						<strong>Station type:</strong> {{station.tipo_estacion}}
-					</p>
-					<p>
-						<strong>Altitude:</strong> {{station.altitud}}
-					</p>
-					<p>
-						<strong>Latitude:</strong> {{station.latitud}}
-					</p>
-					<p>
-						<strong>Logitude:</strong> {{station.longitud}}
-					</p>
-				</div>
-			</article>
-		</section>
-	</script>
+		<script id="stations" type="text/x-handlebars-template">
+			<section class="page__section">
+				<article class="page__article">
+					<h2 class="page__subtitle">List of stations</h2>
+					<p class="station-total">Total: {{station.length}}</p>
+					
+					<div class="stations-list">
+						<ul>
+							{{#each station}}
+							<li class="station" data-index="{{@index}}">
+								<a class="button station__button" data-id="{{{id}}}" href="/stations/{{id}}">
+									{{nombre_estacion}}
+								</a>
+							</li>
+							{{/each}}
+						</ul>
+					</div>
+				</article>
+			</section>
+		</script>
 
-    <script src="js/scripts.js"></script>
-    <script src="js/app-templates.js"></script>
-    <script src="js/app-routes.js"></script>
-</body>
+		<script id="station" type="text/x-handlebars-template">
+			<section class="page__section">
+				<article class="page__article">
+					<h2 class="page__subtitle">
+						{{station.nombre_estacion}}
+					</h2>
+					<div class="station-info">
+						<span class="station-info__number">
+							#{{station.numero_estacion}}
+						</span>
+						
+						<p>
+							<strong>Address:</strong> {{station.direccion}}
+						</p>
+						<p>
+							<strong>Station type:</strong> {{station.tipo_estacion}}
+						</p>
+						<p>
+							<strong>Altitude:</strong> {{station.altitud}}
+						</p>
+						<p>
+							<strong>Latitude:</strong> {{station.latitud}}
+						</p>
+						<p>
+							<strong>Logitude:</strong> {{station.longitud}}
+						</p>
+					</div>
+				</article>
+			</section>
+		</script>
+		<!-- TEMPLATES HANDLEBARS - end -->
+
+
+		<script src="js/scripts.js"></script>
+		<script src="js/app-templates.js"></script>
+		<script src="js/app-routes.js"></script>
+	</body>
 
 </html>
