@@ -14,25 +14,29 @@ page.start();
 page('/');
 
 
-function getPageHome() {
+function getPageHome(ctx) {
     document.getElementsByClassName("page")[0].setAttribute("id", "pageHome");
     document.getElementById("pageTitle").textContent = "Home";
     getContentHome();
+    console.log(ctx);
 }
 
-function getPageAllStations() {
+function getPageAllStations(ctx) {
     document.getElementsByClassName("page")[0].setAttribute("id", "pageStations");
     document.getElementById("pageTitle").textContent = "Stations";
     getContentAllStations();
+    console.log(ctx);
 }
 
-function getPageStation() {
+function getPageStation(ctx) {
     document.getElementsByClassName("page")[0].setAttribute("id", "pageStation");
     document.getElementById("pageTitle").textContent = "Station";
     getContentStation();
+    console.log(ctx);
 }
 
-function getPageError404() {
+function getPageError404(ctx) {
     document.getElementsByClassName("page")[0].setAttribute("id", "pageError404");
     document.getElementById("pageTitle").textContent = "Page not found. Error 404";
+    console.log(ctx);
 }

@@ -47,10 +47,10 @@ function getContentStation() {
                 getData(urlAPI + optionsAPI.stations + stationId)
                     .then(response => {
                         let data = { station: response };
-                        console.log(data);
+                        // console.log(data);
 
                         var compiledHTML = compile(data);
-                        console.log(compiledHTML);
+                        // console.log(compiledHTML);
 
                         document.getElementById("app").innerHTML = compiledHTML;
                     })
