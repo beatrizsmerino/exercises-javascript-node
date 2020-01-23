@@ -6,7 +6,7 @@ page('/', getPageHome);
 page('home', getPageHome);
 page('stations', getPageAllStations);
 page('stations/:id', getPageStation);
-page('*', getPageError404);
+page('/*', getPageError404);
 
 // Set up the router to start and actively watch for changes
 // page(); or page.start();
@@ -33,8 +33,8 @@ function getPageStation(ctx) {
 	getContentStation(ctx);
 }
 
-function getPageError404(ctx) {
-    document.getElementsByClassName("page")[0].setAttribute("id", "pageError404");
-    document.getElementById("pageTitle").textContent = "Page not found. Error 404";
-    console.log(ctx);
+function getPageError404() {
+	document.getElementsByClassName("page")[0].setAttribute("id", "pageError404");
+	document.getElementById("pageTitle").textContent = "Page not found";
+	getContentError404();
 }

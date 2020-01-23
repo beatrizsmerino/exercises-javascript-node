@@ -52,3 +52,19 @@ function getContentStation(ctx) {
 }
 
 
+function getContentError404() {
+	let template = document.getElementById("error404").innerHTML;
+	let compile = Handlebars.compile(template);
+
+	let images = [
+		"barcelona.png",
+		"madrid.png",
+		"granada.png"
+	];
+	let randomImage = images[Math.floor(Math.random() * images.length)];
+	// console.log(randomImage);
+
+	let compiledHTML = compile({ image: randomImage });
+	console.log(compiledHTML);
+	document.getElementById("app").innerHTML = compiledHTML;
+}
