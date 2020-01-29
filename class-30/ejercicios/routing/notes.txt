@@ -1,0 +1,16 @@
+1 - Implementa un sistema de rutas con llamadas Ajax y plantillas partiendo de la API de AireMAD.
+
+- Al menos creas tres rutas /, /estacion, /estacion/:id
+- La ruta /estacion y /estacion/:id deben resolverse haciendo una llamada Ajax http://airemad.com/api/v1/station/:id y pintar sus resultados haciendo uso de plantillas.
+- La url debe de poder compartise, permitiendo acceder a ese estado de la aplicación.
+- Debes generar un contexto común en la app (nav, footer, etc...). Solo parte del contenido es diámico
+- Debes gestionar los errores 404 y similares...
+- Igual es interesante preocuparnos de los posibles ataques XSS: Npm | dompurify, Npm | XSS
+- Puedes usar una librería si te ayuda, como navigo
+
+
+
+"hackear" el refesco de page.js
+¿Por qué al refrescar una ruta utilizando Page.js el contenido desaparece?
+https://es.stackoverflow.com/questions/3887/por-qu%C3%A9-al-refrescar-una-ruta-utilizando-page-js-el-contenido-desaparece
+El ejemplo está bien. No es un fallo de page.js, sino el comportamiento normal y esperado. Cuando vas a la página principal(en la que se incluye page.js), se carga el código de page.js y se crean las diferentes rutas(que asocian las diferentes URLs con la función a ejecutar en cada caso).Ahora, cuando pulsas en alguno de los enlaces, o incluso si pulsas en los botones del historial, page.js intercepta esa solicitud y la procesa sin necesidad de que se mande al servidor, mostrando el contenido adecuado. Pero si recargas la página, page.js ya no está en control(no se ha cargado) y por lo tanto no intercepta la solicitud que esta vez sí se realiza al servidor, donde la página no se encuentra, lo que hace que el servidor devuelva un error 404(página no encontrada). El problema es que con el ejemplo de page.js sólo se están controlando el enrutamiento(routing) desde el lado del cliente, entonces cuando se recarga y es el servidor el que está en control, no sabe cómo hacerlo y falla.Una solución sería configurar el servidor para redirigir esas solicitudes a la página principal(p.e.en Apache usando.htaccess), donde page.js sí se cargará y será capaz de procesarlas correctamente.
