@@ -65,6 +65,6 @@ function getContentError404() {
 	// console.log(randomImage);
 
 	let compiledHTML = compile({ image: randomImage });
-	console.log(compiledHTML);
+	// console.log(compiledHTML);
 	document.getElementById("app").innerHTML = compiledHTML;
 }
