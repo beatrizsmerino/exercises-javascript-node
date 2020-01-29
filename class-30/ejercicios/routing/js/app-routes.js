@@ -3,7 +3,6 @@ page.base('/');
 
 // Specifying routes
 page('/', getPageHome);
-page('home', getPageHome);
 page('stations', getPageAllStations);
 page('stations/:id', getPageStation);
 page('*', getPageError404);
