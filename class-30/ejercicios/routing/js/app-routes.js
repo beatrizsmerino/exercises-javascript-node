@@ -6,7 +6,7 @@ page('/', getPageHome);
 page('home', getPageHome);
 page('stations', getPageAllStations);
 page('stations/:id', getPageStation);
-page('/*', getPageError404);
+page('*', getPageError404);
 
 // Set up the router to start and actively watch for changes
 // page(); or page.start();
