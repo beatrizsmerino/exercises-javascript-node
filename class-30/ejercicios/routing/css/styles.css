@@ -1,250 +1,304 @@
 *,
 *:after,
 *:before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html,
 body,
 main {
-    height: 100%;
+	height: 100%;
 }
 
 a {
-    color: #5f5f5f;
+	color: #5f5f5f;
 }
 
 a:hover {
-    color: #000;
+	color: #000;
 }
 
 body {
-    padding: 9rem 5%;
-    font-family: "Open Sans", Arial, sans-serif;
-    color: #5f5f5f;
+	padding: 9rem 5%;
+	font-family: "Open Sans", Arial, sans-serif;
+	color: #5f5f5f;
 }
 
 /****************** BUTTON ******************/
 .button {
-    text-align: center;
-    text-decoration: none;
-    padding: 0.2rem 1rem;
-    color: #5f5f5f;
-    background-color: #fff;
-    border: 0.01rem solid #000;
-    outline: none;
-    cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	padding: 0.2rem 1rem;
+	color: #5f5f5f;
+	background-color: #fff;
+	border: 0.01rem solid #000;
+	outline: none;
+	cursor: pointer;
 }
 
 .button--back {
-    width: fit-content;
-    margin-top: 2rem;
-    padding: 1rem;
+	width: fit-content;
+	margin-top: 2rem;
+	padding: 1rem;
 }
 
 .button--back:hover {
-    color: #fff;
-    background-color: #000;
+	color: #fff;
+	background-color: #000;
 }
 
 /****************** PAGE ******************/
-.page {}
+.page {
+}
 
-.page__body {}
+.page__body {
+}
 
 .page__title {
-    margin-bottom: 2.5rem;
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 800;
-    color: #000000;
+	margin-bottom: 2.5rem;
+	text-align: center;
+	font-size: 3rem;
+	font-weight: 800;
+	color: #000000;
 }
 
 .page__subtitle {
-    margin-bottom: 1rem;
-    text-align: center;
-    font-size: 1.8rem;
+	margin-bottom: 1rem;
+	text-align: center;
+	font-size: 1.8rem;
 }
 
 /****************** HEADER ******************/
 .page__header {
-    width: 100%;
-    padding: 1.5rem 5%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    background-color: #ededed;
-    box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.2);
+	width: 100%;
+	padding: 1.5rem 5%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	background-color: #ededed;
+	box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.2);
 }
 
 .page__header nav {
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .page__header nav ul {
-    display: flex;
-    list-style: none;
+	display: flex;
+	list-style: none;
 }
 
 .page__header nav ul li:not(:last-of-type) {
-    margin-right: 2rem;
+	margin-right: 2rem;
 }
 
 .page__header a {
-    text-decoration: none;
-    font-size: 1.4rem;
-    color: #5f5f5f;
+	text-decoration: none;
+	font-size: 1.4rem;
+	color: #5f5f5f;
 }
 
 .page__header a:hover {
-    color: #000;
+	color: #000;
 }
 
 /****************** MAIN ******************/
-.page__main {}
+.page__main {
+}
 
 /****************** PAGE-HOME ******************/
 #pageHome .page__subtitle {
-    margin-top: 10vh;
-    margin-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    font-weight: 600;
+	margin-top: 10vh;
+	margin-bottom: 0;
+	display: flex;
+	flex-direction: column;
+	font-weight: 600;
 }
 
 #pageHome .page__subtitle--1 {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 #pageHome .page__subtitle--2 {
-    font-size: 1rem;
-    font-weight: 100;
+	font-size: 1rem;
+	font-weight: 100;
 }
 
 #pageHome .page__subtitle--3 {
-    margin-top: 2rem;
-    font-size: 2rem;
-    font-weight: 300;
+	margin-top: 2rem;
+	font-size: 2rem;
+	font-weight: 300;
 }
 
 /****************** PAGE-STATIONS ******************/
-.station-info,
+
+.scroll-content {
+	overflow-y: auto;
+	max-height: 50vh;
+}
+
+.station__total {
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
 .stations-list {
-    overflow-y: auto;
-	max-height: 40vh;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	list-style-position: inside;
 }
 
-.stations-list ul {
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    list-style-position: inside;
-}
-
-.station-total {
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
+/*** STATION ***/
 .station {
-    width: 25%;
-    padding: 0.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 1.2rem;
-    font-weight: 300 !important;
-}
-
-.station:hover .button {
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
-}
-
-@media (max-width: 1280px) {
-    .station {
-        width: 33.333%;
-    }
-}
-
-@media (max-width: 1024px) {
-    .station {
-        width: 50%;
-    }
-}
-
-@media (max-width: 800px) {
-    .station {
-        width: 100%;
-    }
-}
-
-.station__number {
-    margin-right: 0.5rem;
+	width: 25%;
+	padding: 0.5rem 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-size: 1.2rem;
+	font-weight: 300 !important;
 }
 
 .station__button {
-    font-size: 1.2rem;
+	font-size: 1.2rem;
 }
 
+.station:hover .button {
+	width: 100%;
+	height: 100%;
+	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 1280px) {
+	.station {
+		width: 33.333%;
+	}
+}
+
+@media (max-width: 1024px) {
+	.station {
+		width: 50%;
+	}
+}
+
+@media (max-width: 800px) {
+	.station {
+		width: 100%;
+	}
+}
+
+/*** STATION INFO ***/
 .station-info {
-    max-width: 30rem;
-    margin: 0 auto;
-    padding: 2rem;
-    position: relative;
-    border: 1px solid #000;
+	max-width: 40rem;
+	margin: 2rem auto;
+	padding: 2rem;
+	position: relative;
+	border: 1px solid #000;
+}
+
+.station-info__title {
+	margin-bottom: 1.5rem;
+	padding-bottom: 0.5rem;
+	text-transform: uppercase;
+	color: #000;
+	border-bottom: 1px solid #000;
+}
+.station-info__subtitle {
+	padding-bottom: 0.2rem;
 }
 
 .station-info__number {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    line-height: 70%;
-    font-weight: 900;
-    font-size: 5rem;
-    opacity: 0.2;
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	line-height: 70%;
+	font-weight: 900;
+	font-size: 5rem;
+	opacity: 0.2;
 }
-.station-info__group {
-	margin: 2rem 0;
-}
-.station-info__group ul {
+
+.station-info__list {
 	margin-left: 1.5rem;
 }
 
+/*** STATION WEATHER ***/
+.station-weather {
+	overflow-y: auto;
+	max-height: 40vh;
+}
+
+.station-weather__list {
+	margin-left: 0;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	list-style: none;
+}
+
+.station-weather__item {
+	width: 48%;
+	margin: 0.8rem 0;
+	padding: 1rem;
+	background-color: #ededed;
+}
+
+@media (max-width: 600px) {
+	.station-weather__item {
+		width: 100%;
+	}
+}
+
+/*** STATION POLLEN ***/
+.station-pollen {
+	overflow-y: auto;
+	max-height: 40vh;
+}
+
+/*** STATION ACUSTIC ***/
+.station-acustic {
+	overflow-y: auto;
+	max-height: 40vh;
+}
+
+.station-acustic__list {
+	display: flex;
+}
+
 /****************** PAGE-ERROR404 ******************/
-#pageError404 {}
+#pageError404 {
+}
 
 #pageError404 .page__article {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #pageError404 img {
-    width: 80%;
-    max-width: 60rem;
+	width: 80%;
+	max-width: 60rem;
 }
 
 #pageError404 .page__section {
-    text-align: center;
+	text-align: center;
 }
 
 /****************** FOOTER ******************/
 .page__footer {
-    width: 100%;
-    padding: 1.5rem 5%;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    z-index: 999;
-    text-align: center;
-    font-weight: 400;
-    box-shadow: 0px -20px 20px 0px rgba(0, 0, 0, 0.2);
-    background-color: #ededed;
+	width: 100%;
+	padding: 1.5rem 5%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	z-index: 999;
+	text-align: center;
+	font-weight: 400;
+	box-shadow: 0px -20px 20px 0px rgba(0, 0, 0, 0.2);
+	background-color: #ededed;
 }

@@ -96,7 +96,7 @@ function getContentStation(ctx) {
 					dataResponses[key] = false;
 				}
 			});
-			console.log(dataResponses);
+			// console.log(dataResponses);
 
 
 			let compiledHTML = compile(dataResponses);

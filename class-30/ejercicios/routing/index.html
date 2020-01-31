@@ -70,10 +70,10 @@
 			<section class="page__section">
 				<article class="page__article">
 					<h2 class="page__subtitle">List of stations</h2>
-					<p class="station-total">Total: {{station.length}}</p>
+					<p class="station__total">Total: {{station.length}}</p>
 					
-					<div class="stations-list">
-						<ul>
+					<div class="scroll-content">
+						<ul class="stations-list">
 							{{#each station}}
 							<li class="station" data-index="{{@index}}">
 								<a class="button station__button" data-id="{{{id}}}" href="/stations/{{id}}">
@@ -93,42 +93,76 @@
 					<h2 class="page__subtitle">
 						{{station.nombre_estacion}}
 					</h2>
-					<div class="station-info">
-						<span class="station-info__number">
-							#{{station.numero_estacion}}
-						</span>
-						
-						<p>
-							<strong>Address:</strong> {{station.direccion}}
-						</p>
-						<p>
-							<strong>Altitude:</strong> {{station.altitud}}
-						</p>
-						<p>
-							<strong>Latitude:</strong> {{station.latitud}}
-						</p>
-						<p>
-							<strong>Logitude:</strong> {{station.longitud}}
-						</p>
+					<div class="scroll-content">
+						<div class="station-details station-info">
+							<span class="station-info__number">
+								#{{station.numero_estacion}}
+							</span>
+							
+							<p>
+								<strong>Address:</strong> {{station.direccion}}
+							</p>
+							<p>
+								<strong>Altitude:</strong> {{station.altitud}}
+							</p>
+							<p>
+								<strong>Latitude:</strong> {{station.latitud}}
+							</p>
+							<p>
+								<strong>Logitude:</strong> {{station.longitud}}
+							</p>
+						</div>
 
-						<div class="station-info__group">
-							<h3>
-								<strong>Weather:</strong>
+						<div class="station-weather station-info">
+							<h3 class="station-info__title">
+								<strong>
+									Weather
+								</strong>
 							</h3>
 							{{#if weather}}
-								<ul>
+								<ul class="station-weather__list station-info__list">
 									{{#each weather.list}}
-										<li>
+										<li class="station-weather__item">
+											{{#each weather}}
+												<img src="http://openweathermap.org/img/w/{{icon}}.png" alt="{{main}}">
+											{{/each}}
+											<br>
+
 											<time>
 												<em>
 													{{dt_txt}}
 												</em>
 											</time>
-											<p>Temperature: {{main.temp}}</p>
-											<p>Max Temperature: {{main.temp_min}}</p>
-											<p>Min Temperature: {{main.temp_max}}</p>
-											<p>Pressure: {{main.pressure}}</p>
-											<p>Humedity: {{main.humidity}}</p>
+											<p>
+												<strong>
+													Temperature:
+												</strong>
+												{{main.temp}}
+											</p>
+											<p>
+												<strong>
+													Max Temperature:
+												</strong>
+												{{main.temp_min}}
+											</p>
+											<p>
+												<strong>
+													Min Temperature:
+												</strong>
+												{{main.temp_max}}
+											</p>
+											<p>
+												<strong>
+													Pressure:
+												</strong>
+												{{main.pressure}}
+											</p>
+											<p>
+												<strong>
+													Humedity:
+												</strong>
+												{{main.humidity}}
+											</p>
 										</li>
 									{{/each}}
 								</ul>
@@ -139,20 +173,22 @@
 							{{/if}}
 						</div>
 
-						<div class="station-info__group">
-							<h3>
+						<div class="station-pollen station-info">
+							<h3 class="station-info__title">
 								<strong>
-									Polen:
+									Pollen
 								</strong>
 							</h3>
 							{{#if pollen}}
-								<h4>
-									Mediciones:
+								<h4 class="station-info__subtitle">
+									Meditions:
 								</h4>
-								<ul>
+								<ul class="station-info__list">
 									{{#each pollen.mediciones}}
 									<li>
-										<p>{{@key}}: {{valor}} ({{resumen}})</p>
+										<p>
+											<strong>{{@key}}:</strong> {{valor}} ({{resumen}})
+										</p>
 										<time>
 											<em>
 												{{fecha}}
@@ -164,10 +200,10 @@
 
 								<br>
 
-								<h4>
-									Parametros:
+								<h4 class="station-info__subtitle">
+									Parameters:
 								</h4>
-								<ul>
+								<ul class="station-info__list">
 									{{#each pollen.parametros}}
 									<li>
 										<strong>
@@ -192,18 +228,22 @@
 							{{/if}}
 						</div>
 
-						<div class="station-info__group">
-							<h3>
+						<div class="station-pollution station-info">
+							<h3 class="station-info__title">
 								<strong>
-									Pollution:
+									Pollution
 								</strong>
 							</h3>
 							{{#if pollution}}
-								<ul>
+								<ul class="station-pollution__list station-info__list">
 									{{#if pollution.NO}}
 									<li>
-										{{pollution.NO.parameter}} ({{pollution.NO.abrebiation}}):
-										<br>
+										<p>
+											<strong>
+												{{pollution.NO.parameter}}
+											</strong> 
+											({{pollution.NO.abrebiation}}):
+										</p>
 										<em>
 											{{pollution.NO.technique}}
 										</em>
@@ -211,8 +251,12 @@
 									{{/if}}
 									{{#if pollution.NO2}}
 									<li>
-										{{pollution.NO2.parameter}} ({{pollution.NO2.abrebiation}}):
-										<br>
+										<p>
+											<strong>
+												{{pollution.NO2.parameter}}
+											</strong>
+											({{pollution.NO2.abrebiation}}):
+										</p>
 										<em>
 											{{pollution.NO2.technique}}
 										</em>
@@ -220,8 +264,12 @@
 									{{/if}}
 									{{#if pollution.NOX}}
 									<li>
-										{{pollution.NOX.parameter}} ({{pollution.NOX.abrebiation}}):
-										<br>
+										<p>
+											<strong>
+												{{pollution.NOX.parameter}}
+											</strong>
+											({{pollution.NOX.abrebiation}}):
+										</p>
 										<em>
 											{{pollution.NOX.technique}}
 										</em>
@@ -229,8 +277,12 @@
 									{{/if}}
 									{{#if pollution.O3}}
 									<li>
-										{{pollution.O3.parameter}} ({{pollution.O3.abrebiation}}):
-										<br>
+										<p>
+											<strong>
+												{{pollution.O3.parameter}}
+											</strong>
+											({{pollution.O3.abrebiation}}):
+										</p>
 										<em>
 											{{pollution.O3.technique}}
 										</em>
@@ -238,8 +290,12 @@
 									{{/if}}
 									{{#if pollution.S02}}
 									<li>
-										{{pollution.S02.parameter}} ({{pollution.S02.abrebiation}}):
-										<br>
+										<p>
+											<strong>
+												{{pollution.S02.parameter}}
+											</strong>
+											({{pollution.S02.abrebiation}}):
+										</p>
 										<em>
 											{{pollution.S02.technique}}
 										</em>
@@ -253,90 +309,218 @@
 							{{/if}}
 						</div>
 
-						<div class="station-info__group">
-							<h3>
+						<div class="station-acustic station-info">
+							<h3 class="station-info__title">
 								<strong>
-									Acustic:
+									Acustic
 								</strong>
 							</h3>
 
 							{{#if acustic}}
-								<ul>
+								<ul class="station-info__list">
 								
 									{{#if acustic.total}}
-										<h4>
-											Total
-										</h4>
-										<time>
-											<em>
-												({{acustic.total.date}})
-											</em>
-										</time>
-										<ul>
-											<li>LAEQ: {{acustic.total.LAEQ}}</li>
-											<li>LA501: {{acustic.total.LA501}}</li>
-											<li>LA510: {{acustic.total.LA510}}</li>
-											<li>LA550: {{acustic.total.LA550}}</li>
-											<li>L590: {{acustic.total.L590}}</li>
-											<li>LA599: {{acustic.total.LA599}}</li>
-										</ul>
+										<li>
+											<h4>
+												Total
+											</h4>
+											<time>
+												<em>
+													({{acustic.total.date}})
+												</em>
+											</time>
+											<ul class="station-info__list">
+												<li>
+													<strong>
+														LAEQ:
+													</strong>
+													{{acustic.total.LAEQ}}
+												</li>
+												<li>
+													<strong>
+														LA501:
+													</strong>
+													{{acustic.total.LA501}}
+												</li>
+												<li>
+													<strong>
+														LA510:
+													</strong>
+													{{acustic.total.LA510}}
+												</li>
+												<li>
+													<strong>
+														LA550:
+													</strong>
+													{{acustic.total.LA550}}
+												</li>
+												<li>
+													<strong>
+														L590:
+													</strong>
+													{{acustic.total.L590}}
+												</li>
+												<li>
+													<strong>
+														LA599:
+													</strong>
+													{{acustic.total.LA599}}
+												</li>
+											</ul>
+										</li>
 									{{/if}}
 								
 									{{#if acustic.diurno}}
-										<h4>
-											Diurno
-										</h4>
-										<time>
-											<em>
-												({{acustic.diurno.date}})
-											</em>
-										</time>
-										<ul>
-											<li>LAEQ: {{acustic.diurno.LAEQ}}</li>
-											<li>LA501: {{acustic.diurno.LA501}}</li>
-											<li>LA510: {{acustic.diurno.LA510}}</li>
-											<li>LA550: {{acustic.diurno.LA550}}</li>
-											<li>L590: {{acustic.diurno.L590}}</li>
-											<li>LA599: {{acustic.diurno.LA599}}</li>
-										</ul>
+										<li>
+											<h4>
+												Diurno
+											</h4>
+											<time>
+												<em>
+													({{acustic.diurno.date}})
+												</em>
+											</time>
+											<ul class="station-info__list">
+												<li>
+													<strong>
+														LAEQ:
+													</strong>
+													{{acustic.diurno.LAEQ}}
+												</li>
+												<li>
+													<strong>
+														LA501:
+													</strong>
+													{{acustic.diurno.LA501}}
+												</li>
+												<li>
+													<strong>
+														LA510:
+													</strong>
+													{{acustic.diurno.LA510}}
+												</li>
+												<li>
+													<strong>
+														LA550:
+													</strong>
+													{{acustic.diurno.LA550}}
+												</li>
+												<li>
+													<strong>
+														L590:
+													</strong>
+													{{acustic.diurno.L590}}
+												</li>
+												<li>
+													<strong>
+														LA599:
+													</strong>
+													{{acustic.diurno.LA599}}
+												</li>
+											</ul>
+										</li>
 									{{/if}}
 								
 									{{#if acustic.vespertino}}
-										<h4>
-											Vespertino
-										</h4>
-										<time>
-											<em>
-												({{acustic.vespertino.date}})
-											</em>
-										</time>
-										<ul>
-											<li>LAEQ: {{acustic.vespertino.LAEQ}}</li>
-											<li>LA501: {{acustic.vespertino.LA501}}</li>
-											<li>LA510: {{acustic.vespertino.LA510}}</li>
-											<li>LA550: {{acustic.vespertino.LA550}}</li>
-											<li>L590: {{acustic.vespertino.L590}}</li>
-											<li>LA599: {{acustic.vespertino.LA599}}</li>
-										</ul>
+										<li>
+											<h4>
+												Vespertino
+											</h4>
+											<time>
+												<em>
+													({{acustic.vespertino.date}})
+												</em>
+											</time>
+											<ul class="station-info__list">
+												<li>
+													<strong>
+														LAEQ:
+													</strong>
+													{{acustic.vespertino.LAEQ}}
+												</li>
+												<li>
+													<strong>
+														LA501:
+													</strong>
+													{{acustic.vespertino.LA501}}
+												</li>
+												<li>
+													<strong>
+														LA510:
+													</strong>
+													{{acustic.vespertino.LA510}}
+												</li>
+												<li>
+													<strong>
+														LA550:
+													</strong>
+													{{acustic.vespertino.LA550}}
+												</li>
+												<li>
+													<strong>
+														L590:
+													</strong>
+													{{acustic.vespertino.L590}}
+												</li>
+												<li>
+													<strong>
+														LA599:
+													</strong>
+													{{acustic.vespertino.LA599}}
+												</li>
+											</ul>
+										</li>
 									{{/if}}
 								
 									{{#if acustic.nocturno}}
-										<h4>
-											Nocturno
-										</h4>
-										<time>
-											<em>
-												({{acustic.nocturno.date}})
-											</em>
-										</time>
-										<ul>
-											<li>LAEQ: {{acustic.nocturno.LAEQ}}</li>
-											<li>LA501: {{acustic.nocturno.LA501}}</li>
-											<li>LA510: {{acustic.nocturno.LA510}}</li>
-											<li>LA550: {{acustic.nocturno.LA550}}</li>
-											<li>L590: {{acustic.nocturno.L590}}</li>
-											<li>LA599: {{acustic.nocturno.LA599}}</li>
-										</ul>
+										<li>
+											<h4>
+												Nocturno
+											</h4>
+											<time>
+												<em>
+													({{acustic.nocturno.date}})
+												</em>
+											</time>
+											<ul class="station-info__list">
+												<li>
+													<strong>
+														LAEQ:
+													</strong>
+													{{acustic.nocturno.LAEQ}}
+												</li>
+												<li>
+													<strong>
+														LA501:
+													</strong>
+													{{acustic.nocturno.LA501}}
+												</li>
+												<li>
+													<strong>
+														LA510:
+													</strong>
+													{{acustic.nocturno.LA510}}
+												</li>
+												<li>
+													<strong>
+														LA550:
+													</strong>
+													{{acustic.nocturno.LA550}}
+												</li>
+												<li>
+													<strong>
+														L590:
+													</strong>
+													{{acustic.nocturno.L590}}
+												</li>
+												<li>
+													<strong>
+														LA599:
+													</strong>
+													{{acustic.nocturno.LA599}}
+												</li>
+											</ul>
+										</li>
 									{{/if}}
 								</ul>
 							{{else}}
@@ -354,7 +538,7 @@
 			<section class="page__section">
 				<article class="page__article">
 					<h2 class="page__subtitle">Error 404</h2>
-					<img src="exercises-javascript-node/class-30/ejercicios/routing/images/{{{image}}}" alt="Image of error 404. Page not found" />
+					<img src="./exercises-javascript-node/class-30/ejercicios/routing/images/{{{image}}}" alt="Image of error 404. Page not found" />
 					<a class="button--back button" href="stations">Back to the list stations</a>
 				</article>
 			</section>	
