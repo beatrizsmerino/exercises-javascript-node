@@ -10,6 +10,7 @@ function getContentHome() {
 	});
 	// console.log(compiledHTML);
 
+	removeContent();
 	document.getElementById("app").innerHTML = compiledHTML;
 }
 
@@ -26,6 +27,7 @@ function getContentAllStations() {
 			let compiledHTML = compile(data);
 			// console.log(compiledHTML);
 
+			removeContent();
 			document.getElementById("app").innerHTML = compiledHTML;
 		})
 }
@@ -47,6 +49,7 @@ function getContentStation(ctx) {
 			let compiledHTML = compile(data);
 			// console.log(compiledHTML);
 
+			removeContent();
 			document.getElementById("app").innerHTML = compiledHTML;
 		})
 }
@@ -66,5 +69,7 @@ function getContentError404() {
 
 	let compiledHTML = compile({ image: randomImage });
 	// console.log(compiledHTML);
+
+	removeContent();
 	document.getElementById("app").innerHTML = compiledHTML;
 }

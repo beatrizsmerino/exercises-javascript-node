@@ -21,4 +21,8 @@ const getData = (url) => {
 			})
 			.catch(() => reject(`Error al localizar URL`));
 	});
-};
+};};
+
+function removeContent() {
+	document.getElementById("app").innerHTML = "";
+}
