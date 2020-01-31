@@ -26,3 +26,13 @@ const getData = (url) => {
 function removeContent() {
 	document.getElementById("app").innerHTML = "";
 }
+
+// Disable refresh page with javascript
+function disableF5(e) {
+	if ((e.which || e.keyCode == 116)) {
+		e.preventDefault();
+		//page('/', getPageHome);
+	}
+};
+
+document.addEventListener("keydown", disableF5);
