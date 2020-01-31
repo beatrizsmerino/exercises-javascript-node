@@ -132,9 +132,10 @@ body {
 }
 
 /****************** PAGE-STATIONS ******************/
+.station-info,
 .stations-list {
-    max-height: 50vh;
     overflow-y: auto;
+	max-height: 40vh;
 }
 
 .stations-list ul {
@@ -207,6 +208,12 @@ body {
     font-weight: 900;
     font-size: 5rem;
     opacity: 0.2;
+}
+.station-info__group {
+	margin: 2rem 0;
+}
+.station-info__group ul {
+	margin-left: 1.5rem;
 }
 
 /****************** PAGE-ERROR404 ******************/

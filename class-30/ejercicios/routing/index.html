@@ -102,9 +102,6 @@
 							<strong>Address:</strong> {{station.direccion}}
 						</p>
 						<p>
-							<strong>Station type:</strong> {{station.tipo_estacion}}
-						</p>
-						<p>
 							<strong>Altitude:</strong> {{station.altitud}}
 						</p>
 						<p>
@@ -113,6 +110,244 @@
 						<p>
 							<strong>Logitude:</strong> {{station.longitud}}
 						</p>
+
+						<div class="station-info__group">
+							<h3>
+								<strong>Weather:</strong>
+							</h3>
+							{{#if weather}}
+								<ul>
+									{{#each weather.list}}
+										<li>
+											<!--
+												<img src="http://openweathermap.org/img/w/{{weather[0].icon}}.png" alt="{{weather[0].main}}">
+											-->
+											<time>
+												<em>
+													{{dt_txt}}
+												</em>
+											</time>
+											<p>Temperature: {{main.temp}}</p>
+											<p>Max Temperature: {{main.temp_min}}</p>
+											<p>Min Temperature: {{main.temp_max}}</p>
+											<p>Pressure: {{main.pressure}}</p>
+											<p>Humedity: {{main.humidity}}</p>
+										</li>
+									{{/each}}
+								</ul>
+							{{else}}
+								<p>
+									No information available
+								</p>
+							{{/if}}
+						</div>
+
+						<div class="station-info__group">
+							<h3>
+								<strong>
+									Polen:
+								</strong>
+							</h3>
+							{{#if pollen}}
+								<h4>
+									Mediciones:
+								</h4>
+								<ul>
+									{{#each pollen.mediciones}}
+									<li>
+										<p>{{@key}}: {{valor}} ({{resumen}})</p>
+										<time>
+											<em>
+												{{fecha}}
+											</em>
+										</time>
+									</li>
+									{{/each}}
+								</ul>
+
+								<br>
+
+								<h4>
+									Parametros:
+								</h4>
+								<ul>
+									{{#each pollen.parametros}}
+									<li>
+										<strong>
+											{{@key}}:
+										</strong>
+										<p>
+											Medio: {{medio}}
+										</p>
+										<p>
+											Alto: {{alto}}
+										</p>
+										<p>
+											Muy alto: {{muy_alto}}
+										</p>
+									</li>
+									{{/each}}
+								</ul>
+							{{else}}
+							<p>
+								No information available
+							</p>
+							{{/if}}
+						</div>
+
+						<div class="station-info__group">
+							<h3>
+								<strong>
+									Pollution:
+								</strong>
+							</h3>
+							{{#if pollution}}
+								<ul>
+									{{#if pollution.NO}}
+									<li>
+										{{pollution.NO.parameter}} ({{pollution.NO.abrebiation}}):
+										<br>
+										<em>
+											{{pollution.NO.technique}}
+										</em>
+									</li>
+									{{/if}}
+									{{#if pollution.NO2}}
+									<li>
+										{{pollution.NO2.parameter}} ({{pollution.NO2.abrebiation}}):
+										<br>
+										<em>
+											{{pollution.NO2.technique}}
+										</em>
+									</li>
+									{{/if}}
+									{{#if pollution.NOX}}
+									<li>
+										{{pollution.NOX.parameter}} ({{pollution.NOX.abrebiation}}):
+										<br>
+										<em>
+											{{pollution.NOX.technique}}
+										</em>
+									</li>
+									{{/if}}
+									{{#if pollution.O3}}
+									<li>
+										{{pollution.O3.parameter}} ({{pollution.O3.abrebiation}}):
+										<br>
+										<em>
+											{{pollution.O3.technique}}
+										</em>
+									</li>
+									{{/if}}
+									{{#if pollution.S02}}
+									<li>
+										{{pollution.S02.parameter}} ({{pollution.S02.abrebiation}}):
+										<br>
+										<em>
+											{{pollution.S02.technique}}
+										</em>
+									</li>
+									{{/if}}
+								</ul>
+							{{else}}
+								<p>
+									No information available
+								</p>
+							{{/if}}
+						</div>
+
+						<div class="station-info__group">
+							<h3>
+								<strong>
+									Acustic:
+								</strong>
+							</h3>
+
+							{{#if acustic}}
+								<ul>
+								
+									{{#if acustic.total}}
+										<h4>
+											Total
+										</h4>
+										<time>
+											<em>
+												({{acustic.total.date}})
+											</em>
+										</time>
+										<ul>
+											<li>LAEQ: {{acustic.total.LAEQ}}</li>
+											<li>LA501: {{acustic.total.LA501}}</li>
+											<li>LA510: {{acustic.total.LA510}}</li>
+											<li>LA550: {{acustic.total.LA550}}</li>
+											<li>L590: {{acustic.total.L590}}</li>
+											<li>LA599: {{acustic.total.LA599}}</li>
+										</ul>
+									{{/if}}
+								
+									{{#if acustic.diurno}}
+										<h4>
+											Diurno
+										</h4>
+										<time>
+											<em>
+												({{acustic.diurno.date}})
+											</em>
+										</time>
+										<ul>
+											<li>LAEQ: {{acustic.diurno.LAEQ}}</li>
+											<li>LA501: {{acustic.diurno.LA501}}</li>
+											<li>LA510: {{acustic.diurno.LA510}}</li>
+											<li>LA550: {{acustic.diurno.LA550}}</li>
+											<li>L590: {{acustic.diurno.L590}}</li>
+											<li>LA599: {{acustic.diurno.LA599}}</li>
+										</ul>
+									{{/if}}
+								
+									{{#if acustic.vespertino}}
+										<h4>
+											Vespertino
+										</h4>
+										<time>
+											<em>
+												({{acustic.vespertino.date}})
+											</em>
+										</time>
+										<ul>
+											<li>LAEQ: {{acustic.vespertino.LAEQ}}</li>
+											<li>LA501: {{acustic.vespertino.LA501}}</li>
+											<li>LA510: {{acustic.vespertino.LA510}}</li>
+											<li>LA550: {{acustic.vespertino.LA550}}</li>
+											<li>L590: {{acustic.vespertino.L590}}</li>
+											<li>LA599: {{acustic.vespertino.LA599}}</li>
+										</ul>
+									{{/if}}
+								
+									{{#if acustic.nocturno}}
+										<h4>
+											Nocturno
+										</h4>
+										<time>
+											<em>
+												({{acustic.nocturno.date}})
+											</em>
+										</time>
+										<ul>
+											<li>LAEQ: {{acustic.nocturno.LAEQ}}</li>
+											<li>LA501: {{acustic.nocturno.LA501}}</li>
+											<li>LA510: {{acustic.nocturno.LA510}}</li>
+											<li>LA550: {{acustic.nocturno.LA550}}</li>
+											<li>L590: {{acustic.nocturno.L590}}</li>
+											<li>LA599: {{acustic.nocturno.LA599}}</li>
+										</ul>
+									{{/if}}
+								</ul>
+							{{else}}
+								<p>
+									No information available
+								</p>
+							{{/if}}
+						</div>
 					</div>
 				</article>
 			</section>

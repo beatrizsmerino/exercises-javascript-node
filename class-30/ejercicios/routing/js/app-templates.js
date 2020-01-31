@@ -41,17 +41,71 @@ function getContentStation(ctx) {
 	// console.log(stationId);
 
 	// console.log(urlAPI + optionsAPI.stations + stationId);
-	getData(urlAPI + optionsAPI.stations + stationId)
-		.then(response => {
-			let data = { station: response };
+	// getData(urlAPI + optionsAPI.stations + stationId)
+	// 	.then(response => {
+	// 		let data = { station: response };
+	// 		// console.log(data);
+
+	// 		let compiledHTML = compile(data);
+	// 		// console.log(compiledHTML);
+
+	// 		removeContent();
+	// 		document.getElementById("app").innerHTML = compiledHTML;
+	// 	})
+
+
+	// const urls = [
+	// 	urlAPI + optionsAPI.stations + stationId,
+	// 	urlAPI + optionsAPI.pollution + stationId,
+	// 	urlAPI + optionsAPI.weahter + stationId,
+	// 	urlAPI + optionsAPI.pollen + stationId,
+	// 	urlAPI + optionsAPI.acustic + stationId
+	// ];
+
+	// console.log(urls[0]);
+	// console.log(urls[1]);
+	// console.log(urls[2]);
+	// console.log(urls[3]);
+	// console.log(urls[4]);
+
+
+	Promise.all(
+		[
+			getData(urlAPI + optionsAPI.stations + stationId),
+			getData(urlAPI + optionsAPI.pollution + stationId),
+			getData(urlAPI + optionsAPI.weather + stationId),
+			getData(urlAPI + optionsAPI.pollen + stationId),
+			getData(urlAPI + optionsAPI.acustic + stationId)
+		]
+	)
+		.then((responses) => {
+			// console.log(responses);
+
+			let dataResponses = {
+				station: responses[0],
+				pollution: responses[1],
+				weather: responses[2],
+				pollen: responses[3],
+				acustic: responses[4]
+			}
 			// console.log(data);
 
-			let compiledHTML = compile(data);
+
+			Object.keys(dataResponses).map((key) => {
+				if (dataResponses[key] === 404 || dataResponses[key] === 500) {
+					dataResponses[key] = false;
+				}
+			});
+			console.log(dataResponses);
+
+
+			let compiledHTML = compile(dataResponses);
 			// console.log(compiledHTML);
 
 			removeContent();
 			document.getElementById("app").innerHTML = compiledHTML;
-		})
+		});
+
 }
 
 

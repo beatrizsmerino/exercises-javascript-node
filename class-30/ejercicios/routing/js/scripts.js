@@ -4,7 +4,7 @@ const urlAPI = "http://airemad.com/api/v1/";
 const optionsAPI = {
 	"stations": "station/",
 	"pollution": "pollution/",
-	"weahter": "weahter/",
+	"weather": "weather/",
 	"pollen": "pollen/",
 	"acustic": "acustic/"
 };
@@ -21,7 +21,7 @@ const getData = (url) => {
 			})
 			.catch(() => reject(`Error al localizar URL`));
 	});
-};};
+};
 
 function removeContent() {
 	document.getElementById("app").innerHTML = "";
