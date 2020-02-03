@@ -4,6 +4,10 @@
 	"description": "Routing",
 	"main": "index.js",
 	"dependencies": {
+		"browser-sync": "^2.26.7",
+		"browserify-handlebars": "^1.0.0",
+		"connect-history-api-fallback": "^1.6.0",
+		"gulp": "^4.0.2",
 		"handlebars": "^4.7.2",
 		"page": "^1.11.5"
 	},

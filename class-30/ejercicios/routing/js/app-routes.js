@@ -1,39 +1,34 @@
-// Base path
-page.base('/');
-
-// Specifying routes
-page('/', getPageHome);
-page('stations', getPageAllStations);
-page('stations/:id', getPageStation);
-page('*', getPageError404);
-
-// Set up the router to start and actively watch for changes
-// page(); or page.start();
-page.start();
-page('/');
+/**
+ * @file Use the 'page.js' library.
+ * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
+ * @copyright 2020
+ * @see {@link https://github.com/beatrizsmerino/exercises-javascript-node}
+ */
 
 
-function getPageHome() {
-	document.getElementsByClassName("page")[0].setAttribute("id", "pageHome");
-	document.getElementById("pageTitle").textContent = "Home";
-	getContentHome();
-}
 
-function getPageAllStations() {
-	document.getElementsByClassName("page")[0].setAttribute("id", "pageStations");
-	document.getElementById("pageTitle").textContent = "Stations";
-	getContentAllStations();
-}
 
-function getPageStation(ctx) {
-	document.getElementsByClassName("page")[0].setAttribute("id", "pageStation");
-	document.getElementById("pageTitle").textContent = "Station";
-	// console.log(ctx);
-	getContentStation(ctx);
-}
 
-function getPageError404() {
-	document.getElementsByClassName("page")[0].setAttribute("id", "pageError404");
-	document.getElementById("pageTitle").textContent = "Page not found";
-	getContentError404();
+/**
+ * @function setRouter
+ * @description Init router of single page application.
+ * Defines a route mapping path to the given callback(s).
+ * @see Used inside: {@link setContentPageHome}, {@link setContentPageStations}, {@link setContentPageStation}, {@link setContentPageError404}
+ * @see Used in: {@link functionAnonimAutoExecuted}
+ */
+function setRouter() {
+    // Base path
+    page.base('/');
+
+    // Specifying routes
+    page('/', setContentPageHome);
+    page('stations', setContentPageStations);
+    page('stations/:id', setContentPageStation);
+    page('error404', setContentPageError404);
+    page('*', setContentPageError404);
+
+    // Set up the router to start and actively watch for changes
+    // page(); or page.start();
+    page.start();
+    page('/');
 }
