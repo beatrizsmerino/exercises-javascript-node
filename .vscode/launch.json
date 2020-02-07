@@ -8,7 +8,7 @@
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome against localhost",
-      "url": "http://127.0.0.1:5500/class-31/ejercicios/ejercicio_1/index.html",
+      "url": "http://127.0.0.1:5501/class-36/ejercicios/index.html",
       "webRoot": "${workspaceFolder}"
     }
   ]
