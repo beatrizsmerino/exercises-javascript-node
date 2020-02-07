@@ -1,5 +1,5 @@
 /**
- * @file Canvas: Temperature and humidity evolution graph based on the weather forecast using the Open Weather Map API
+ * @file Component: loader
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -8,13 +8,11 @@
 
 
 
-// LOADER
-//////////////////////////////////
-
 /**
- * @function add
+ * @function external:loader.add
  * @description Add loading animation.
- * @see Used in: {@link }
+ * @see Used in:
+ * @see - 'geolocation.js' -> {@link external:geolocation.set}
  */
 export function add() {
 	let loader = document.getElementById("loader");
@@ -27,10 +25,12 @@ export function add() {
 }
 
 
+
 /**
- * @function remove
+ * @function external:loader.remove
  * @description Remove loading animation.
- * @see Used in: {@link }
+ * @see Used in:
+ * @see - 'geolocation.js' -> {@link external:geolocation.set}
  */
 export function remove() {
 	let loader = document.getElementById("loader");

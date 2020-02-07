@@ -1,3 +1,19 @@
+/**
+ * @file Component: snazzymaps
+ * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
+ * @copyright (2020)
+ */
+
+
+
+
+/**
+ * @const external:snazzymaps.mapStyles
+ * @description Styles for a map of the 'API Google Maps'.
+ * @type {Object}
+ * @see Used in:
+ * @see - 'google-maps.js' -> {@link external:googleMaps.setMap}
+ */
 export const mapStyles = [
 	{
 		"elementType": "labels.text",
