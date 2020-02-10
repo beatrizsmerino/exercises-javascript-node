@@ -10,15 +10,15 @@
 
 
 /**
-* @external leaflet
-* @see {@link ./js/leaflet.js}
+* @external geolocation
+* @see {@link ./js/geolocation.js}
 */
-import * as leaflet from './leaflet.js';
+import * as geolocation from './geolocation.js';
 
 
 
 
 
 (function () {
-    leaflet.createMap();
+    document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
 })();
