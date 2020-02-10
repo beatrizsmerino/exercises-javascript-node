@@ -1,0 +1,61 @@
+/*************** VARIABLES ***************/
+:root {
+  --google-maps-height: 35rem;
+  --color-brand-1: #52f2db;
+  --color-brand-2: #63bfa5;
+  --color-brand-3: #518c7c;
+  --color-light: #ededed;
+  --color-gray: #b8b8b8;
+  --color-dark: #262626;
+  --color-black: #0d0d0d;
+}
+
+/*************** RESET ***************/
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*************** PAGE ***************/
+.page {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 10px;
+}
+
+.page__body {
+  padding: 7rem 5% 5rem;
+}
+
+.page__header {
+  margin-bottom: 6rem;
+}
+
+.page__title {
+  width: fit-content;
+  padding-left: 8rem;
+  padding-right: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 4rem;
+  color: var(--color-brand-1);
+  background-color: var(--color-black);
+}
+
+.page__subtitle {
+  font-size: 2rem;
+}
+
+@media (max-width: 600px) {
+  .page__title {
+    padding: 0 0.5rem;
+    text-align: center;
+  }
+}
+
+/*************** LEALEFT ***************/
+.map {
+  height: 45rem;
+  background-color: var(--color-light);
+}

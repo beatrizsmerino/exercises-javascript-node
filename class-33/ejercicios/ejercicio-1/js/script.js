@@ -1,5 +1,6 @@
 /**
- * @file Main file
+ * @file Main file.
+ * Exercise 1. Use Google Maps for geolocate the user.
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -40,13 +41,10 @@ import * as googleMaps from './google-maps.js';
  * @see - 'geolocation.js' -> {@link geolocation.set}
  */
 (function () {
-	googleMaps.insertTagScript();
+    googleMaps.insertTagScript();
 
 	/**
 	 * @event click
 	 */
-	document.getElementById("getGeolocation").addEventListener("click", function (e) {
-		event.preventDefault();
-		geolocation.set();
-	});
+    document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
 })();
