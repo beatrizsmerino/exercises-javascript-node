@@ -19,6 +19,12 @@ import * as geolocation from './geolocation.js';
 
 
 
+/**
+ * @function functionAnonimAutoExecuted
+ * @description Anonymous auto executed function
+ * @see Used inside:
+ * @see - 'geolocation.js' -> {@link geolocation.set}
+ */
 (function () {
-    document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
+	document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
 })();

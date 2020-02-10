@@ -83,6 +83,7 @@ function get() {
  * @see Used inside:
  * @see - 'geolocation.js' -> {@link geolocation.get}, {@link geolocation.printCoords}
  * @see - 'loader.js' -> {@link external:loader.add}, {@link external:loader.remove}
+ * @see - 'leaflet.js' -> {@link external:leaflet.initMap}
  * @see Used in:
  * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */

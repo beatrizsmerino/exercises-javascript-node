@@ -9,8 +9,9 @@
 
 
 /**
- * 
- * @param {*} location 
+ * @function leaflet.initMap
+ * @description Init a map with 'API Leaflet'
+ * @param {Object} location 
  */
 export function initMap(location) {
 	const coords = [location.latitude, location.longitude];
@@ -34,7 +35,7 @@ export function initMap(location) {
 			</div>
         `;
 
-	createMap(map, copyright);
+	createMap(map, "voyager_nolabels", copyright);
 	createMarker(map, coords, infoMarker);
 }
 
@@ -43,12 +44,20 @@ export function initMap(location) {
 
 /**
  * @function createMap
- * @description
+ * @description Create a map with the 'API Leaflet'
+ * Default: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+ * Customize: https://wiki.openstreetmap.org/wiki/Tiles, https://carto.com/help/building-maps/basemap-list/
+ * Styles carto:
+ * https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{scale}.png
+ * {style}: ight_all | dark_all | light_nolabels | light_only_labels | dark_nolabels | dark_only_labels | rastertiles/voyager | rastertiles/voyager_nolabels | rastertiles/voyager_only_labels | rastertiles/voyager_labels_under
+ * Examples
+ * - https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png
+ * - https://cartodb-basemaps-{s}.global.ssl.fastly.net/ight_only_labels/{z}/{x}/{y}.png
  * @param {Object} map 
  * @param {String} textAttribution 
  */
-function createMap(map, textAttribution) {
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+function createMap(map, style, textAttribution) {
+	L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/${style}/{z}/{x}/{y}${(L.Browser.retina ? '@2x.png' : '.png')}`, {
 		attribution: textAttribution
 	}).addTo(map);
 }
@@ -57,10 +66,10 @@ function createMap(map, textAttribution) {
 
 /**
  * @function createMarker
- * @description
- * @param {*} map 
- * @param {*} coords 
- * @param {*} infoMarker 
+ * @description Create a marker with the 'API Leaflet'
+ * @param {Object} map 
+ * @param {Object} location 
+ * @param {String} infoMarker 
  */
 function createMarker(map, location, infoMarker) {
 	L.marker(location).addTo(map)
