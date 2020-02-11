@@ -1,0 +1,169 @@
+/*************** VARIABLES ***************/
+:root {
+	--google-maps-height: 35rem;
+	--color-brand-1: #52f2db;
+	--color-brand-2: #63bfa5;
+	--color-brand-3: #518c7c;
+	--color-light: #ededed;
+	--color-gray: #b8b8b8;
+	--color-dark: #262626;
+	--color-black: #0d0d0d;
+}
+
+/*************** RESET ***************/
+*,
+*:after,
+*:before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/*************** PAGE ***************/
+.page {
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+		sans-serif;
+	font-size: 10px;
+}
+
+.page__body {
+}
+
+.page__header {
+	margin-bottom: 6rem;
+	padding: 7rem 5% 5rem;
+}
+
+.page__title {
+	width: fit-content;
+	padding-left: 8rem;
+	padding-right: 0.5rem;
+	margin-bottom: 1rem;
+	font-size: 4rem;
+	color: var(--color-brand-1);
+	background-color: var(--color-black);
+}
+
+.page__subtitle {
+	font-size: 2rem;
+}
+
+.page__footer {
+	width: 100%;
+	margin-top: 1rem;
+	padding: 1.5rem 2rem;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	text-align: right;
+	font-size: 1.5rem;
+	color: var(--color-gray);
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 800px) {
+	.page__title {
+		padding: 0 0.5rem;
+		text-align: center;
+	}
+	.page__subtitle {
+		text-align: center;
+	}
+}
+
+/*************** BUTTON ***************/
+.button {
+	padding: 1rem 2rem;
+	font-size: 1.6rem;
+	font-weight: 500;
+	border: 0.2rem solid var(--color-black);
+	background-color: #fff;
+	cursor: pointer;
+}
+
+.button:hover {
+	color: #fff;
+	border-color: var(--color-dark);
+	background-color: var(--color-dark);
+}
+
+.button--color {
+	color: #fff;
+	border-color: var(--color-brand-2);
+	background-color: var(--color-brand-2);
+}
+
+@media (max-width: 700px) {
+	.button {
+		width: 100%;
+		margin-top: 1rem;
+	}
+}
+
+/************* ICON *************/
+.icon {
+	width: 2rem;
+	height: 2rem;
+	display: inline-block;
+}
+
+.icon__svg {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+
+.icon__use {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+
+/************* LOADER *************/
+.loader {
+	width: 20rem;
+	height: 20rem;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 999;
+	transform: translate(-50%, -50%);
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("../img/loader.gif");
+}
+
+/*************** GOOGLE MAPS ***************/
+.google-maps {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+.google-maps__map {
+	width: 100%;
+	height: 100%;
+	background-color: var(--color-light);
+}
+
+/*************** MARKER ***************/
+.marker {
+	padding: 1rem;
+}
+
+.marker__title {
+	margin-bottom: 0.5rem;
+	text-decoration: underline;
+}
+
+.marker__text {
+	color: var(--color-dark);
+}
+
+.marker__strong {
+	color: var(--color-brand-3);
+}

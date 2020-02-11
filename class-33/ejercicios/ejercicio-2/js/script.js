@@ -26,5 +26,8 @@ import * as geolocation from './geolocation.js';
  * @see - 'geolocation.js' -> {@link geolocation.set}
  */
 (function () {
+	/**
+	 * @event click
+	 */
 	document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
 })();

@@ -9,9 +9,13 @@
 
 
 /**
- * @function leaflet.initMap
+ * @function external:leaflet.initMap
  * @description Init a map with 'API Leaflet'
- * @param {Object} location 
+ * @param {Object} location
+ * @see Used inside:
+ * @see - 'leaflet.js' -> {@link leaflet.createMap}, {@link leaflet.createMarker}
+ * @see Used in:
+ * @see - 'geolocation.js' -> {@link external:leaflet.initMap}
  */
 export function initMap(location) {
 	const coords = [location.latitude, location.longitude];
@@ -43,7 +47,7 @@ export function initMap(location) {
 
 
 /**
- * @function createMap
+ * @function internal:createMap
  * @description Create a map with the 'API Leaflet'
  * Default: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
  * Customize: https://wiki.openstreetmap.org/wiki/Tiles, https://carto.com/help/building-maps/basemap-list/
@@ -65,7 +69,7 @@ function createMap(map, style, textAttribution) {
 
 
 /**
- * @function createMarker
+ * @function internal:createMarker
  * @description Create a marker with the 'API Leaflet'
  * @param {Object} map 
  * @param {Object} location 
