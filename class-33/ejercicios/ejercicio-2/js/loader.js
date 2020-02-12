@@ -1,5 +1,6 @@
 /**
- * @file Component: loader
+ * @file
+ * @module loader
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -9,10 +10,10 @@
 
 
 /**
- * @function external:loader.add
+ * @function module:loader.add
  * @description Add loading animation.
  * @see Used in:
- * @see - 'geolocation.js' -> {@link external:geolocation.set}
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 export function add() {
 	let loader = document.getElementById("loader");
@@ -27,10 +28,10 @@ export function add() {
 
 
 /**
- * @function external:loader.remove
+ * @function module:loader.remove
  * @description Remove loading animation.
  * @see Used in:
- * @see - 'geolocation.js' -> {@link external:geolocation.set}
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 export function remove() {
 	let loader = document.getElementById("loader");

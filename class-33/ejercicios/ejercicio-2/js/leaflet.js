@@ -1,5 +1,6 @@
 /**
- * @file Component: Leaflet
+ * @file
+ * @module leaflet
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -9,13 +10,13 @@
 
 
 /**
- * @function external:leaflet.initMap
+ * @function module:leaflet.initMap
  * @description Init a map with 'API Leaflet'
  * @param {Object} location
  * @see Used inside:
  * @see - 'leaflet.js' -> {@link leaflet.createMap}, {@link leaflet.createMarker}
  * @see Used in:
- * @see - 'geolocation.js' -> {@link external:leaflet.initMap}
+ * @see - 'geolocation.js' -> {@link module:leaflet.initMap}
  */
 export function initMap(location) {
 	const coords = [location.latitude, location.longitude];

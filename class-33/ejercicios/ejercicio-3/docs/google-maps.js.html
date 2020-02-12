@@ -27,7 +27,8 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Component: googleMaps
+ * @file
+ * @module googleMaps
  * @author Beatriz Sopeña Merino &lt;beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -37,14 +38,12 @@
 
 
 /**
- * @external googleMaps
  * @see {@link ./js/google-maps-config.js}
  */
 import * as googleMaps from './google-maps-config.js';
 
 
 /**
- * @external snazzymaps
  * @see {@link ./js/snazzymaps.js}
  */
 import * as snazzymaps from './snazzymaps.js';
@@ -54,10 +53,10 @@ import * as snazzymaps from './snazzymaps.js';
 
 
 /**
- * @function external:googleMaps.insertTagScript
+ * @function module:googleMaps.insertTagScript
  * @description Insert the tag html 'script' with the root of the 'API Google Maps'.
  * @see Used inside:
- * @see - 'google-maps-config.js' -> {@link external:googleMaps.API}, {@link external:googleMaps.API_KEY_MAP}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
  * @see Used in:
  * @see - 'srcript.js' -> {@link functionAnonimAutoExecuted}
  */
@@ -73,7 +72,7 @@ export function insertTagScript() {
 
 
 /**
- * @function external:googleMaps.setMap
+ * @function module:googleMaps.setMap
  * @description Create a map with the 'API Google Maps'.
  * This map is customized with styles of 'snazzymaps.com'.
  * It has a unique animated marker with an information window that appears when you click on it.
@@ -82,10 +81,10 @@ export function insertTagScript() {
  * @param {Object} coords.longitude - Coordinates: longitude
  * @see Used inside:
  * @see - 'google-maps.js' -> {@link setMap.initMap}, {@link setMap.addMarker}, {@link setMap.addInfoMarker}, {@link setMap.toggleBounceMarker}
- * @see - 'google-maps-config.js' -> {@link external:googleMaps.API}, {@link external:googleMaps.API_KEY_MAP}
- * @see - 'snazzymaps.js' -> {@link external:snazzymaps.mapStyles}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
+ * @see - 'snazzymaps.js' -> {@link module:snazzymaps.mapStyles}
  * @see Used in:
- * @see - 'geolocation.js' -> {@link external:geolocation.set}
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 export function setMap(coords) {
 	const mapDom = document.getElementById("googleMapsMap");
@@ -191,51 +190,6 @@ export function setMap(coords) {
 	}
 
 	initMap(snazzymaps.mapStyles);
-}
-
-
-
-/**
- * @function external:googleMaps.setImage
- * @description Get a image of the street view with the 'API Google Maps'.
- * @param {Object} coords - Coordinates
- * @param {Object} coords.latitude - Coordinates: latitude
- * @param {Object} coords.longitude - Coordinates: longitude
- * @param {String} imageSize - Size of the Image
- * @param {Number} imageHeading - Orientation of the camera
- * @param {Number} imageFov - Orientation horizontal of the camera
- * @param {Number} imagePitch - Orientation vertical of the camera
- * @param {Number} imageRadius - Image search radius
- * @param {String} imageSource - Image indoord or outdoor
- * @see Used inside:
- * @see - 'google-maps-config.js' -> {@link external:googleMaps.API}, {@link external:googleMaps.API_KEY_MAP}, {@link external:googleMaps.API_KEY_STREETVIEW}
- * @see Used in:
- * @see - 'geolocation.js' -> {@link external:geolocation.set}
- */
-export function setImage(coords, imageSize, imageHeading, imageFov, imagePitch, imageRadius, imageSource) {
-	const imageDom = document.getElementById("googleMapsImage");
-	const image = new Image;
-
-	// Settings values: https://developers.google.com/maps/documentation/streetview/intro
-	const settings = {
-		key: googleMaps.API_KEY_MAP, // (required) you need an API key
-		location: `${coords.latitude},${coords.longitude}`, // (required) coords of latitude and longitude
-		size: imageSize || "400x400", // (required) size image, specified in pixels, of the width and height
-		signature: googleMaps.API_KEY_STREETVIEW, // (optional) digital signature used to verify that any site generating requests using your API key is authorized to do so.
-		heading: imageHeading || null, // (optional) compass heading, specified in degrees, of the camera | (by default: location) | (values acepted: 0-360) (North: 0 and 360, East: 90, West: 270, South: 180)
-		fov: imageFov || 90, // (optional) horizontal field, specified in degrees, of view of the image | (by default: 90) | (max value acepted: 120)
-		pitch: imagePitch || 0, // (optional) vertical field, specified in degrees, of the camera relative to the Street View vehicle. | (by default: 0) | (Up: 90, Down: -90)
-		radius: imageRadius || 50, // (optional) radius, specified in meters, in which to search for a panorama, centered on the given location | (by default: 50) | (values acepted: non-negative integers)
-		source: imageSource || "default" // (optional) Limits Street View searches to selected sources | (by default: default) | (values acepted: default or outdoor)
-	};
-
-	// I removed this parametter &amp;signature=${settings.signature} do not work fot me
-	const imageRoot = `${googleMaps.API}streetview?key=${settings.key}&amp;location=${settings.location}&amp;size=${settings.size}&amp;heading=${settings.heading}&amp;fov=${settings.fov}&amp;pitch=${settings.pitch}&amp;radius=${settings.radius}&amp;source=${settings.source}`;
-	// console.log(imageRoot);
-	image.src = imageRoot;
-
-	imageDom.innerHTML = "";
-	imageDom.appendChild(image);
 }</code></pre>
         </article>
     </section>
@@ -246,13 +200,13 @@ export function setImage(coords, imageSize, imageHeading, imageFov, imagePitch, 
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-clipboard.html">clipboard</a></li><li><a href="external-geolocation.html">geolocation</a></li><li><a href="external-googleMaps.html">googleMaps</a></li><li><a href="external-loader.html">loader</a></li><li><a href="external-snazzymaps.html">snazzymaps</a></li><li><a href="external-tools.html">tools</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li></ul><h3>Global</h3><ul><li><a href="global.html#functionAnonimAutoExecuted">functionAnonimAutoExecuted</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-geolocation.html">geolocation</a></li><li><a href="module-googleMaps.html">googleMaps</a></li><li><a href="module-loader.html">loader</a></li><li><a href="module-snazzymaps.html">snazzymaps</a></li></ul><h3>Events</h3><ul><li><a href="global.html#~event:click">click</a></li></ul><h3>Global</h3><ul><li><a href="global.html#functionAnonimAutoExecuted">functionAnonimAutoExecuted</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sun Feb 09 2020 22:27:13 GMT+0100 (GMT+01:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Feb 11 2020 23:19:20 GMT+0100 (GMT+01:00)
 </footer>
 
 <script> prettyPrint(); </script>

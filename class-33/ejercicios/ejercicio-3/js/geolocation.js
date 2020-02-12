@@ -1,5 +1,6 @@
 /**
- * @file Component: geolocation
+ * @file
+ * @module geolocation
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -9,14 +10,12 @@
 
 
 /**
- * @external loader
  * @see {@link ./js/loader.js}
  */
 import * as loader from './loader.js';
 
 
 /**
- * @external googleMaps
  * @see {@link ./js/google-maps.js}
  */
 import * as googleMaps from './google-maps.js';
@@ -26,11 +25,11 @@ import * as googleMaps from './google-maps.js';
 
 
 /**
- * @function external:geolocation.set
+ * @function module:geolocation.set
  * @description Get the geolocation of the transport vehicles of 'Los Angeles' (trains and buses) and set a map with the 'API Google Maps'.
  * @see Used inside:
- * @see - 'loader.js' -> {@link external:loader.add}, {@link external:loader.remove}
- * @see - 'google-maps.js' -> {@link external:googleMaps.setMap}
+ * @see - 'loader.js' -> {@link module:loader.add}, {@link module:loader.remove}
+ * @see - 'google-maps.js' -> {@link module:googleMaps.setMap}
  * @see Used in:
  * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */

@@ -10,14 +10,12 @@
 
 
 /**
- * @external geolocation
  * @see {@link ./js/geolocation.js}
  */
 import * as geolocation from './geolocation.js';
 
 
 /**
- * @external googleMaps
  * @see {@link ./js/google-maps.js}
  */
 import * as googleMaps from './google-maps.js';

@@ -1,5 +1,6 @@
 /**
- * @file Component: clipboard
+ * @file 
+ * @module clipboard
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -9,7 +10,7 @@
 
 
 /**
- * @function external:clipboard.create
+ * @function module:clipboard.create
  * @description Create the template html of the 'clipboard' component, and add a width to 'ch' according to your number of characters
  * @param {String} text - Text of the 'clipboard' component
  * @return {String}
@@ -103,12 +104,12 @@ function addEventClick() {
 
 
 /**
- * @function external:clipboard.afterCreate
+ * @function module:clipboard.afterCreate
  * @description Callback function that runs after creating the 'clipboard' component
  * @see Used inside:
  * @see - 'clipboard.js' -> {@link clipboard.addEventClick}
  * @see Used in:
- * @see - 'geolocation.js' -> {@link external:geolocation.set}
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 export function afterCreate() {
 	addEventClick();

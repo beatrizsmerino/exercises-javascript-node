@@ -10,21 +10,18 @@
 
 
 /**
-* @external tools
 * @see {@link ./js/tools.js}
 */
 import * as tools from './tools.js';
 
 
 /**
- * @external geolocation
  * @see {@link ./js/geolocation.js}
  */
 import * as geolocation from './geolocation.js';
 
 
 /**
- * @external googleMaps
  * @see {@link ./js/google-maps.js}
  */
 import * as googleMaps from './google-maps.js';
@@ -41,10 +38,10 @@ import * as googleMaps from './google-maps.js';
  * @see - 'geolocation.js' -> {@link geolocation.set}
  */
 (function () {
-    googleMaps.insertTagScript();
+	googleMaps.insertTagScript();
 
 	/**
 	 * @event click
 	 */
-    document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
+	document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
 })();

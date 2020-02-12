@@ -1,5 +1,6 @@
 /**
- * @file Component: tools
+ * @file
+ * @module tools
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -9,7 +10,7 @@
 
 
 /**
- * @function external:tools.getFontSize
+ * @function module:tools.getFontSize
  * @description Get the font size of an element html
  * Just grabbing the style.fontSize of an element may not work. If the font-size is defined by a stylesheet, this will report "" (empty string).
  * @param {Element} element - HTML Element

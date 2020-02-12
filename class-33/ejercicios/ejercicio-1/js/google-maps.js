@@ -1,5 +1,6 @@
 /**
- * @file Component: googleMaps
+ * @file
+ * @module googleMaps
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -9,14 +10,12 @@
 
 
 /**
- * @external googleMaps
  * @see {@link ./js/google-maps-config.js}
  */
 import * as googleMaps from './google-maps-config.js';
 
 
 /**
- * @external snazzymaps
  * @see {@link ./js/snazzymaps.js}
  */
 import * as snazzymaps from './snazzymaps.js';
@@ -26,10 +25,10 @@ import * as snazzymaps from './snazzymaps.js';
 
 
 /**
- * @function external:googleMaps.insertTagScript
+ * @function module:googleMaps.insertTagScript
  * @description Insert the tag html 'script' with the root of the 'API Google Maps'.
  * @see Used inside:
- * @see - 'google-maps-config.js' -> {@link external:googleMaps.API}, {@link external:googleMaps.API_KEY_MAP}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
  * @see Used in:
  * @see - 'srcript.js' -> {@link functionAnonimAutoExecuted}
  */
@@ -45,7 +44,7 @@ export function insertTagScript() {
 
 
 /**
- * @function external:googleMaps.setMap
+ * @function module:googleMaps.setMap
  * @description Create a map with the 'API Google Maps'.
  * This map is customized with styles of 'snazzymaps.com'.
  * It has a unique animated marker with an information window that appears when you click on it.
@@ -54,10 +53,10 @@ export function insertTagScript() {
  * @param {Object} coords.longitude - Coordinates: longitude
  * @see Used inside:
  * @see - 'google-maps.js' -> {@link setMap.initMap}, {@link setMap.addMarker}, {@link setMap.addInfoMarker}, {@link setMap.toggleBounceMarker}
- * @see - 'google-maps-config.js' -> {@link external:googleMaps.API}, {@link external:googleMaps.API_KEY_MAP}
- * @see - 'snazzymaps.js' -> {@link external:snazzymaps.mapStyles}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
+ * @see - 'snazzymaps.js' -> {@link module:snazzymaps.mapStyles}
  * @see Used in:
- * @see - 'geolocation.js' -> {@link external:geolocation.set}
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 export function setMap(coords) {
 	const mapDom = document.getElementById("googleMapsMap");
@@ -168,7 +167,7 @@ export function setMap(coords) {
 
 
 /**
- * @function external:googleMaps.setImage
+ * @function module:googleMaps.setImage
  * @description Get a image of the street view with the 'API Google Maps'.
  * @param {Object} coords - Coordinates
  * @param {Object} coords.latitude - Coordinates: latitude
@@ -180,9 +179,9 @@ export function setMap(coords) {
  * @param {Number} imageRadius - Image search radius
  * @param {String} imageSource - Image indoord or outdoor
  * @see Used inside:
- * @see - 'google-maps-config.js' -> {@link external:googleMaps.API}, {@link external:googleMaps.API_KEY_MAP}, {@link external:googleMaps.API_KEY_STREETVIEW}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}, {@link module:googleMaps.API_KEY_STREETVIEW}
  * @see Used in:
- * @see - 'geolocation.js' -> {@link external:geolocation.set}
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 export function setImage(coords, imageSize, imageHeading, imageFov, imagePitch, imageRadius, imageSource) {
 	const imageDom = document.getElementById("googleMapsImage");

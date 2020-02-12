@@ -10,7 +10,6 @@
 
 
 /**
-* @external geolocation
 * @see {@link ./js/geolocation.js}
 */
 import * as geolocation from './geolocation.js';

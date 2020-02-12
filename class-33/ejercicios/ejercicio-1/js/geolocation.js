@@ -1,5 +1,6 @@
 /**
- * @file Component: geolocation
+ * @file
+ * @module geolocation
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -9,21 +10,18 @@
 
 
 /**
- * @external clipboard
  * @see {@link ./js/clipboard.js}
  */
 import * as clipboard from './clipboard.js';
 
 
 /**
- * @external loader
  * @see {@link ./js/loader.js}
  */
 import * as loader from './loader.js';
 
 
 /**
- * @external googleMaps
  * @see {@link ./js/google-maps.js}
  */
 import * as googleMaps from './google-maps.js';
@@ -40,9 +38,9 @@ import * as googleMaps from './google-maps.js';
  * @param {Object} coords.longitude - Coordinates: longitude
  * @param {Function} callback - Function for after print the coordinates
  * @see Used inside:
- * @see - 'clipboard.js' -> {@link external:clipboard.create}
+ * @see - 'clipboard.js' -> {@link module:clipboard.create}
  * @see Used in:
- * @see - 'clipboard.js' -> {@link external:clipboard.set}
+ * @see - 'clipboard.js' -> {@link module:clipboard.set}
  */
 function printCoords(coords, callback) {
 	const coordsDom = document.getElementById("coords");
@@ -78,12 +76,12 @@ function get() {
 
 
 /**
- * @function external:geolocation.set
+ * @function module:geolocation.set
  * @description If find your geolocation, print this coordinates, show a map and image of the street with the 'API Google Maps'.
  * @see Used inside:
  * @see - 'geolocation.js' -> {@link geolocation.get}, {@link geolocation.printCoords}
- * @see - 'loader.js' -> {@link external:loader.add}, {@link external:loader.remove}
- * @see - 'google-maps.js' -> {@link external:googleMaps.setMap}, {@link external:googleMaps.setImage}
+ * @see - 'loader.js' -> {@link module:loader.add}, {@link module:loader.remove}
+ * @see - 'google-maps.js' -> {@link module:googleMaps.setMap}, {@link module:googleMaps.setImage}
  * @see Used in:
  * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */

@@ -1,5 +1,6 @@
 /**
- * @file Component: snazzymaps
+ * @file
+ * @module snazzymaps
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -8,11 +9,11 @@
 
 
 /**
- * @const external:snazzymaps.mapStyles
+ * @const module:snazzymaps.mapStyles
  * @description Styles for a map of the 'API Google Maps'.
  * @type {Object}
  * @see Used in:
- * @see - 'google-maps.js' -> {@link external:googleMaps.setMap}
+ * @see - 'google-maps.js' -> {@link module:googleMaps.setMap}
  */
 export const mapStyles = [
 	{
