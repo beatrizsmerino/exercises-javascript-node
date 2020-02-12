@@ -11,6 +11,7 @@
 /**
  * @const module:snazzymaps.mapStyles
  * @description Styles for a map of the 'API Google Maps'.
+ * Documentation -> https://snazzymaps.com/
  * @type {Object}
  * @see Used in:
  * @see - 'google-maps.js' -> {@link module:googleMaps.setMap}

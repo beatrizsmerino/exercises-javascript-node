@@ -1,6 +1,5 @@
 /**
  * @file Main file.
- * Exercise 3. Use Transport vehicles of 'Los Angeles' (trains and buses) on the map.
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */

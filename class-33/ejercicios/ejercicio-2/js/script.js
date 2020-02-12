@@ -1,6 +1,5 @@
 /**
  * @file Main file.
- * Exercise 2. Use 'Leaflet API' for geolocate the user.
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */

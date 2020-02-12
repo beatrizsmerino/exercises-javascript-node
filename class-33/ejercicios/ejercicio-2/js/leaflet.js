@@ -19,7 +19,7 @@
  * @see - 'geolocation.js' -> {@link module:leaflet.initMap}
  */
 export function initMap(location) {
-	const coords = [location.latitude, location.longitude];
+	const coords = [location.latitude.toFixed(4), location.longitude.toFixed(4)];
 	const copyright = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 	const map = L.map("map", {

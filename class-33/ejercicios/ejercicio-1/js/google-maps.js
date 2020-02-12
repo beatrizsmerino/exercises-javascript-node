@@ -85,9 +85,9 @@ export function setMap(coords) {
 					Currrent location:
 				</h3>
 				<p class="marker__text">
-					<strong class="marker__strong">Latitude:</strong> ${location.lat}
+					<strong class="marker__strong">Latitude:</strong> ${location.lat.toFixed(4)}
 					<br>
-					<strong class="marker__strong">Longitude:</strong> ${location.lng}
+					<strong class="marker__strong">Longitude:</strong> ${location.lng.toFixed(4)}
 				</p>
 			</div>
 		`;

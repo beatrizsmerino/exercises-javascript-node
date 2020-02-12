@@ -44,7 +44,7 @@ import * as googleMaps from './google-maps.js';
  */
 function printCoords(coords, callback) {
 	const coordsDom = document.getElementById("coords");
-	const position = `${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}`;
+	const position = `${coords.latitude}, ${coords.longitude}`;
 	const element = clipboard.create(position);
 	coordsDom.innerHTML = element;
 	callback();

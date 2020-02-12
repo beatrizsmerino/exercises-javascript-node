@@ -1,6 +1,5 @@
 /**
  * @file Main file.
- * Exercise 1. Use Google Maps for geolocate the user.
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
