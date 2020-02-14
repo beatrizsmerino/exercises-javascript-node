@@ -1,5 +1,5 @@
 /**
- * @file
+ * @file Geolocation with the 'HTML5 API'
  * @module geolocation
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
@@ -10,15 +10,36 @@
 
 
 /**
- * @see {@link ./js/loader.js}
+ * @requires loader
+ * @requires googleMaps
  */
 import * as loader from './loader.js';
+import * as googleMaps from './google-maps.js';
+
+
+
 
 
 /**
- * @see {@link ./js/google-maps.js}
+ * @function module:geolocation~get
+ * @description Get your geolocation in this moment with the 'API HTML5'.
+ * @return {Promise}
+ * @see Used in:
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
-import * as googleMaps from './google-maps.js';
+function get() {
+	if ("geolocation" in navigator) {
+		// console.log("You can use Geolocation! :-) ");
+		return new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
+	} else {
+		alert("Geolocation is not supported by this browser. :-( ");
+
+		// return false; // Console Error: La propiedad 'then' no existe en el tipo 'false | Promise<any>'.
+		return new Promise(
+			resolve => resolve({})
+		)
+	}
+}
 
 
 

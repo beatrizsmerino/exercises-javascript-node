@@ -27,7 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file
+ * @file Map styles with 'Snazzymaps" for 'Google Maps API'
  * @module snazzymaps
  * @author Beatriz Sopeña Merino &lt;beatrizsmerino@gmail.com>
  * @copyright (2020)
@@ -45,316 +45,235 @@
  */
 export const mapStyles = [
 	{
-		"elementType": "labels.text",
+		"elementType": "geometry",
 		"stylers": [
 			{
-				"visibility": "off"
+				"color": "#1d2c4d"
 			}
 		]
 	},
 	{
-		"featureType": "landscape.natural",
-		"elementType": "geometry.fill",
+		"elementType": "labels.text.fill",
 		"stylers": [
 			{
-				"color": "#f5f5f2"
-			},
-			{
-				"visibility": "on"
+				"color": "#8ec3b9"
 			}
 		]
 	},
 	{
-		"featureType": "administrative",
+		"elementType": "labels.text.stroke",
 		"stylers": [
 			{
-				"visibility": "off"
+				"color": "#1a3646"
 			}
 		]
 	},
 	{
-		"featureType": "transit",
+		"featureType": "administrative.country",
+		"elementType": "geometry.stroke",
 		"stylers": [
 			{
-				"visibility": "off"
+				"color": "#4b6878"
 			}
 		]
 	},
 	{
-		"featureType": "poi.attraction",
+		"featureType": "administrative.land_parcel",
+		"elementType": "labels.text.fill",
 		"stylers": [
 			{
-				"visibility": "off"
+				"color": "#64779e"
+			}
+		]
+	},
+	{
+		"featureType": "administrative.province",
+		"elementType": "geometry.stroke",
+		"stylers": [
+			{
+				"color": "#4b6878"
 			}
 		]
 	},
 	{
 		"featureType": "landscape.man_made",
-		"elementType": "geometry.fill",
+		"elementType": "geometry.stroke",
 		"stylers": [
 			{
-				"color": "#ffffff"
-			},
-			{
-				"visibility": "on"
+				"color": "#334e87"
 			}
 		]
 	},
 	{
-		"featureType": "poi.business",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "poi.medical",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "poi.place_of_worship",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "poi.school",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "poi.sports_complex",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "road.highway",
+		"featureType": "landscape.natural",
 		"elementType": "geometry",
 		"stylers": [
 			{
-				"color": "#ffffff"
-			},
-			{
-				"visibility": "simplified"
-			}
-		]
-	},
-	{
-		"featureType": "road.arterial",
-		"stylers": [
-			{
-				"visibility": "simplified"
-			},
-			{
-				"color": "#ffffff"
-			}
-		]
-	},
-	{
-		"featureType": "road.highway",
-		"elementType": "labels.icon",
-		"stylers": [
-			{
-				"color": "#ffffff"
-			},
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "road.highway",
-		"elementType": "labels.icon",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "road.arterial",
-		"stylers": [
-			{
-				"color": "#ffffff"
-			}
-		]
-	},
-	{
-		"featureType": "road.local",
-		"stylers": [
-			{
-				"color": "#ffffff"
-			}
-		]
-	},
-	{
-		"featureType": "poi.park",
-		"elementType": "labels.icon",
-		"stylers": [
-			{
-				"visibility": "off"
+				"color": "#023e58"
 			}
 		]
 	},
 	{
 		"featureType": "poi",
-		"elementType": "labels.icon",
+		"elementType": "geometry",
 		"stylers": [
 			{
-				"visibility": "off"
+				"color": "#283d6a"
 			}
 		]
 	},
 	{
-		"featureType": "water",
+		"featureType": "poi",
+		"elementType": "labels.text.fill",
 		"stylers": [
 			{
-				"color": "#71c8d4"
+				"color": "#6f9ba5"
 			}
 		]
 	},
 	{
-		"featureType": "landscape",
+		"featureType": "poi",
+		"elementType": "labels.text.stroke",
 		"stylers": [
 			{
-				"color": "#e5e8e7"
+				"color": "#1d2c4d"
 			}
 		]
 	},
 	{
 		"featureType": "poi.park",
+		"elementType": "geometry.fill",
 		"stylers": [
 			{
-				"color": "#8ba129"
+				"color": "#023e58"
+			}
+		]
+	},
+	{
+		"featureType": "poi.park",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{
+				"color": "#3C7680"
 			}
 		]
 	},
 	{
 		"featureType": "road",
-		"stylers": [
-			{
-				"color": "#ffffff"
-			}
-		]
-	},
-	{
-		"featureType": "poi.sports_complex",
 		"elementType": "geometry",
 		"stylers": [
 			{
-				"color": "#c7c7c7"
-			},
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "water",
-		"stylers": [
-			{
-				"color": "#a0d3d3"
-			}
-		]
-	},
-	{
-		"featureType": "poi.park",
-		"stylers": [
-			{
-				"color": "#91b65d"
-			}
-		]
-	},
-	{
-		"featureType": "poi.park",
-		"stylers": [
-			{
-				"gamma": 1.51
-			}
-		]
-	},
-	{
-		"featureType": "road.local",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "road.local",
-		"elementType": "geometry",
-		"stylers": [
-			{
-				"visibility": "on"
-			}
-		]
-	},
-	{
-		"featureType": "poi.government",
-		"elementType": "geometry",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "landscape",
-		"stylers": [
-			{
-				"visibility": "off"
+				"color": "#304a7d"
 			}
 		]
 	},
 	{
 		"featureType": "road",
-		"elementType": "labels",
+		"elementType": "labels.text.fill",
 		"stylers": [
 			{
-				"visibility": "off"
+				"color": "#98a5be"
 			}
 		]
 	},
 	{
-		"featureType": "road.arterial",
+		"featureType": "road",
+		"elementType": "labels.text.stroke",
+		"stylers": [
+			{
+				"color": "#1d2c4d"
+			}
+		]
+	},
+	{
+		"featureType": "road.highway",
 		"elementType": "geometry",
 		"stylers": [
 			{
-				"visibility": "simplified"
+				"color": "#2c6675"
 			}
 		]
 	},
 	{
-		"featureType": "road.local",
+		"featureType": "road.highway",
+		"elementType": "geometry.stroke",
 		"stylers": [
 			{
-				"visibility": "simplified"
+				"color": "#255763"
 			}
 		]
 	},
 	{
-		"featureType": "road"
+		"featureType": "road.highway",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{
+				"color": "#b0d5ce"
+			}
+		]
 	},
 	{
-		"featureType": "road"
+		"featureType": "road.highway",
+		"elementType": "labels.text.stroke",
+		"stylers": [
+			{
+				"color": "#023e58"
+			}
+		]
 	},
-	{},
 	{
-		"featureType": "road.highway"
+		"featureType": "transit",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{
+				"color": "#98a5be"
+			}
+		]
+	},
+	{
+		"featureType": "transit",
+		"elementType": "labels.text.stroke",
+		"stylers": [
+			{
+				"color": "#1d2c4d"
+			}
+		]
+	},
+	{
+		"featureType": "transit.line",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{
+				"color": "#283d6a"
+			}
+		]
+	},
+	{
+		"featureType": "transit.station",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#3a4762"
+			}
+		]
+	},
+	{
+		"featureType": "water",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#0e1626"
+			}
+		]
+	},
+	{
+		"featureType": "water",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{
+				"color": "#4e6d70"
+			}
+		]
 	}
 ];</code></pre>
         </article>
@@ -372,7 +291,7 @@ export const mapStyles = [
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Feb 12 2020 21:47:51 GMT+0100 (GMT+01:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Feb 14 2020 02:56:28 GMT+0100 (GMT+01:00)
 </footer>
 
 <script> prettyPrint(); </script>

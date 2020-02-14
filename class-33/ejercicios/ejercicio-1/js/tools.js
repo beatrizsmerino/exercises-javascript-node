@@ -1,5 +1,5 @@
 /**
- * @file
+ * @file Generic tools
  * @module tools
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)

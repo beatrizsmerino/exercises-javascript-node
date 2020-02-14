@@ -8,6 +8,6 @@
 
 ### Dependencies
 
-- [Leaflet](https://leafletjs.com/)
-- [OpenStreetMap](https://www.openstreetmap.org)
-- [Cartoo - Styles](https://carto.com/help/building-maps/basemap-list/)
+* [Leaflet](https://leafletjs.com/)
+* [OpenStreetMap](https://www.openstreetmap.org)
+* [Cartoo](https://carto.com/help/building-maps/basemap-list/)

@@ -9,14 +9,10 @@
 
 
 /**
- * @see {@link ./js/geolocation.js}
+ * @requires geolocation
+ * @requires googleMaps
  */
 import * as geolocation from './geolocation.js';
-
-
-/**
- * @see {@link ./js/google-maps.js}
- */
 import * as googleMaps from './google-maps.js';
 
 
@@ -27,14 +23,16 @@ import * as googleMaps from './google-maps.js';
  * @function functionAnonimAutoExecuted
  * @description Anonymous auto executed function
  * @see Used inside:
- * @see - 'google-maps.js' -> {@link googleMaps.insertTagScript},
- * @see - 'geolocation.js' -> {@link geolocation.set}
+ * @see - 'google-maps.js' -> {@link module:googleMaps.insertTagScript},
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 (function () {
-	googleMaps.insertTagScript();
+	if (googleMaps.insertTagScript()) {
+		geolocation.set();
 
-	/**
-	 * @event click
-	 */
-	document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
+		/**
+		 * @event click
+		 */
+		document.getElementById("geolocationButton").addEventListener("click", geolocation.set);
+	}
 })();

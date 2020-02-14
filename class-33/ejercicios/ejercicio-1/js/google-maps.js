@@ -1,5 +1,5 @@
 /**
- * @file
+ * @file Map with the 'Google Maps API'
  * @module googleMaps
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
@@ -10,15 +10,51 @@
 
 
 /**
- * @see {@link ./js/google-maps-config.js}
+ * @requires snazzymaps
  */
-import * as googleMaps from './google-maps-config.js';
+import * as snazzymaps from './snazzymaps.js';
+
+
+
 
 
 /**
- * @see {@link ./js/snazzymaps.js}
+ * @const module:googleMaps~API
+ * @description API root of 'Google Maps'
+ * @type {String}
+ * @see Used in:
+ * @see - 'google-maps.js' -> {@link module:googleMaps.insertTagScript}, {@link module:googleMaps.setImage}
  */
-import * as snazzymaps from './snazzymaps.js';
+export const API = "https://maps.googleapis.com/maps/api/";
+
+
+
+/**
+ * @const module:googleMaps~API_KEY_MAP
+ * @description API key of 'Google Maps'
+ * Instrucctions of use:
+ * 1. Go to https://console.cloud.google.com/apis/credentials/ and generate api key
+ * 2. Change the string "XXXXXXXXXXX" for your API KEY
+ * @type {String}
+ * @see Used in:
+ * @see - 'google-maps.js' -> {@link module:googleMaps.insertTagScript}, {@link module:googleMaps.setImage}
+ */
+export const API_KEY_MAP = "XXXXXXXXXXX";
+
+
+
+/**
+ * @const module:googleMaps~API_KEY_STREETVIEW
+ * @description Street View Static API key of 'Google Maps'
+ * Instrucctions of use:
+ * 1. Go to './google-maps.js', inside the function imageRoot() copy the url with the real data (without literal templates) without signature parameter
+ * 2. Go to https://console.cloud.google.com/google/maps-apis/apis/street-view-image-backend.googleapis.com/staticmap and generate signature of the url copied
+ * 3. Change the string "XXXXXXXXXXX" for your API KEY
+ * @type {String}
+ * @see Used in:
+ * @see - 'google-maps.js' -> {@link module:googleMaps.setImage}
+ */
+export const API_KEY_STREETVIEW = "XXXXXXXXXXX";
 
 
 
@@ -28,17 +64,22 @@ import * as snazzymaps from './snazzymaps.js';
  * @function module:googleMaps.insertTagScript
  * @description Insert the tag html 'script' with the root of the 'API Google Maps'.
  * @see Used inside:
- * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps~API}, {@link module:googleMaps~API_KEY_MAP}
  * @see Used in:
  * @see - 'srcript.js' -> {@link functionAnonimAutoExecuted}
  */
 export function insertTagScript() {
 	const scriptElem = document.createElement("script");
-	scriptElem.setAttribute("src", `${googleMaps.API}js?key=${googleMaps.API_KEY_MAP}`);
+	scriptElem.setAttribute("src", `${API}js?key=${API_KEY_MAP}`);
 	scriptElem.setAttribute("async", "");
 	scriptElem.setAttribute("defer", "");
 
-	document.getElementsByTagName("body")[0].appendChild(scriptElem);
+	const tag = document.getElementsByTagName("body")[0].appendChild(scriptElem);
+	if (tag) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 
@@ -52,8 +93,8 @@ export function insertTagScript() {
  * @param {Object} coords.latitude - Coordinates: latitude
  * @param {Object} coords.longitude - Coordinates: longitude
  * @see Used inside:
- * @see - 'google-maps.js' -> {@link setMap.initMap}, {@link setMap.addMarker}, {@link setMap.addInfoMarker}, {@link setMap.toggleBounceMarker}
- * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
+ * @see - 'google-maps.js' -> {@link module:initMap.initMap}, {@link module:setMap~addMarker}, {@link module:setMap~addInfoMarker}, {@link module:setMap~toggleBounceMarker}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps~API}, {@link module:googleMaps~API_KEY_MAP}
  * @see - 'snazzymaps.js' -> {@link module:snazzymaps.mapStyles}
  * @see Used in:
  * @see - 'geolocation.js' -> {@link module:geolocation.set}
@@ -98,10 +139,12 @@ export function setMap(coords) {
 	* @function setMap.addMarker
 	* @description Create a marker
 	* @param {String} contentMarker - Text of the marker
-	* @param {Object} location - Coordinates
+	* @param {Object} coords - Coordinates
+	* @param {Object} coords.latitude - Coordinates: latitude
+ 	* @param {Object} coords.longitude - Coordinates: longitude
 	* @param {Object} map - Map
 	*/
-	function addMarker(contentMarker = null, location, map) {
+	function addMarker(contentMarker = null, coords, map) {
 		const iconMarker = {
 			url: './img/location.png', // url
 			scaledSize: new google.maps.Size(50, 50), // scaled size
@@ -111,7 +154,7 @@ export function setMap(coords) {
 
 		const marker = new google.maps.Marker({
 			map,
-			position: location,
+			position: coords,
 			icon: iconMarker,
 			title: "My Geolocation",
 			draggable: true,
@@ -151,7 +194,7 @@ export function setMap(coords) {
 	* @description Add animation 'bounce' to the marker
 	* @param {Object} marker - Marker of the map
 	* @see Used in:
-	* @see - {@link toggleBounceMarker}
+	* @see - {@link module:toggleBounceMarker}
 	*/
 	function toggleBounceMarker(marker) {
 		if (marker.getAnimation() !== null) {
@@ -179,7 +222,7 @@ export function setMap(coords) {
  * @param {Number} imageRadius - Image search radius
  * @param {String} imageSource - Image indoord or outdoor
  * @see Used inside:
- * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}, {@link module:googleMaps.API_KEY_STREETVIEW}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps~API}, {@link module:googleMaps~API_KEY_MAP}, {@link module:googleMaps~API_KEY_STREETVIEW}
  * @see Used in:
  * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
@@ -189,10 +232,10 @@ export function setImage(coords, imageSize, imageHeading, imageFov, imagePitch, 
 
 	// Settings values: https://developers.google.com/maps/documentation/streetview/intro
 	const settings = {
-		key: googleMaps.API_KEY_MAP, // (required) you need an API key
+		key: API_KEY_MAP, // (required) you need an API key
 		location: `${coords.latitude},${coords.longitude}`, // (required) coords of latitude and longitude
 		size: imageSize || "400x400", // (required) size image, specified in pixels, of the width and height
-		signature: googleMaps.API_KEY_STREETVIEW, // (optional) digital signature used to verify that any site generating requests using your API key is authorized to do so.
+		signature: API_KEY_STREETVIEW, // (optional) digital signature used to verify that any site generating requests using your API key is authorized to do so.
 		heading: imageHeading || null, // (optional) compass heading, specified in degrees, of the camera | (by default: location) | (values acepted: 0-360) (North: 0 and 360, East: 90, West: 270, South: 180)
 		fov: imageFov || 90, // (optional) horizontal field, specified in degrees, of view of the image | (by default: 90) | (max value acepted: 120)
 		pitch: imagePitch || 0, // (optional) vertical field, specified in degrees, of the camera relative to the Street View vehicle. | (by default: 0) | (Up: 90, Down: -90)
@@ -201,7 +244,7 @@ export function setImage(coords, imageSize, imageHeading, imageFov, imagePitch, 
 	};
 
 	// I removed this parametter &signature=${settings.signature} do not work fot me
-	const imageRoot = `${googleMaps.API}streetview?key=${settings.key}&location=${settings.location}&size=${settings.size}&heading=${settings.heading}&fov=${settings.fov}&pitch=${settings.pitch}&radius=${settings.radius}&source=${settings.source}`;
+	const imageRoot = `${API}streetview?key=${settings.key}&location=${settings.location}&size=${settings.size}&heading=${settings.heading}&fov=${settings.fov}&pitch=${settings.pitch}&radius=${settings.radius}&source=${settings.source}`;
 	// console.log(imageRoot);
 	image.src = imageRoot;
 

@@ -1,5 +1,5 @@
 /**
- * @file
+ * @file Map styles with 'Snazzymaps" for 'Google Maps API'
  * @module snazzymaps
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)

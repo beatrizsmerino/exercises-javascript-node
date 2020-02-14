@@ -1,5 +1,5 @@
 /**
- * @file
+ * @file Map with the 'Google Maps API'
  * @module googleMaps
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
@@ -10,15 +10,36 @@
 
 
 /**
- * @see {@link ./js/google-maps-config.js}
+ * @requires snazzymaps
  */
-import * as googleMaps from './google-maps-config.js';
+import * as snazzymaps from './snazzymaps.js';
+
+
+
 
 
 /**
- * @see {@link ./js/snazzymaps.js}
+ * @const module:googleMaps~API
+ * @description API root of 'Google Maps'
+ * @type {String}
+ * @see Used in:
+ * @see - 'google-maps.js' -> {@link module:googleMaps.insertTagScript}
  */
-import * as snazzymaps from './snazzymaps.js';
+export const API = "https://maps.googleapis.com/maps/api/";
+
+
+
+/**
+ * @const module:googleMaps~API_KEY_MAP
+ * @description API key of 'Google Maps'
+ * Instrucctions of use:
+ * 1. Go to https://console.cloud.google.com/apis/credentials/ and generate api key
+ * 2. Change the string "XXXXXXXXXXX" for your API KEY
+ * @type {String}
+ * @see Used in:
+ * @see - 'google-maps.js' -> {@link module:googleMaps.insertTagScript}
+ */
+export const API_KEY_MAP = "XXXXXXXXXXX";
 
 
 
@@ -28,17 +49,22 @@ import * as snazzymaps from './snazzymaps.js';
  * @function module:googleMaps.insertTagScript
  * @description Insert the tag html 'script' with the root of the 'API Google Maps'.
  * @see Used inside:
- * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps~API}, {@link module:googleMaps~API_KEY_MAP}
  * @see Used in:
  * @see - 'srcript.js' -> {@link functionAnonimAutoExecuted}
  */
 export function insertTagScript() {
 	const scriptElem = document.createElement("script");
-	scriptElem.setAttribute("src", `${googleMaps.API}js?key=${googleMaps.API_KEY_MAP}`);
+	scriptElem.setAttribute("src", `${API}js?key=${API_KEY_MAP}`);
 	scriptElem.setAttribute("async", "");
 	scriptElem.setAttribute("defer", "");
 
-	document.getElementsByTagName("body")[0].appendChild(scriptElem);
+	const tag = document.getElementsByTagName("body")[0].appendChild(scriptElem);
+	if (tag) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 
@@ -52,8 +78,8 @@ export function insertTagScript() {
  * @param {Object} coords.latitude - Coordinates: latitude
  * @param {Object} coords.longitude - Coordinates: longitude
  * @see Used inside:
- * @see - 'google-maps.js' -> {@link setMap.initMap}, {@link setMap.addMarker}, {@link setMap.addInfoMarker}, {@link setMap.toggleBounceMarker}
- * @see - 'google-maps-config.js' -> {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
+ * @see - 'google-maps.js' -> {@link module:setMap~initMap}, {@link module:setMap~addMarker}, {@link module:setMap~addInfoMarker}, {@link module:setMap~toggleBounceMarker}
+ * @see - 'google-maps-config.js' -> {@link module:googleMaps~API}, {@link module:googleMaps~API_KEY_MAP}
  * @see - 'snazzymaps.js' -> {@link module:snazzymaps.mapStyles}
  * @see Used in:
  * @see - 'geolocation.js' -> {@link module:geolocation.set}
@@ -63,7 +89,7 @@ export function setMap(coords) {
 	mapDom.innerHTML = "";
 
 	/**
-	 * @function setMap.initMap
+	 * @function setMap~initMap
 	 * @description Init map with coordinates and a marker
 	 * @param {Object} jsonStyles - Styles for the map
 	 */
@@ -75,7 +101,7 @@ export function setMap(coords) {
 
 		const map = new google.maps.Map(mapDom, {
 			center: location,
-			zoom: 16,
+			zoom: 12,
 			styles: jsonStyles
 		});
 
@@ -95,7 +121,7 @@ export function setMap(coords) {
 	}
 
 	/**
-	* @function setMap.addMarker
+	* @function setMap~addMarker
 	* @description Create a marker
 	* @param {String} contentMarker - Text of the marker
 	* @param {Object} location - Coordinates
@@ -127,7 +153,7 @@ export function setMap(coords) {
 	}
 
 	/**
-	* @function setMap.addInfoMarker
+	* @function setMap~addInfoMarker
 	* @description Add content to the maker
 	* @param {Object} marker - Marker of the map
 	* @param {String} contentMarker - Text of the marker
@@ -147,11 +173,11 @@ export function setMap(coords) {
 	}
 
 	/**
-	* @function setMap.toggleBounceMarker
+	* @function setMap~toggleBounceMarker
 	* @description Add animation 'bounce' to the marker
 	* @param {Object} marker - Marker of the map
 	* @see Used in:
-	* @see - {@link toggleBounceMarker}
+	* @see - {@link module:toggleBounceMarker}
 	*/
 	function toggleBounceMarker(marker) {
 		if (marker.getAnimation() !== null) {

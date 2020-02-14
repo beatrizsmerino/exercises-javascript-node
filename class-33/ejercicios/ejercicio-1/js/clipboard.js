@@ -1,5 +1,5 @@
 /**
- * @file 
+ * @file Copy in the clipboard
  * @module clipboard
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
@@ -15,7 +15,7 @@
  * @param {String} text - Text of the 'clipboard' component
  * @return {String}
  * @see Used in:
- * @see - 'geolocation.js' -> {@link geolocation.printCoords}
+ * @see - 'geolocation.js' -> {@link module:geolocation~printCoords}
  */
 export function create(text) {
 	// console.log(text.length);
@@ -45,12 +45,30 @@ export function create(text) {
 
 
 
+
+
 /**
- * @function clipboard.copy
+ * @function module:clipboard.afterCreate
+ * @description Callback function that runs after creating the 'clipboard' component
+ * @see Used inside:
+ * @see - 'clipboard.js' -> {@link module:clipboard~addEventClick}
+ * @see Used in:
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
+ */
+export function afterCreate() {
+	addEventClick();
+}
+
+
+
+
+
+/**
+ * @function module:clipboard~copy
  * @description Copy the text of an element on the clipboard.
  * @param {Object} inputField - This element must be an 'input' or 'textarea' html tag.
  * @see Used in:
- * @see - 'clipboard.js' -> {@link clipboard.afterCreate}
+ * @see - 'clipboard.js' -> {@link module:clipboard.afterCreate}
  */
 function copy(inputField) {
 	const copyText = inputField;
@@ -73,13 +91,15 @@ function copy(inputField) {
 
 
 
+
+
 /**
- * @function clipboard.addEventClick
+ * @function module:clipboard~addEventClick
  * @description Add a click event for the 'clipboard' component button.
  * @see Used inside:
- * @see - 'clipboard.js' -> {@link clipboard.copy}
+ * @see - 'clipboard.js' -> {@link module:clipboard~copy}
  * @see Used in:
- * @see - 'clipboard.js' -> {@link clipboard.afterCreate}
+ * @see - 'clipboard.js' -> {@link module:clipboard.afterCreate}
  */
 function addEventClick() {
 	const buttonsDom = document.getElementsByClassName("clipboard__button");
@@ -99,18 +119,4 @@ function addEventClick() {
 			copy(fieldDom);
 		});
 	});
-}
-
-
-
-/**
- * @function module:clipboard.afterCreate
- * @description Callback function that runs after creating the 'clipboard' component
- * @see Used inside:
- * @see - 'clipboard.js' -> {@link clipboard.addEventClick}
- * @see Used in:
- * @see - 'geolocation.js' -> {@link module:geolocation.set}
- */
-export function afterCreate() {
-	addEventClick();
 }

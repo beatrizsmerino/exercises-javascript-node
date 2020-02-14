@@ -8,7 +8,9 @@
 
 ### Dependencies
 
-- [Google Maps - Documention](https://developers.google.com/maps/documentation?hl=es)
-- [Google Maps - Credentials](https://console.cloud.google.com/apis/credentials/)
-- [Google Maps - Steet View](https://developers.google.com/maps/documentation/streetview/intro)
-- [Snazzymaps - Json styles](https://snazzymaps.com/)
+* [Google Maps](https://developers.google.com/maps/documentation?hl=es)
+  * [Credentials](https://console.cloud.google.com/apis/credentials/)
+  * [Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial?hl=es)
+  * [Street View Static API](https://developers.google.com/maps/documentation/streetview/intro)
+
+* [Snazzymaps](https://snazzymaps.com/)

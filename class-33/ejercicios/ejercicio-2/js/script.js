@@ -1,5 +1,5 @@
 /**
- * @file Main file.
+ * @file Main file
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -9,7 +9,7 @@
 
 
 /**
-* @see {@link ./js/geolocation.js}
+* @requires geolocation
 */
 import * as geolocation from './geolocation.js';
 
@@ -21,11 +21,11 @@ import * as geolocation from './geolocation.js';
  * @function functionAnonimAutoExecuted
  * @description Anonymous auto executed function
  * @see Used inside:
- * @see - 'geolocation.js' -> {@link geolocation.set}
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 (function () {
 	/**
 	 * @event click
 	 */
-	document.getElementById("getGeolocation").addEventListener("click", geolocation.set);
+	document.getElementById("geolocationButton").addEventListener("click", geolocation.set);
 })();

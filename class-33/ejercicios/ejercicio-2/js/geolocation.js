@@ -1,5 +1,5 @@
 /**
- * @file
+ * @file Geolocation with the 'HTML5 API'
  * @module geolocation
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
@@ -10,20 +10,12 @@
 
 
 /**
- * @see {@link ./js/clipboard.js}
+ * @requires clipboard
+ * @requires loader
+ * @requires leaflet
  */
 import * as clipboard from './clipboard.js';
-
-
-/**
- * @see {@link ./js/loader.js}
- */
 import * as loader from './loader.js';
-
-
-/**
- * @see {@link ./js/leaflet.js}
- */
 import * as leaflet from './leaflet.js';
 
 
@@ -31,7 +23,7 @@ import * as leaflet from './leaflet.js';
 
 
 /**
- * @function geolocation.printCoords
+ * @function module:geolocation~printCoords
  * @description Insert the coordinates in a 'clipboard' component and this in the html.
  * @param {Object} coords - Coordinates
  * @param {Object} coords.latitude - Coordinates: latitude
@@ -53,11 +45,11 @@ function printCoords(coords, callback) {
 
 
 /**
- * @function geolocation.get
+ * @function module:geolocation~get
  * @description Get your geolocation in this moment with the 'API HTML5'.
  * @return {Promise}
  * @see Used in:
- * @see - 'geolocation.js' -> {@link geolocation.set}
+ * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 function get() {
 	if ("geolocation" in navigator) {
@@ -79,7 +71,7 @@ function get() {
  * @function module:geolocation.set
  * @description If find your geolocation, print this coordinates and show a map with the 'API Leaflet'.
  * @see Used inside:
- * @see - 'geolocation.js' -> {@link geolocation.get}, {@link geolocation.printCoords}
+ * @see - 'geolocation.js' -> {@link module:geolocation~get}, {@link module:geolocation~printCoords}
  * @see - 'loader.js' -> {@link module:loader.add}, {@link module:loader.remove}
  * @see - 'leaflet.js' -> {@link module:leaflet.initMap}
  * @see Used in:
@@ -99,7 +91,7 @@ export function set() {
 
 			loader.remove();
 			printCoords(coords, clipboard.afterCreate);
-			leaflet.initMap(coords);
+			leaflet.setMap(coords);
 		})
 		.catch(
 			error => {

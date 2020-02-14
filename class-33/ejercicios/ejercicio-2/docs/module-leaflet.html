@@ -29,6 +29,8 @@
 <header>
     
         
+            
+        
     
 </header>
 
@@ -36,6 +38,94 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>Map with the 'Leaflet API'</p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:beatrizsmerino@gmail.com">Beatriz Sopeña Merino</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(2020)</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="leaflet.js.html">leaflet.js</a>, <a href="leaflet.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
     
@@ -64,7 +154,7 @@
     
 
     
-    <h4 class="name" id=".initMap"><span class="type-signature">(static) </span>initMap<span class="signature">(location)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".setMap"><span class="type-signature">(static) </span>setMap<span class="signature">(coords)</span><span class="type-signature"></span></h4>
     
 
     
@@ -108,7 +198,7 @@
 
         <tr>
             
-                <td class="name"><code>location</code></td>
+                <td class="name"><code>coords</code></td>
             
 
             <td class="type">
@@ -124,7 +214,79 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Coordinates</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>latitude</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Coordinates: latitude</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>longitude</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Coordinates: longitude</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -177,11 +339,11 @@
         <ul>
             <li>Used inside:</li>
         
-            <li>- 'leaflet.js' -> leaflet.createMap, leaflet.createMarker</li>
+            <li>- 'leaflet.js' -> <a href="module-leaflet.html#~addMap">module:leaflet~addMap</a>, <a href="module-leaflet.html#~addMarker">module:leaflet~addMarker</a></li>
         
             <li>Used in:</li>
         
-            <li>- 'geolocation.js' -> <a href="module-leaflet.html#.initMap">module:leaflet.initMap</a></li>
+            <li>- 'geolocation.js' -> module:geolocation.setMap</li>
         </ul>
     </dd>
     
@@ -214,7 +376,7 @@
     
 
     
-    <h4 class="name" id="~internal:createMap"><span class="type-signature">(inner) </span>internal:createMap<span class="signature">(map, textAttribution)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~addMap"><span class="type-signature">(inner) </span>addMap<span class="signature">(map, style, textAttribution)</span><span class="type-signature"></span></h4>
     
 
     
@@ -284,7 +446,30 @@ Examples</p>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Map</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>style</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>String with the name styles</p></td>
         </tr>
 
     
@@ -307,7 +492,7 @@ Examples</p>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Text of copyright</p></td>
         </tr>
 
     
@@ -348,12 +533,21 @@ Examples</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="leaflet.js.html">leaflet.js</a>, <a href="leaflet.js.html#line50">line 50</a>
+        <a href="leaflet.js.html">leaflet.js</a>, <a href="leaflet.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Used in:</li>
+        
+            <li>- 'leaflet.js' -> <a href="module-leaflet.html#.setMap">module:leaflet.setMap</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -384,7 +578,7 @@ Examples</p>
     
 
     
-    <h4 class="name" id="~internal:createMarker"><span class="type-signature">(inner) </span>internal:createMarker<span class="signature">(map, location, infoMarker)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~addMarker"><span class="type-signature">(inner) </span>addMarker<span class="signature">(map, location, infoMarker)</span><span class="type-signature"></span></h4>
     
 
     
@@ -444,7 +638,7 @@ Examples</p>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Map</p></td>
         </tr>
 
     
@@ -467,7 +661,79 @@ Examples</p>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Coordinates</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>latitude</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Coordinates: latitude</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>longitude</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Coordinates: longitude</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -490,7 +756,7 @@ Examples</p>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Text of Marker</p></td>
         </tr>
 
     
@@ -531,12 +797,21 @@ Examples</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="leaflet.js.html">leaflet.js</a>, <a href="leaflet.js.html#line72">line 72</a>
+        <a href="leaflet.js.html">leaflet.js</a>, <a href="leaflet.js.html#line78">line 78</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Used in:</li>
+        
+            <li>- 'leaflet.js' -> <a href="module-leaflet.html#.setMap">module:leaflet.setMap</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -583,7 +858,7 @@ Examples</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Feb 12 2020 21:47:47 GMT+0100 (GMT+01:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Feb 14 2020 02:56:02 GMT+0100 (GMT+01:00)
 </footer>
 
 <script> prettyPrint(); </script>
