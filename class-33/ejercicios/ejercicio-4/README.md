@@ -17,4 +17,4 @@
   * [Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial?hl=es)
   * [Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro)
 
-* [Snazzymaps](https://snazzymaps.com/)
+* [Map style with google](https://mapstyle.withgoogle.com/)

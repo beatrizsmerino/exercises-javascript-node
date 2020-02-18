@@ -165,8 +165,7 @@ function addMarker(contentMarker = null, coords, map) {
 		position: coords,
 		icon: iconMarker,
 		title: "My Geolocation",
-		draggable: true,
-		animation: google.maps.Animation.DROP,
+		animation: google.maps.Animation.DROP
 	});
 
 	if (contentMarker !== null) {

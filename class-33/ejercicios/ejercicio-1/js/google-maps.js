@@ -157,7 +157,6 @@ export function setMap(coords) {
 			position: coords,
 			icon: iconMarker,
 			title: "My Geolocation",
-			draggable: true,
 			animation: google.maps.Animation.DROP,
 		});
 
