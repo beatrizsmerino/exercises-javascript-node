@@ -4,11 +4,11 @@
 
 [Documentation JSDOCS](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/class-33/class-33/ejercicios/ejercicio-4/docs/index.html)
 
-![Use 'Leaflet API' for geolocate the user](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/class-33/class-33/ejercicios/ejercicio-4/documentation/images/screenshot-2020-02-13-18.55.51.png?raw=true)
+![Use 'Find your city on the map](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/class-33/class-33/ejercicios/ejercicio-4/documentation/images/screenshot-2020-02-13-18.55.51.png?raw=true)
 
-![Use 'Leaflet API' for geolocate the user](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/class-33/class-33/ejercicios/ejercicio-4/documentation/images/screenshot-2020-02-13-18.56.41.png?raw=true)
+![Use 'Find your city on the map](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/class-33/class-33/ejercicios/ejercicio-4/documentation/images/screenshot-2020-02-13-18.56.41.png?raw=true)
 
-![Use 'Leaflet API' for geolocate the user](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/class-33/class-33/ejercicios/ejercicio-4/documentation/images/screenshot-2020-02-13-18.57.14.png?raw=true)
+![Use 'Find your city on the map](https://github.com/beatrizsmerino/exercises-javascript-node/blob/feature/class-33/class-33/ejercicios/ejercicio-4/documentation/images/screenshot-2020-02-13-18.57.14.png?raw=true)
 
 ### Dependencies
 
