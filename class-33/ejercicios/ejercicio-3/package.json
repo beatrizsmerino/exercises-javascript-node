@@ -1,7 +1,7 @@
 {
-	"name": "geolocation",
+	"name": "cluster-google-maps",
 	"version": "1.0.0",
-	"description": "Geolocation with Google Map API.",
+	"description": "Use Transport vehicles of 'Los Angeles' (trains and buses) on the map.",
 	"main": "index.js",
 	"scripts": {
 		"docs": "jsdoc -c jsdoc.json"
