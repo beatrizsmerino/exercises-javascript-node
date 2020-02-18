@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: loader.js</title>
+    <title>JSDoc: Source: data-api.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: loader.js</h1>
+    <h1 class="page-title">Source: data-api.js</h1>
 
     
 
@@ -27,8 +27,8 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Loader animation
- * @module loader
+ * @file Get data API metro of 'Los Angeles'
+ * @module apiMetro
  * @author Beatriz Sopeña Merino &lt;beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -36,36 +36,27 @@
 
 
 
-
 /**
- * @function module:loader.add
- * @description Add loading animation.
- * @see Used in:
- * @see - 
+ * @const module:apiMetro.urlAPI
  */
-export function add() {
-	let loader = document.getElementById("loader");
-	if (!loader) {
-		let loader = document.createElement("div");
-		loader.setAttribute("id", "loader");
-		loader.setAttribute("class", "loader");
-		document.body.appendChild(loader);
-	}
-}
+export const urlAPI = "http://api.metro.net/agencies/lametro/vehicles/";
+
+
 
 
 
 /**
- * @function module:loader.remove
- * @description Remove loading animation.
+ * @function module:apiMetro.getData
+ * @description Get data api
+ * @param {String} url - Root of the API
+ * @return {Promise}
  * @see Used in:
- * @see - 
+ * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
-export function remove() {
-	let loader = document.getElementById("loader");
-	if (loader) {
-		document.body.removeChild(loader);
-	}
+export const getData = async (url) => {
+	const response = await fetch(url);
+	// console.log(`Status: ${response.status === 200 ? "OK" : "NOT OK"}`);
+	return response.json();
 }</code></pre>
         </article>
     </section>

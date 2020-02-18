@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: loader</title>
+    <title>JSDoc: Module: apiMetro</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: loader</h1>
+    <h1 class="page-title">Module: apiMetro</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Loader animation</p></div>
+            <div class="description"><p>Get data API metro of 'Los Angeles'</p></div>
         
 
         
@@ -97,7 +97,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="loader.js.html">loader.js</a>, <a href="loader.js.html#line1">line 1</a>
+        <a href="data-api.js.html">data-api.js</a>, <a href="data-api.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -144,6 +144,68 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".urlAPI"><span class="type-signature">(static, constant) </span>urlAPI<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="data-api.js.html">data-api.js</a>, <a href="data-api.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -154,7 +216,7 @@
     
 
     
-    <h4 class="name" id=".add"><span class="type-signature">(static) </span>add<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getData"><span class="type-signature">(static) </span>getData<span class="signature">(url)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -162,7 +224,7 @@
 
 
 <div class="description">
-    <p>Add loading animation.</p>
+    <p>Get data api</p>
 </div>
 
 
@@ -173,101 +235,53 @@
 
 
 
-
-
-
-
-<dl class="details">
-
+    <h5>Parameters:</h5>
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="loader.js.html">loader.js</a>, <a href="loader.js.html#line12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li>Used in:</li>
+<table class="params">
+    <thead>
+    <tr>
         
-            <li>-</li>
-        </ul>
-    </dd>
-    
+        <th>Name</th>
+        
 
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <th>Type</th>
 
         
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
             
 
-    
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Root of the API</p></td>
+        </tr>
 
     
-    <h4 class="name" id=".remove"><span class="type-signature">(static) </span>remove<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Remove loading animation.</p>
-</div>
-
-
-
-
-
-
-
+    </tbody>
+</table>
 
 
 
@@ -303,7 +317,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="loader.js.html">loader.js</a>, <a href="loader.js.html#line30">line 30</a>
+        <a href="data-api.js.html">data-api.js</a>, <a href="data-api.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -315,7 +329,7 @@
         <ul>
             <li>Used in:</li>
         
-            <li>-</li>
+            <li>- 'script.js' -> <a href="global.html#functionAnonimAutoExecuted">functionAnonimAutoExecuted</a></li>
         </ul>
     </dd>
     
@@ -337,6 +351,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 

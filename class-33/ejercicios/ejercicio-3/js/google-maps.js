@@ -103,7 +103,10 @@ export function createMap(coords) {
  * @param {Object} dataAPI - Object with the coordinates API and more...
  * @param {Object} mapDom - DOM Element where draw the map
  * @param {Object} jsonStyles - Styles for the map
- * @see - 'google-maps.js' -> {@link module:googleMaps~addMarker}
+ * @see Used inside:
+ * @see - 'google-maps.js' -> {@link module:googleMaps~addMultipleMarkers}, {@link module:googleMaps~addCluster}
+ * @see Used in:
+ * @see - 'google-maps.js' ->{@link module:googleMaps.createMap}
  */
 function initMap(dataAPI, mapDom, jsonStyles) {
 	const listCoords = dataAPI.items;
@@ -116,10 +119,51 @@ function initMap(dataAPI, mapDom, jsonStyles) {
 
 	const map = new google.maps.Map(mapDom, {
 		center: location,
-		zoom: 10,
+		zoom: 9,
+		minZoom: 5,
 		styles: jsonStyles
 	});
 
+
+	const markers = addMultipleMarkers(listCoords, map)
+	// console.log(markers);
+
+	addCluster(markers, map);
+}
+
+
+
+/**
+ * @function module:googleMaps~addCluster
+ * @description Add a marker clusterer to manage the markers.
+ * @param {Object} markers 
+ * @param {Object} map - DOM Element where draw the map
+ * @see Used in:
+ * @see - 'google-maps.js' ->{@link module:googleMaps~initMap}
+ */
+function addCluster(markers, map) {
+	const markerCluster = new MarkerClusterer(map, markers, {
+		maxZoom: 18,
+		imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+	});
+}
+
+
+
+
+
+/**
+ * @function module:googleMaps~addMultipleMarkers
+ * @description Add multiple markers to 
+ * @param {*} listCoords 
+ * @param {*} map 
+ * @return {Object}
+ * @see Used inside:
+ * @see - 'google-maps.js' ->{@link module:googleMaps~addMarker}
+ * @see Used in:
+ * @see - 'google-maps.js' ->{@link module:googleMaps~initMap}
+ */
+function addMultipleMarkers(listCoords, map) {
 	// Add all markers
 	const markers = listCoords.map((coord, index) => {
 		const locationMarker = {
@@ -130,10 +174,10 @@ function initMap(dataAPI, mapDom, jsonStyles) {
 
 		const titleMarker = `#${index + 1} - ${coord.id}`;
 
-		addMarker(locationMarker, titleMarker, map);
+		return addMarker(locationMarker, titleMarker, map);
 	});
 
-	});
+	return markers;
 }
 
 
@@ -142,10 +186,11 @@ function initMap(dataAPI, mapDom, jsonStyles) {
 
 /**
 * @function module:googleMaps~addMarker
-* @description Create a marker
+* @description Create and and marker
 * @param {Object} coords - Coordinates
 * @param {String} title - Title of the marker
 * @param {Object} map - Map
+* @return {Object}
 * @see Used inside:
 * @see - 'google-maps.js' -> {@link module:googleMaps~addPopUpMarker}
 * @see Used in:
@@ -162,8 +207,7 @@ function addMarker(coords, title, map) {
 	const marker = new google.maps.Marker({
 		map,
 		position: coords,
-		icon: iconMarker,
-		draggable: true,
+		icon: iconMarker
 	});
 
 	const contentMarker = `
@@ -180,6 +224,7 @@ function addMarker(coords, title, map) {
 		`;
 
 	addPopUpMarker(marker, contentMarker, map);
+	return marker;
 }
 
 
