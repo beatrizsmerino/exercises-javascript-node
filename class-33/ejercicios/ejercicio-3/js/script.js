@@ -9,10 +9,10 @@
 
 
 /**
- * @requires geolocation
+ * @requires api
  * @requires googleMaps
  */
-import * as geolocation from './geolocation.js';
+import * as api from './data-api.js';
 import * as googleMaps from './google-maps.js';
 
 
@@ -23,16 +23,16 @@ import * as googleMaps from './google-maps.js';
  * @function functionAnonimAutoExecuted
  * @description Anonymous auto executed function
  * @see Used inside:
- * @see - 'google-maps.js' -> {@link module:googleMaps.insertTagScript},
- * @see - 'geolocation.js' -> {@link module:geolocation.set}
+ * @see - 'google-maps.js' -> {@link module:googleMaps.insertTagScript}, {@link module:googleMaps.API}, {@link module:googleMaps.API_KEY_MAP}
  */
 (function () {
-	if (googleMaps.insertTagScript()) {
-		geolocation.set();
-
-		/**
-		 * @event click
-		 */
-		document.getElementById("geolocationButton").addEventListener("click", geolocation.set);
+	if (
+		googleMaps.insertTagScript(`${googleMaps.API}js?key=${googleMaps.API_KEY_MAP}`)
+	) {
+		api.getData("http://api.metro.net/agencies/lametro/vehicles/")
+			.then(result => {
+				// console.log(result);
+				googleMaps.createMap(result);
+			});
 	}
 })();
