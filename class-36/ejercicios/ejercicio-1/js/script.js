@@ -24,5 +24,5 @@ import * as geolocation from './geolocation.js';
  * @see - 'geolocation.js' -> {@link module:geolocation.set}
  */
 (function () {
-	geolocation.set();
+    geolocation.set();
 })();
