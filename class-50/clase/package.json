@@ -1,0 +1,17 @@
+{
+  "name": "proyecto-1",
+  "version": "1.0.0",
+  "description": "Mi primer proyecto con node y npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm -v",
+    "start": "node -v",
+    "hola": "echo 'Hola mundo!'",
+    "serve": "node server.js"
+  },
+  "author": "Beatriz Sopeña Merino <beatrizsmerino@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
