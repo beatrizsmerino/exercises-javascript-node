@@ -51,72 +51,62 @@ import * as graphicChart from './graphic-chart.js';
 					openweather.setWidget({ widgetType: 5 }, "España", ".page__content");
 					openweather.setWidget({ widgetType: 2 }, coords, ".page__content");
 
-                    /*
-                    'Open weather API' -> weather forecast available for paid subscriptions.
-					openweather.getDataForecast({ by: "cityName", data: "Madrid" }, 10)
-						.then(response => {
-							loader.remove();
-							graphicChart.set(response);
+					return airemad.getStation();
+				})
+				.then(stationResponse => {
+					const dataGraphic = stationResponse.map(station => {
+						return {
+							id: station.id,
+							name: station.nombre_estacion
+						};
+					});
+
+					const promises = dataGraphic.map(station => {
+						return airemad.getWeatherById(station.id)
+							.then(weatherResponse => {
+								return weatherResponse;
+							});
+					});
+
+					return Promise.all(promises)
+						.then(stationsWeather => ({ dataGraphic, stationsWeather }))
+				})
+				.then(({ dataGraphic, stationsWeather }) => {
+
+					const listWeather = stationsWeather.map(stationsWeatherItem => {
+						// console.log(stationsWeatherItem);
+
+						let dataGraphicWeather = {
+							time: [],
+							temp_med: [],
+							temp_max: [],
+							temp_min: [],
+							temp_hum: []
+						};
+
+						stationsWeatherItem.list.map(forecastItem => {
+							dataGraphicWeather.time.push(forecastItem.dt_txt);
+							dataGraphicWeather.temp_med.push(forecastItem.main.temp);
+							dataGraphicWeather.temp_max.push(forecastItem.main.temp_max);
+							dataGraphicWeather.temp_min.push(forecastItem.main.temp_min);
+							dataGraphicWeather.temp_hum.push(forecastItem.main.humidity);
 						});
-                    */
+
+						return dataGraphicWeather;
+					});
+
+					listWeather.map(item => dataGraphic.map(dataGraphicStation => {
+						dataGraphicStation.weather = item;
+						return dataGraphicStation;
+					}));
+
+					return dataGraphic;
+				})
+				.then(dataGraphic => {
 					loader.remove();
-
-
-					airemad.getStation()
-						.then(stationResponse => {
-							// console.log(response);
-
-							let dataGraphic = [];
-							stationResponse.map(station => {
-								dataGraphic.push({
-									id: station.id,
-									name: station.nombre_estacion
-								});
-							});
-							// console.log(dataGraphic);
-
-							dataGraphic.map(station => {
-								let dataGraphicWeatherObj = [];
-								let dataGraphicWeatherArr = {
-									time: [],
-									temp_med: [],
-									temp_max: [],
-									temp_min: [],
-									temp_hum: []
-								};
-
-								airemad.getWeatherById(station.id)
-									.then(weatherResponse => {
-										// console.log(weatherResponse);
-
-										weatherResponse.list.map(weatherItem => {
-											dataGraphicWeatherObj.push({
-												time: weatherItem.dt_txt,
-												temp_med: weatherItem.main.temp,
-												temp_max: weatherItem.main.temp_max,
-												temp_min: weatherItem.main.temp_min,
-												humedity: weatherItem.main.humidity
-											});
-
-											dataGraphicWeatherArr.time.push(weatherItem.dt_txt);
-											dataGraphicWeatherArr.temp_med.push(weatherItem.main.temp);
-											dataGraphicWeatherArr.temp_max.push(weatherItem.main.temp_max);
-											dataGraphicWeatherArr.temp_min.push(weatherItem.main.temp_min);
-											dataGraphicWeatherArr.temp_hum.push(weatherItem.main.humidity);
-										});
-									});
-
-								station.weatherObj = dataGraphicWeatherObj;
-								station.weatherArr = dataGraphicWeatherArr;
-							});
-
-							console.group("%cData graphic", "padding: 0.2rem;background-color:#ededed;color:teal;");
-							console.info(dataGraphic);
-							console.groupEnd();
-
-							graphicChart.set(dataGraphic, ".page__content");
-						});
+					graphicChart.set(dataGraphic, ".page__content");
 				});
+
 		})
 		.catch(
 			error => {

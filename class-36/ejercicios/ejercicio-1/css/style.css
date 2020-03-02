@@ -3,7 +3,7 @@
 	--color-brand-1: #52f2db;
 	--color-brand-2: #63bfa5;
 	--color-brand-3: #518c7c;
-	--color-light: #ededed;
+	--color-light: #f2f2f2;
 	--color-gray: #b8b8b8;
 	--color-dark: #262626;
 	--color-black: #0d0d0d;
@@ -102,12 +102,26 @@
 }
 
 /************* GRAPHIC CHARTJS *************/
-.chartjs-graphics {
+.chart__list {
+	margin: 5rem 0;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
-.mixed-chart {
-	width: 50%;
-	margin: 5rem;
+.chart__item {
+	width: 49%;
+	margin: 1.5rem 0;
+	padding: 2rem;
+	background-color: var(--color-light);
+}
+
+@media (max-width: 1280px) {
+	.chart__item {
+		width: 100%;
+	}
+}
+
+.chart__canvas {
+	width: 100%;
 }

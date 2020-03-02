@@ -29,27 +29,24 @@ import * as tool from './tools.js';
  * - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
 export function set(data, elementDOM) {
-	if (tool.insertTagScript("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")) {
-		let content = document.createElement("div");
-		let idContent = "chartjsGraphics";
-		let classContent = "chartjs-graphics";
+	// if (tool.insertTagScript("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")) {
+	let content = document.createElement("div");
+	let idContent = "chartList";
+	let classContent = "chart__list";
 
-		content.setAttribute("id", idContent);
-		content.setAttribute("class", classContent);
-		document.querySelector(elementDOM).appendChild(content);
+	content.setAttribute("id", idContent);
+	content.setAttribute("class", classContent);
+	document.querySelector(elementDOM).appendChild(content);
 
-		createGraphic(data, `#${idContent}`);
-	}
+	createGraphic(data, `#${idContent}`);
+	// }
 }
 
 
 function createGraphic(data, elementDom) {
-
 	function graphic(id, title, labels, a1, a2, a3, b) {
-		console.log(id, title, labels, a1, a2, a3, b);
-
 		if (!document.querySelector(`#${id}`)) {
-			document.querySelector(elementDom).innerHTML += `<canvas id="${id}" class="mixed-chart"></canvas>`;
+			document.querySelector(elementDom).innerHTML += `<div class="chart__item"><canvas id="${id}" class="chart__canvas mixed-chart"></canvas></div>`;
 		}
 
 		let mixedChart = new Chart(document.querySelector(`#${id}`), {
@@ -125,18 +122,17 @@ function createGraphic(data, elementDom) {
 				}
 			}
 		});
-		console.log(mixedChart);
 	}
 
 	for (let index = 0; index < data.length; index++) {
 		let station = data[index];
 		let graphicId = station.id;
 		let graphicTitle = station.name;
-		let graphicLabels = station.weatherArr.time;
-		let graphicDataA1 = station.weatherArr.temp_max;
-		let graphicDataA2 = station.weatherArr.temp_min;
-		let graphicDataA3 = station.weatherArr.temp_med;
-		let graphicDataB = station.weatherArr.temp_hum;
+		let graphicLabels = station.weather.time;
+		let graphicDataA1 = station.weather.temp_max;
+		let graphicDataA2 = station.weather.temp_min;
+		let graphicDataA3 = station.weather.temp_med;
+		let graphicDataB = station.weather.temp_hum;
 
 		graphic(
 			graphicId,

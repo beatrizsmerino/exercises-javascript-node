@@ -85,41 +85,6 @@ export const getDataByCityName = async (cityName) => {
 
 
 
-/**
- * @function module:openweather.getDataForecast
- * @description Get data forecast, searching by city name or city id or coords.
- * Call hourly/day/daily forecast data. It is only available for all paid accounts.
- * @param {Object} searchInfo - Search info
- * @param {String} searchInfo.by - Choose one search option: cityName | cityId | coords
- * @param {String|Number|Object} searchInfo.data - City name, id city or coords
- * @param {Number} numberForecast - Number of results
- */
-export const getDataForecast = async (searchInfo, numberForecast) => {
-	let url = `${API}forecast/daily?units=metric&lang=es&APPID=${API_KEY}&cnt=${numberForecast}`;
-
-	switch (searchInfo.by) {
-		case "cityName":
-			url += `&q=${searchInfo.data}`;
-			break;
-		case "cityId":
-			url += `&id=${searchInfo.data}`;
-			break;
-		case "coords":
-			url += `&lat=${searchInfo.data.latitude}&lon=${searchInfo.data.longitude}`;
-			break;
-		default:
-			break;
-	}
-
-	const getData = await fetch(url);
-	let response = getData.json();
-
-	return response;
-}
-
-
-
-
 
 /**
  * @function module:openweather.setWidget
