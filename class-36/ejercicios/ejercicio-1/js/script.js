@@ -72,28 +72,31 @@ import * as graphicChart from './graphic-chart.js';
 						.then(stationsWeather => ({ dataGraphic, stationsWeather }))
 				})
 				.then(({ dataGraphic, stationsWeather }) => {
+					console.log(stationsWeather);
 
 					const listWeather = stationsWeather.map(stationsWeatherItem => {
-						// console.log(stationsWeatherItem);
-
 						let dataGraphicWeather = {
 							time: [],
-							temp_med: [],
-							temp_max: [],
-							temp_min: [],
-							temp_hum: []
+							temperature: [],
+							temperature_max: [],
+							temperature_min: [],
+							humidity: []
 						};
 
-						stationsWeatherItem.list.map(forecastItem => {
-							dataGraphicWeather.time.push(forecastItem.dt_txt);
-							dataGraphicWeather.temp_med.push(forecastItem.main.temp);
-							dataGraphicWeather.temp_max.push(forecastItem.main.temp_max);
-							dataGraphicWeather.temp_min.push(forecastItem.main.temp_min);
-							dataGraphicWeather.temp_hum.push(forecastItem.main.humidity);
+						tool.insertTagScript({ src: "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js", async: "async", defer: null }, function () {
+							stationsWeatherItem.list.map(forecastItem => {
+								dataGraphicWeather.time.push(moment(forecastItem.dt_txt).format('D/M/YY HH:mm'));
+								dataGraphicWeather.temperature.push(forecastItem.main.temp);
+								dataGraphicWeather.temperature_max.push(forecastItem.main.temp_max);
+								dataGraphicWeather.temperature_min.push(forecastItem.main.temp_min);
+								dataGraphicWeather.humidity.push(forecastItem.main.humidity);
+							});
 						});
 
 						return dataGraphicWeather;
 					});
+
+					console.log(listWeather);
 
 					listWeather.map(item => dataGraphic.map(dataGraphicStation => {
 						dataGraphicStation.weather = item;
