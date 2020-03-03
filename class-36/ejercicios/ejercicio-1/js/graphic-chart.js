@@ -29,7 +29,6 @@ import * as tool from './tools.js';
  * - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
 export function set(data, elementDOM) {
-	// if (tool.insertTagScript("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")) {
 	let content = document.createElement("div");
 	let idContent = "chartList";
 	let classContent = "chart__list";
@@ -38,110 +37,107 @@ export function set(data, elementDOM) {
 	content.setAttribute("class", classContent);
 	document.querySelector(elementDOM).appendChild(content);
 
-	createGraphic(data, `#${idContent}`);
-	// }
+	tool.insertTagScript({ src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js", async: "async", defer: null }, function () {
+		createGraphic(data, `#${idContent}`);
+	});
 }
 
 
 function createGraphic(data, elementDom) {
-	function graphic(id, title, labels, a1, a2, a3, b) {
-		if (!document.querySelector(`#${id}`)) {
-			document.querySelector(elementDom).innerHTML += `<div class="chart__item"><canvas id="${id}" class="chart__canvas mixed-chart"></canvas></div>`;
-		}
+	function graphic(graphicId, graphicTitle, graphicLabels, graphicDataA1, graphicDataA2, graphicDataA3, graphicDataB) {
+		if (!document.querySelector(`#${graphicId}`)) {
+			document.querySelector(elementDom).innerHTML += `
+				<div class="chart__item">
+					<canvas id="${graphicId}" class="chart__canvas mixed-chart"></canvas>
+				</div>
+			`;
 
-		let mixedChart = new Chart(document.querySelector(`#${id}`), {
-			type: 'bar',
-			data: {
-				datasets: [
-					{
-						label: 'Humedity',
-						data: b,
-						yAxisID: 'B',
-						type: 'line',
-						color: '#333333',
-						backgroundColor: 'transparent',
-						lineTension: 0.2,
-						borderColor: '#333333'
-					},
-					{
-						label: 'Temperature Max',
-						data: a1,
-						backgroundColor: '#EA6D4A',
-						yAxisID: 'A'
-					}, {
-						label: 'Temperature Min',
-						data: a2,
-						backgroundColor: '#71DAE9',
-						yAxisID: 'A'
-					}, {
-						label: 'Temperature Med',
-						data: a3,
-						backgroundColor: '#E7F32B',
-						yAxisID: 'A'
-					}],
-				labels: labels
-			},
-			options: {
-				responsive: true,
-				title: {
-					display: true,
-					text: title
-				},
-				tooltips: {
-					mode: 'index',
-					intersert: false
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
-				scales: {
-					yAxes: [{
-						id: 'A',
-						type: 'linear',
-						position: 'left',
-						ticks: {
-							max: 100,
-							min: 0
-						}
-					}, {
-						id: 'B',
-						type: 'linear',
-						position: 'right',
-						ticks: {
-							max: 100,
-							min: 0,
-							callback: function (value, index, values) {
-								return value + '%';
-							}
+			let mixedChart = new Chart(document.getElementById(graphicId).getContext('2d'), {
+				type: 'bar',
+				data: {
+					datasets: [
+						{
+							label: 'Humedity',
+							data: graphicDataB,
+							yAxisID: 'B',
+							type: 'line',
+							color: '#333333',
+							backgroundColor: 'transparent',
+							lineTension: 0.2,
+							borderColor: '#333333'
 						},
-						gridLines: {
-							display: false
-						}
-					}]
+						{
+							label: 'Temperature Max',
+							data: graphicDataA1,
+							backgroundColor: '#EA6D4A',
+							yAxisID: 'A'
+						}, {
+							label: 'Temperature Min',
+							data: graphicDataA2,
+							backgroundColor: '#71DAE9',
+							yAxisID: 'A'
+						}, {
+							label: 'Temperature Med',
+							data: graphicDataA3,
+							backgroundColor: '#E7F32B',
+							yAxisID: 'A'
+						}],
+					labels: graphicLabels
+				},
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: graphicTitle
+					},
+					tooltips: {
+						mode: 'index',
+						intersert: false
+					},
+					hover: {
+						mode: 'nearest',
+						intersect: true
+					},
+					scales: {
+						yAxes: [{
+							id: 'A',
+							type: 'linear',
+							position: 'left',
+							ticks: {
+								max: 100,
+								min: 0
+							}
+						}, {
+							id: 'B',
+							type: 'linear',
+							position: 'right',
+							ticks: {
+								max: 100,
+								min: 0,
+								callback: function (value, index, values) {
+									return value + '%';
+								}
+							},
+							gridLines: {
+								display: false
+							}
+						}]
+					}
 				}
-			}
-		});
+			});
+			mixedChart.update();
+		}
 	}
 
-	for (let index = 0; index < data.length; index++) {
-		let station = data[index];
-		let graphicId = station.id;
-		let graphicTitle = station.name;
-		let graphicLabels = station.weather.time;
-		let graphicDataA1 = station.weather.temp_max;
-		let graphicDataA2 = station.weather.temp_min;
-		let graphicDataA3 = station.weather.temp_med;
-		let graphicDataB = station.weather.temp_hum;
-
+	data.map(station => {
 		graphic(
-			graphicId,
-			graphicTitle,
-			graphicLabels,
-			graphicDataA1,
-			graphicDataA2,
-			graphicDataA3,
-			graphicDataB
+			station.id,
+			station.name,
+			station.weather.time,
+			station.weather.temp_max,
+			station.weather.temp_min,
+			station.weather.temp_med,
+			station.weather.temp_hum
 		);
-	}
+	});
 }

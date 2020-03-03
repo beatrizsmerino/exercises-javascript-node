@@ -1,127 +1,128 @@
 /*************** VARIABLES ***************/
 :root {
-	--color-brand-1: #52f2db;
-	--color-brand-2: #63bfa5;
-	--color-brand-3: #518c7c;
-	--color-light: #f2f2f2;
-	--color-gray: #b8b8b8;
-	--color-dark: #262626;
-	--color-black: #0d0d0d;
+    --color-brand-1: #52f2db;
+    --color-brand-2: #63bfa5;
+    --color-brand-3: #518c7c;
+    --color-light: #f2f2f2;
+    --color-gray: #b8b8b8;
+    --color-dark: #262626;
+    --color-black: #0d0d0d;
 }
 
 /*************** RESET ***************/
 *,
 *:after,
 *:before {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /*************** PAGE ***************/
 .page {
-	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-		sans-serif;
-	font-size: 10px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+    font-size: 10px;
 }
 
 .page__body {
-	padding: 7rem 5% 5rem;
+    padding: 7rem 5% 5rem;
 }
 
 .page__header {
-	margin-bottom: 6rem;
+    margin-bottom: 6rem;
 }
 
 .page__title {
-	width: fit-content;
-	padding-left: 8rem;
-	padding-right: 0.5rem;
-	margin-bottom: 1rem;
-	font-size: 4rem;
-	color: var(--color-brand-1);
-	background-color: var(--color-black);
+    width: fit-content;
+    padding-left: 8rem;
+    padding-right: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 4rem;
+    color: var(--color-brand-1);
+    background-color: var(--color-black);
 }
 
 .page__subtitle {
-	font-size: 2rem;
+    font-size: 2rem;
 }
 
 .page__content {
-	margin-top: 2rem;
+    margin-top: 2rem;
 }
 
 .page__footer {
-	margin-top: 1rem;
-	text-align: right;
-	font-size: 1.5rem;
-	color: var(--color-gray);
+    margin-top: 1rem;
+    text-align: right;
+    font-size: 1.5rem;
+    color: var(--color-gray);
 }
 
 @media (max-width: 800px) {
-	.page__footer {
-		text-align: center;
-	}
+    .page__footer {
+        text-align: center;
+    }
 }
 
 @media (max-width: 600px) {
-	.page__title {
-		padding: 0 0.5rem;
-		text-align: center;
-	}
+    .page__title {
+        padding: 0 0.5rem;
+        text-align: center;
+    }
 
-	.page__subtitle br {
-		display: none;
-	}
+    .page__subtitle br {
+        display: none;
+    }
 }
 
 /************* LOADER *************/
 .loader {
-	width: 20rem;
-	height: 20rem;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	z-index: 999;
-	transform: translate(-50%, -50%);
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-image: url("../img/loader.gif");
+    width: 20rem;
+    height: 20rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("../img/loader.gif");
 }
 
 /************* OPEN WEATHER - WIDGETS *************/
 
 .open-weather-widgets {
-	display: flex;
-	flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
+
 .open-weather-widgets [id^="openweathermap-widget"]:not(:last-of-type) {
-	margin-bottom: 2rem;
-	margin-right: 2rem;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
 }
 
 /************* GRAPHIC CHARTJS *************/
 .chart__list {
-	margin: 5rem 0;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+    margin: 5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .chart__item {
-	width: 49%;
-	margin: 1.5rem 0;
-	padding: 2rem;
-	background-color: var(--color-light);
+    width: 49%;
+    margin: 1.5rem 0;
+    padding: 2rem;
+    background-color: var(--color-light);
 }
 
-@media (max-width: 1280px) {
-	.chart__item {
-		width: 100%;
-	}
+@media (max-width: 2000px) {
+    .chart__item {
+        width: 100%;
+    }
 }
 
 .chart__canvas {
-	width: 100%;
+    width: 100%;
 }
