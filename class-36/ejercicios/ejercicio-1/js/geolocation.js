@@ -29,3 +29,36 @@ export function get() {
 		)
 	}
 }
+
+
+
+
+
+export function showPosition(position) {
+	console.log(`
+	Latitude: ${position.coords.latitude}
+	Longitude: ${position.coords.longitude}
+	`);
+}
+
+
+
+
+export function showError(error) {
+	let mng = null;
+	switch (error.code) {
+		case error.PERMISSION_DENIED:
+			mng = "User denied the request for Geolocation."
+			break;
+		case error.POSITION_UNAVAILABLE:
+			mng = "Location information is unavailable."
+			break;
+		case error.TIMEOUT:
+			mng = "The request to get user location timed out."
+			break;
+		case error.UNKNOWN_ERROR:
+			mng = "An unknown error occurred."
+			break;
+	}
+	alert(mng);
+}

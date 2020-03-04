@@ -135,14 +135,6 @@ function createCanvasGraphic(data, elementDom) {
 						fontColor: '#333',
 						text: graphicTitle
 					},
-					tooltips: {
-						mode: 'index',
-						intersert: false
-					},
-					hover: {
-						mode: 'nearest',
-						intersect: true
-					},
 					scales: {
 						yAxes: [{
 							id: 'A',
@@ -178,7 +170,15 @@ function createCanvasGraphic(data, elementDom) {
 							fontSize: 15,
 							fontColor: '#333'
 						}
-					}
+					},
+					tooltips: {
+						mode: 'index',
+						intersert: false
+					},
+					hover: {
+						mode: 'nearest',
+						intersect: true
+					},
 				}
 			};
 
@@ -186,16 +186,16 @@ function createCanvasGraphic(data, elementDom) {
 		}
 	}
 
-	let graphics = data.map(station => {
+	let graphics = data.forEach(function (data, index) {
 		graphic(
-			station.id,
-			station.name,
-			station.weather.time,
+			data.id,
+			data.name,
+			data.weather.time,
 			{
-				graphicDataA1: station.weather.temperature,
-				graphicDataA2: station.weather.temperature_min,
-				graphicDataA3: station.weather.temperature_max,
-				graphicDataB: station.weather.humidity
+				graphicDataA1: data.weather.temperature,
+				graphicDataA2: data.weather.temperature_min,
+				graphicDataA3: data.weather.temperature_max,
+				graphicDataB: data.weather.humidity
 			}
 		);
 	});
@@ -215,6 +215,7 @@ function createCanvasGraphic(data, elementDom) {
  */
 function createHeaderGraphic(classItems) {
 	let listGraphics = document.querySelectorAll(classItems);
+
 
 	/**
 	 * @function module:graphicChart~createHeaderGraphic~switchGraphic
@@ -247,6 +248,7 @@ function createHeaderGraphic(classItems) {
 		return graphicHeader;
 	}
 
+
 	/**
 	 * @function module:graphicChart~createHeaderGraphic~defaultGraphic
 	 * @param {Object} itemGraphic
@@ -256,6 +258,7 @@ function createHeaderGraphic(classItems) {
 		itemGraphic.querySelector("button");
 		itemGraphic.querySelector(".chart__switch input").setAttribute("checked", "checked");
 	}
+
 
 	/**
 	 * @function module:graphicChart~createHeaderGraphic~set
@@ -271,6 +274,7 @@ function createHeaderGraphic(classItems) {
 			item.prepend(graphicHeader);
 		}));
 	}
+
 
 	set(listGraphics).then(() => {
 		let firstGraphic = document.querySelector(classItems);

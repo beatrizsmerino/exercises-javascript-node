@@ -22,6 +22,7 @@ button {
 	appearance: none;
 	border: none;
 	outline: none;
+	background-color: transparent;
 }
 
 /*************** PAGE ***************/
@@ -195,6 +196,14 @@ input:checked + .slider:before {
 	background-color: #fff;
 	height: 98px;
 	overflow: hidden;
+}
+@media (min-width: 1600px) {
+	.chart__item {
+		width: calc(50% - 3rem);
+	}
+	.chart__item:not(:last-of-type) {
+		margin-right: 3rem;
+	}
 }
 
 .chart__item.is-show {

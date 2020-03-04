@@ -22,15 +22,15 @@ const API = "http://airemad.com/api/v1/";
 
 
 /**
- * @function module:airemad.getStation
+ * @function module:airemad.getStations
  * @description Get data of the list of stations of 'Airemad'
  * @return {Promise}
  * @see Used in:
  * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
-export const getStation = async () => {
+export const getStations = async () => {
 	const getData = await fetch(`${API}station`);
-	let getDataResponse = getData.json();
+	const getDataResponse = getData.json();
 
 	return getDataResponse;
 }
@@ -49,7 +49,7 @@ export const getStation = async () => {
  */
 export const getWeatherById = async (id) => {
 	const getData = await fetch(`${API}weather/${id}`);
-	let getDataResponse = getData.json();
+	const getDataResponse = getData.json();
 
 	return getDataResponse;
 }

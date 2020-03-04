@@ -45,6 +45,7 @@ const API_KEY = "XXXXXXXXXXX";
  */
 export async function getDataByCoords(coords) {
 	const url = `${API}weather?units=metric&lang=es&APPID=${API_KEY}&lat=${coords.latitude}&lon=${coords.longitude}`;
+	// console.log(url);
 
 	try {
 		const response = await fetch(url);
@@ -97,28 +98,31 @@ export const getDataByCityName = async (cityName) => {
  * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
 export function setWidget(widgetOptions, location, elementDom) {
-
+	let content = document.querySelector(elementDom);
 	let idContentWidgets = "openWeatherWidgets";
 	let classContentWidgets = "open-weather-widgets";
 
 	if (!document.querySelector(`#${idContentWidgets}`)) {
-		let content = document.createElement("div");
-		content.setAttribute("id", idContentWidgets);
-		content.setAttribute("class", classContentWidgets);
-		document.querySelector(elementDom).appendChild(content);
+		let contentWidgets = document.createElement("div");
+		contentWidgets.setAttribute("id", idContentWidgets);
+		contentWidgets.setAttribute("class", classContentWidgets);
+		document.querySelector(elementDom).appendChild(contentWidgets);
 	}
 
+	let contentWidgets = document.getElementById(idContentWidgets);
 	switch (typeof location) {
 		case "string":
 			getDataByCityName(location)
 				.then(data => {
-					createWidget(widgetOptions, data.id, `#${idContentWidgets}`);
+					let widget = createWidget(widgetOptions, data.id);
+					contentWidgets.prepend(widget);
 				});
 			break;
 		case "object":
 			getDataByCoords(location)
 				.then(data => {
-					createWidget(widgetOptions, data.id, `#${idContentWidgets}`);
+					let widget = createWidget(widgetOptions, data.id);
+					contentWidgets.prepend(widget);
 				});
 		default:
 			break;
@@ -135,16 +139,16 @@ export function setWidget(widgetOptions, location, elementDom) {
  * @param {Number} cityId - Type widget style of 'Open Weather'
  * @param {Object} options - Type widget style of 'Open Weather'
  * @param {Number} options.widgetType - Type widget style of 'Open Weather'
+ * @return {Object}
  * Types widget:
  * Gold: 1 - 9 | Green: 11 - 19 | Black: 21 -24
  * The options 1 and 11:
  * Please note that the widget with chart and 8-days forecast available for paid subscriptions.
  * This widget will provide only current weather data for the Free account.
- * @param {String} elementDom - Selector string of the element html
  * @see Used in:
  * @see - 'weather-openweather.js' -> {@link module:openweather.setWidget}
  */
-function createWidget(options, cityId, elementDom) {
+function createWidget(options, cityId) {
 	window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
 	window.myWidgetParam.push({
 		id: options.widgetType,
@@ -154,20 +158,18 @@ function createWidget(options, cityId, elementDom) {
 		containerid: `openweathermap-widget-${options.widgetType}`,
 	});
 
-	(function () {
-		const scriptsUrl = [
-			"//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js",
-			"//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js"
-		];
+	const scriptsUrl = [
+		"//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js",
+		"//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js"
+	];
 
-		scriptsUrl.map(scriptUrl => {
-			var script = document.createElement('script');
-			script.async = true;
-			script.charset = "utf-8";
-			script.src = scriptUrl;
-			document.querySelector("head").appendChild(script);
-		});
+	scriptsUrl.map(scriptUrl => {
+		var script = document.createElement('script');
+		script.async = true;
+		script.charset = "utf-8";
+		script.src = scriptUrl;
+		document.querySelector("head").appendChild(script);
+	});
 
-		document.querySelector(elementDom).innerHTML += `<div id="openweathermap-widget-${options.widgetType}"></div>`;
-	})();
+	return document.createRange().createContextualFragment(`<div id="openweathermap-widget-${options.widgetType}"></div>`);
 }
