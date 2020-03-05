@@ -12,23 +12,19 @@
 /**
  * @function module:tool.insertTagScript
  * @description Insert the tag html 'script'.
- * @param {Object} attributeList - Options for customized the script
- * @param {String} attributeList.src - Root of the tag script
- * @param {Object} attributeList.async - Asyncronic download file
- * @param {Object} attributeList.defer - 
- * // https://cybmeta.com/diferencia-async-y-defer
+ * @param {Object} attributeList - Attributes list for customized the tag script
  * @see Used in:
- * @see - 'srcript.js' -> {@link functionAnonimAutoExecuted}
+ * @see - 'graphic-chart.js' -> {@link module:graphicChart.set}
  */
 export function insertTagScript(attributeList, callback) {
-    const scriptElem = document.createElement("script");
+	const scriptElem = document.createElement("script");
 
-    Object.keys(attributeList).map(key => {
-        if (attributeList[key] !== null) {
-            scriptElem.setAttribute(key, attributeList[key])
-        }
-    });
+	Object.keys(attributeList).map(key => {
+		if (attributeList[key] !== null) {
+			scriptElem.setAttribute(key, attributeList[key])
+		}
+	});
 
-    scriptElem.onload = callback;
-    document.getElementsByTagName("head")[0].appendChild(scriptElem);
+	scriptElem.onload = callback;
+	document.getElementsByTagName("head")[0].appendChild(scriptElem);
 }

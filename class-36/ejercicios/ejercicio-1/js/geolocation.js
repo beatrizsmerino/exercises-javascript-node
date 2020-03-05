@@ -11,19 +11,17 @@
 
 /**
  * @function module:geolocation~get
- * @description Get your geolocation in this moment with the 'API HTML5'.
+ * @description Get your geolocation with the 'API HTML5'.
  * @return {Promise}
  * @see Used in:
  * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
 export function get() {
 	if ("geolocation" in navigator) {
-		// console.log("You can use Geolocation! :-) ");
 		return new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
 	} else {
 		alert("Geolocation is not supported by this browser. :-( ");
 
-		// return false; // Console Error: La propiedad 'then' no existe en el tipo 'false | Promise<any>'.
 		return new Promise(
 			resolve => resolve({})
 		)
@@ -34,6 +32,15 @@ export function get() {
 
 
 
+/**
+ * @function module:geolocation.showPosition
+ * @description Draw the geolocation coordinates.
+ * @param {Object} position - Coordinates
+ * @param {Object} position.latitude - Coordinates: Latitude
+ * @param {Object} position.longitude - Coordinates: Longitude
+ * @see Used in:
+ * - 'script.js' -> {@link functionAnonimAutoExecuted}
+ */
 export function showPosition(position) {
 	console.log(`
 	Latitude: ${position.coords.latitude}
@@ -44,7 +51,17 @@ export function showPosition(position) {
 
 
 
+
+/**
+ * @function module:geolocation.showError
+ * @description Error alert when get geolocation.
+ * @param {Object} error - Object error with the code...
+ * @see Used in:
+ * - 'script.js' -> {@link functionAnonimAutoExecuted}
+ */
 export function showError(error) {
+	// console.log(error);
+
 	let mng = null;
 	switch (error.code) {
 		case error.PERMISSION_DENIED:
@@ -60,5 +77,6 @@ export function showError(error) {
 			mng = "An unknown error occurred."
 			break;
 	}
+
 	alert(mng);
 }

@@ -13,7 +13,7 @@
  * @function module:loader.add
  * @description Add loading animation.
  * @see Used in:
- * @see - 'geolocation.js' -> {@link module:geolocation.set}
+ * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
 export function add() {
 	let loader = document.getElementById("loader");
@@ -31,7 +31,7 @@ export function add() {
  * @function module:loader.remove
  * @description Remove loading animation.
  * @see Used in:
- * @see - 'geolocation.js' -> {@link module:geolocation.set}
+ * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
 export function remove() {
 	let loader = document.getElementById("loader");

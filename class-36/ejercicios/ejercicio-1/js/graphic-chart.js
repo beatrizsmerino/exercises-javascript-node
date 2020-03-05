@@ -22,7 +22,7 @@ import * as tool from './tools.js';
 
 /**
  * @function module:graphicChart.set
- * @description Set graphic of 'Chart API'
+ * @description Set graphic of 'Chart API'.
  * @param {Object} data - Data of the graphic
  * @param {String} elementDOM - Selector string of the element html
  * @see Used in:
@@ -49,9 +49,9 @@ export function set(data, elementDOM) {
 
 /**
  * @function module:graphicChart~createCanvasGraphic
- * @description 
- * @param {Object} data 
- * @param {String} elementDom
+ * @description Create the graphic canvas with the data.
+ * @param {Object} data - Data of the graphic
+ * @param {String} elementDom - Selector element of the DOM
  * @see Used in:
  * - 'graphic-chart.js' -> {@link module:graphicChart.set}
  */
@@ -70,7 +70,8 @@ function createCanvasGraphic(data, elementDom) {
 			graphicItem.appendChild(graphicCanvas);
 			content.appendChild(graphicItem);
 
-			let graphicContext = document.getElementById(graphicId);
+			// let graphicContext = document.getElementById(graphicId);
+			let graphicContext = graphicCanvas.getContext('2d');
 			let graphicData = {
 				type: 'bar',
 				data: {
@@ -101,6 +102,7 @@ function createCanvasGraphic(data, elementDom) {
 							color: '#63bfa5',
 							borderColor: '#63bfa5',
 							backgroundColor: 'rgb(99, 191, 165, 0.4)',
+							// showLine: false
 						},
 						{
 							yAxisID: 'A',
@@ -141,8 +143,9 @@ function createCanvasGraphic(data, elementDom) {
 							type: 'linear',
 							position: 'left',
 							ticks: {
-								max: 100,
-								min: 0,
+								bounds: 'data',
+								// suggestedMax: 50,
+								// suggestedMin: 0,
 								callback: function (value, index, values) {
 									return value + 'ºC';
 								}
@@ -152,8 +155,9 @@ function createCanvasGraphic(data, elementDom) {
 							type: 'linear',
 							position: 'right',
 							ticks: {
-								max: 100,
-								min: 0,
+								suggestedMax: 100,
+								suggestedMin: 0,
+								bounds: 'data',
 								callback: function (value, index, values) {
 									return value + '%';
 								}
@@ -206,10 +210,8 @@ function createCanvasGraphic(data, elementDom) {
 
 /**
  * @function module:graphicChart~createHeaderGraphic
- * @description Create a header with a switch button
- * @param {String} classItems
- * @see Used inside:
- * - 'graphic-chart.js' -> {@link module:graphicChart~createHeaderGraphic~switchGraphic}, {@link module:graphicChart~createHeaderGraphic~defaultGraphic}, {@link module:graphicChart~createHeaderGraphic~set}
+ * @description Create a header with a switch button.
+ * @param {String} classItems - Class element of the DOM
  * @see Used in: 
  * - 'graphic-chart.js' -> {@link module:graphicChart.set}
  */
@@ -217,10 +219,6 @@ function createHeaderGraphic(classItems) {
 	let listGraphics = document.querySelectorAll(classItems);
 
 
-	/**
-	 * @function module:graphicChart~createHeaderGraphic~switchGraphic
-	 * @return {HTMLDivElement}
-	 */
 	function switchGraphic() {
 		let graphicHeader = document.createElement("div");
 		graphicHeader.setAttribute("class", "chart__header");
@@ -249,25 +247,12 @@ function createHeaderGraphic(classItems) {
 	}
 
 
-	/**
-	 * @function module:graphicChart~createHeaderGraphic~defaultGraphic
-	 * @param {Object} itemGraphic
-	 */
 	function defaultGraphic(itemGraphic) {
 		itemGraphic.classList.add("is-show");
 		itemGraphic.querySelector("button");
 		itemGraphic.querySelector(".chart__switch input").setAttribute("checked", "checked");
 	}
 
-
-	/**
-	 * @function module:graphicChart~createHeaderGraphic~set
-	 * @param {Object} listGraphics
-	 * @see Used inside:
-	 * {@link module:graphicChart~switchGraphic}
-	 * @see Used in:
-	 * {@link module:graphicChart~createHeaderGraphic}
-	 */
 	const set = async (listGraphics) => {
 		return Promise.all(Array.from(listGraphics).map(item => {
 			let graphicHeader = switchGraphic();

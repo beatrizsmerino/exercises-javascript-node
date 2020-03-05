@@ -1,6 +1,6 @@
 /**
  * @file Weather with the 'Open Weather API'
- * @module openweather
+ * @module weatherOpenweather
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -11,7 +11,7 @@
 
 // Need API key 'Open Weather'
 /**
- * @const module:openweather~API
+ * @const module:weatherOpenweather~API
  * @description API root of 'Airemad'
  * @type {String}
  */
@@ -22,8 +22,8 @@ const API = "http://api.openweathermap.org/data/2.5/";
 
 
 /**
- * @const module:openweather~API_KEY
- * @description API key of 'Airemad'
+ * @const module:weatherOpenweather~API_KEY
+ * @description API key of 'Open Weather API'.
  *  * Instrucctions of use:
  * 1. Go to https://home.openweathermap.org/api_keys and generate api key
  * 2. Change the string "XXXXXXXXXXX" for your API KEY
@@ -36,9 +36,11 @@ const API_KEY = "XXXXXXXXXXX";
 
 
 /**
- * @function module:openweather.getDataByCoords
- * @description Get data weather of the coords
- * @param {Object} coords
+ * @function module:weatherOpenweather.getDataByCoords
+ * @description Get data weather of the coords with 'Open Weather API'.
+ * @param {Object} coords - Coordinates
+ * @param {Object} coords.latitude - Coordinates: Latitude
+ * @param {Object} coords.longitude - Coordinates: Longitude
  * @return {Promise}
  * @see Used in:
  * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
@@ -71,9 +73,12 @@ export async function getDataByCoords(coords) {
 
 
 /**
- * @function module:openweather.getDataByCityName
- * @description Get data of the city
+ * @function module:weatherOpenweather.getDataByCityName
+ * @description Get data of the city with 'Open Weather API'.
  * @param {String} cityName - Name of the city
+ * @return {Promise}
+ * @see Used in:
+ * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
 export const getDataByCityName = async (cityName) => {
 	const url = `${API}weather?units=metric&lang=es&APPID=${API_KEY}&q=${cityName}`;
@@ -88,12 +93,12 @@ export const getDataByCityName = async (cityName) => {
 
 
 /**
- * @function module:openweather.setWidget
- * @description Set widget of the city
- * @param {Object} widgetOptions 
+ * @function module:weatherOpenweather.setWidget
+ * @description Set widget of the city with 'Open Weather API'.
+ * @param {Object} widgetOptions - Customized widget
  * @param {Object|String} location - Value to search (city name | coords)
  * @see Used inside:
- * - 'weather-openweather.js' -> {@link module:openweather~getDataByCityName}, {@link module:openweather~getDataByCoords}, {@link module:openweather~createWidget}
+ * - 'weather-openweather.js' -> {@link module:weatherOpenweather~getDataByCityName}, {@link module:weatherOpenweather~getDataByCoords}, {@link module:weatherOpenweather~createWidget}
  * @see Used in:
  * @see - 'script.js' -> {@link functionAnonimAutoExecuted}
  */
@@ -106,7 +111,7 @@ export function setWidget(widgetOptions, location, elementDom) {
 		let contentWidgets = document.createElement("div");
 		contentWidgets.setAttribute("id", idContentWidgets);
 		contentWidgets.setAttribute("class", classContentWidgets);
-		document.querySelector(elementDom).appendChild(contentWidgets);
+		document.querySelector(elementDom).prepend(contentWidgets);
 	}
 
 	let contentWidgets = document.getElementById(idContentWidgets);
@@ -115,14 +120,14 @@ export function setWidget(widgetOptions, location, elementDom) {
 			getDataByCityName(location)
 				.then(data => {
 					let widget = createWidget(widgetOptions, data.id);
-					contentWidgets.prepend(widget);
+					contentWidgets.append(widget);
 				});
 			break;
 		case "object":
 			getDataByCoords(location)
 				.then(data => {
 					let widget = createWidget(widgetOptions, data.id);
-					contentWidgets.prepend(widget);
+					contentWidgets.append(widget);
 				});
 		default:
 			break;
@@ -134,19 +139,18 @@ export function setWidget(widgetOptions, location, elementDom) {
 
 
 /**
- * @function module:openweather~createWidget
- * @description Create and insert widget of 'Open Weather'
- * @param {Number} cityId - Type widget style of 'Open Weather'
- * @param {Object} options - Type widget style of 'Open Weather'
- * @param {Number} options.widgetType - Type widget style of 'Open Weather'
- * @return {Object}
- * Types widget:
- * Gold: 1 - 9 | Green: 11 - 19 | Black: 21 -24
+ * @function module:weatherOpenweather~createWidget
+ * @description Create and insert widget with 'Open Weather API'.
+ * @param {Number} cityId - City id
+ * @param {Object} options - Customized widget
+ * @param {Number} options.widgetType - Type widget style: 
+ * (Gold: 1 - 9 | Green: 11 - 19 | Black: 21 -24).
  * The options 1 and 11:
  * Please note that the widget with chart and 8-days forecast available for paid subscriptions.
  * This widget will provide only current weather data for the Free account.
+ * @return {Object}
  * @see Used in:
- * @see - 'weather-openweather.js' -> {@link module:openweather.setWidget}
+ * @see - 'weather-openweather.js' -> {@link module:weatherOpenweather.setWidget}
  */
 function createWidget(options, cityId) {
 	window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
