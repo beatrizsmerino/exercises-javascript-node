@@ -17,32 +17,104 @@ const aireMadAPI = "http://airemad.com/api/v1/";
 
 
 const getData = async (url) => {
-	const data = await fetch(url);
-	const json = await data.json();
-	return json;
+	try {
+		const data = await fetch(url);
+		const json = await data.json();
+		return json;
+	} catch (e) {
+		console.warn(`Error: ${e}`);
+	}
 };
 
 
 
 
 
-export function setStations() {
-	const dataStations = getData(aireMadAPI + "station")
-		.then(data => data)
+function randomData(array) {
+	let total = array.length;
+	let rand = Math.random();
+	let randIndex = Math.floor(rand * total);
+
+	return array[randIndex];
+}
+
+
+
+
+function clock() {
+	const content = document.getElementById("pageHeader");
+
+	const timeDOM = document.createElement("time");
+	timeDOM.setAttribute("class", "clock");
+	setInterval(() => {
+		let nowDate = moment().format('MMMM Do YYYY, HH:mm:ss');
+
+		let timeDOMText = document.createTextNode(nowDate);
+		timeDOM.innerHTML = "";
+		timeDOM.appendChild(timeDOMText);
+		timeDOM.setAttribute("datetime", nowDate);
+	}, 100);
+	content.appendChild(timeDOM);
+}
+
+
+
+
+function createSection(idSection) {
+	const section = document.createElement("section");
+	section.setAttribute("id", idSection);
+	section.setAttribute("class", "page__section");
+
+	return section;
+}
+
+
+
+
+
+function createSectionTitle(textTitle) {
+	const titleDOM = document.createElement("h2");
+	titleDOM.setAttribute("class", "section__title");
+	const titleDOMText = document.createTextNode(textTitle);
+	titleDOM.appendChild(titleDOMText);
+
+	return titleDOM;
+}
+
+
+
+
+
+function createSectionSubtitle(textSubtitle) {
+	const subtitleDOM = document.createElement("h3");
+	subtitleDOM.setAttribute("class", "section__subtitle");
+	const subtitleDOMText = document.createTextNode(textSubtitle);
+	subtitleDOM.appendChild(subtitleDOMText);
+
+	return subtitleDOM;
+}
+
+
+
+
+
+function setStations() {
+	const url = `${aireMadAPI}station/`;
+	// console.log(url);
+
+	const dataStations = getData(url)
 		.then(data => {
-			console.info("Stations: ", data);
+			// console.info("Stations: ", data);
 
-			const block = document.createElement("section");
-			block.setAttribute("id", "stations");
+			const section = createSection("stations");
 
-			const titleDOM = document.createElement("h2");
-			const titleDOMText = document.createTextNode("Estaciones de Madrid");
-			titleDOM.appendChild(titleDOMText);
-			block.appendChild(titleDOM);
+			section.appendChild(createSectionTitle("Estaciones de Madrid"));
 
-			const contentDOM = document.createElement("article");
-			contentDOM.classList.add("content");
+			const articleDOM = document.createElement("article");
+			articleDOM.setAttribute("class", "page__article");
+
 			const ulDOM = document.createElement("ul");
+			ulDOM.setAttribute("class", "list");
 			data.map(item => {
 				const id = item.id;
 				const name = item.nombre_estacion;
@@ -50,6 +122,7 @@ export function setStations() {
 
 				let liDOM = document.createElement("li");
 				liDOM.setAttribute("id", id);
+				liDOM.setAttribute("class", "list__item");
 
 				let pDOM = document.createElement("p");
 
@@ -67,10 +140,10 @@ export function setStations() {
 				liDOM.appendChild(pDOM);
 				ulDOM.appendChild(liDOM);
 			});
-			contentDOM.appendChild(ulDOM);
-			block.appendChild(contentDOM);
+			articleDOM.appendChild(ulDOM);
+			section.appendChild(articleDOM);
 
-			document.getElementById("pageContent").appendChild(block);
+			document.getElementById("pageMain").appendChild(section);
 		});
 }
 
@@ -78,24 +151,76 @@ export function setStations() {
 
 
 
-export function setPollution(idStation) {
+function setPollution(idStation) {
 	const url = `${aireMadAPI}pollution/${idStation}`;
-	console.log(url);
+	// console.log(url);
 
 	const dataPollution = getData(url)
-		.then(data => data)
 		.then(data => {
-			console.info("Pollution: ", data);
+			// console.info("Pollution: ", data);
 
-			const block = document.createElement("section");
-			block.setAttribute("id", "pollution");
+			const section = createSection("pollution");
 
-			const titleDOM = document.createElement("h2");
-			const titleDOMText = document.createTextNode("Estado de la contaminación en Madrid");
-			titleDOM.appendChild(titleDOMText);
-			block.appendChild(titleDOM);
+			section.appendChild(createSectionTitle("Estado de la contaminación en Madrid"));
 
-			document.getElementById("pageContent").appendChild(block);
+			const contentDOM = document.createElement("div");
+			contentDOM.setAttribute("class", "section__content");
+
+			const articleDOM = document.createElement("article");
+			articleDOM.setAttribute("class", "page__article");
+
+			articleDOM.appendChild(createSectionSubtitle(`#${data.id}. Estacion de ${data.name}`));
+
+			function lastMeasurementPollution(item) {
+				let nowHour = new Date().getHours();
+				let measurements = item.values;
+
+				if (
+					typeof (measurements) === "object" &&
+					Array.isArray(measurements)
+				) {
+
+					while (measurements[nowHour].estado !== "Pasado") {
+						nowHour--;
+						continue;
+					}
+
+					return measurements[nowHour].valor;
+				}
+			}
+
+			const ulDOM = document.createElement("ul");
+			ulDOM.setAttribute("class", "list");
+			for (let key in data) {
+				const element = data[key];
+
+				if (typeof (element) === "object" && Array.isArray(element.values)) {
+					let lastMeasurement = lastMeasurementPollution(element);
+
+					let dataText;
+					if (!lastMeasurement) {
+						dataText = "informacion no disponible";
+					} else {
+						dataText = `<span>${lastMeasurement} μg/m3</span> <span>medido por ${element.technique}</span> <em>(${element.period})</em>`;
+					}
+
+					let liDOM = document.createElement("li");
+					liDOM.setAttribute("class", "list__item");
+					let text = `<p><strong>${element.parameter} (${element.abrebiation}):</strong> ${dataText}</p>`;
+					let textNode = document.createRange().createContextualFragment(text);
+					liDOM.appendChild(textNode);
+					ulDOM.appendChild(liDOM);
+
+				} else {
+					continue;
+				}
+			}
+
+			contentDOM.appendChild(articleDOM);
+			articleDOM.appendChild(ulDOM);
+
+			section.appendChild(articleDOM);
+			document.getElementById("pageMain").appendChild(section);
 		});
 }
 
@@ -103,24 +228,60 @@ export function setPollution(idStation) {
 
 
 
-export function setWeather(idStation) {
+function setWeather(idStation) {
 	const url = `${aireMadAPI}weather/${idStation}`;
-	console.log(url);
+	// console.log(url);
 
 	const dataWeather = getData(url)
-		.then(data => data)
 		.then(data => {
-			console.info("Weather: ", data);
+			// console.info("Weather: ", data);
 
-			const block = document.createElement("section");
-			block.setAttribute("id", "weather");
+			const section = createSection("weather");
 
-			const titleDOM = document.createElement("h2");
-			const titleDOMText = document.createTextNode("Estado del tiempo ahora mismo en Madrid");
-			titleDOM.appendChild(titleDOMText);
-			block.appendChild(titleDOM);
+			section.appendChild(createSectionTitle("Estado del tiempo ahora mismo en Madrid"));
 
-			document.getElementById("pageContent").appendChild(block);
+			const contentDOM = document.createElement("div");
+			contentDOM.setAttribute("class", "section__content");
+
+			const articleDOM = document.createElement("article");
+			articleDOM.setAttribute("class", "page__article");
+
+			const dataList = data.list;
+			dataList.forEach((value, index) => {
+				const element = value;
+				const dataWeather = {
+					date: element.dt_txt,
+					description: element.weather[0].description,
+					humidity: element.main.humidity,
+					pressure: element.main.pressure,
+					temperature: element.main.temp,
+					temperatureMax: element.main.temp_max,
+					temperatureMin: element.main.temp_min,
+					windDeg: element.wind.deg,
+					windSpeed: element.wind.speed
+				};
+				let text = `<div class="weather-now">
+								<p class="weather-now__item"><time class="weather-now__time">${moment(dataWeather.date, 'DD-MM-YYYY HH:00:00')}</time> (datos cada 3horas)</p>
+								<p class="weather-now__item"><span class="weather-now__description">${dataWeather.description}</span> <span class="weather-now__temperature">${dataWeather.temperature}°C</span></p>
+								<p class="weather-now__item"><strong>Min:</strong> ${dataWeather.temperatureMin}°C | <strong>Max:</strong> ${dataWeather.temperatureMax}°C</p>
+								<p class="weather-now__item"><strong>Humedad:</strong> ${dataWeather.humidity} + % | <strong>Presión:</strong> ${dataWeather.pressure} psi</p>
+								<p class="weather-now__item"><strong>Viento:</strong> ${dataWeather.windDeg}º | ${dataWeather.windSpeed} km/h</p>
+							</div>`;
+
+				const nowDate = moment().format('YYYY-MM-DD HH:00:00');
+				const nowDateArr = nowDate.split(" ");
+				const dateArr = dataWeather.date.split(" ");
+
+				if (nowDateArr[0] === dateArr[0] && nowDateArr[1] === dateArr[1]) {
+					let textNode = document.createRange().createContextualFragment(text);
+					articleDOM.appendChild(textNode);
+				}
+			});
+
+			contentDOM.appendChild(articleDOM);
+			section.appendChild(contentDOM);
+
+			document.getElementById("pageMain").appendChild(section);
 		});
 }
 
@@ -128,24 +289,32 @@ export function setWeather(idStation) {
 
 
 
-export function setForecastWeather(idStation) {
+function setForecastWeather(idStation) {
 	const url = `${aireMadAPI}weather/${idStation}`;
-	console.log(url);
+	// console.log(url);
 
 	const dataWeather = getData(url)
-		.then(data => data)
 		.then(data => {
 			console.info("Forecast weather: ", data);
 
-			const block = document.createElement("section");
-			block.setAttribute("id", "forecastWeather");
+			const section = createSection("forecastWeather");
 
-			const titleDOM = document.createElement("h2");
-			const titleDOMText = document.createTextNode("Previsión meteorológica de los próximos 4/5 días en Madrid");
-			titleDOM.appendChild(titleDOMText);
-			block.appendChild(titleDOM);
+			section.appendChild(createSectionTitle("Previsión meteorológica de los próximos 4/5 días en Madrid"));
 
-			document.getElementById("pageContent").appendChild(block);
+			const contentDOM = document.createElement("div");
+			contentDOM.setAttribute("class", "section__content");
+
+			const articleDOM = document.createElement("article");
+			articleDOM.setAttribute("class", "page__article");
+
+			const ulDOM = document.createElement("ul");
+			ulDOM.setAttribute("class", "list");
+
+
+			contentDOM.appendChild(articleDOM);
+			articleDOM.appendChild(ulDOM);
+
+			document.getElementById("pageMain").appendChild(section);
 		});
 }
 
@@ -153,23 +322,38 @@ export function setForecastWeather(idStation) {
 
 
 
+function getCameraDGT(data) {
+	const cameras = data;
+	const camera = randomData(cameras);
+	return "http://informo.munimadrid.es/cameras/Camara" + camera + ".jpg"
+}
 
-export function setImageCamera() {
 
-	const dataImageCamera = getData("./cameras-madrid.json")
-		.then(data => data)
+
+
+
+function setCameraDGT() {
+	const url = './js/camaras-madrid.json';
+	// console.log(url);
+
+	const dataCameraDGT = getData(url)
 		.then(data => {
-			console.info("Image Camera: ", data);
+			// console.info("Cameras: ", data);
 
-			const block = document.createElement("section");
-			block.setAttribute("id", "imageCamera");
+			const section = createSection("camera");
 
-			const titleDOM = document.createElement("h2");
-			const titleDOMText = document.createTextNode("Una imagen aleatoria del trafico de la ciudad usando las cámaras abiertas de la ciudad.");
-			titleDOM.appendChild(titleDOMText);
-			block.appendChild(titleDOM);
+			section.appendChild(createSectionTitle("Una imagen aleatoria del trafico de la ciudad usando las cámaras abiertas de la ciudad."));
 
-			document.getElementById("pageContent").appendChild(block);
+			const articleDOM = document.createElement("article");
+			articleDOM.setAttribute("class", "page__article");
+
+			const image = new Image;
+			image.src = getCameraDGT(data);
+			articleDOM.appendChild(image);
+
+			section.appendChild(articleDOM);
+
+			document.getElementById("pageMain").appendChild(section);
 		});
 }
 
@@ -178,10 +362,18 @@ export function setImageCamera() {
 
 
 export const set = () => {
+	clock();
 	setStations();
-	setPollution("S039");
-	setWeather("S039");
-	setForecastWeather("S039");
-	setImageCamera();
-}
 
+	getData(aireMadAPI + "station").then(data => {
+		const stations = data;
+		const station = randomData(stations);
+
+		setWeather(station.id);
+		setPollution(station.id);
+
+		// setForecastWeather(station.id);
+	});
+
+	setCameraDGT();
+}
