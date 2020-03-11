@@ -37,23 +37,25 @@ img {
 .page__section {
 }
 .page__section:not(:last-of-type) {
-	margin-bottom: 5rem;
+	margin-bottom: 6rem;
 }
 
 .page__article {
+	display: flow-root;
 }
 
 /************ SECTION ************/
 .section__title {
-	margin-bottom: 2rem;
+	margin-bottom: 3rem;
 	font-size: 2.8rem;
 }
 
 .section__subtitle {
-	margin-bottom: 1.5rem;
+	margin-bottom: 1.8rem;
 	font-size: 2rem;
 }
 .section__content {
+	padding: 0 1.8rem;
 }
 
 /************ LIST ************/
@@ -75,22 +77,27 @@ img {
 }
 
 /************ WEATHER NOW ************/
-.weather-now {
+.weather {
 	font-size: 1.5rem;
+	float: left;
+}
+.weather:not(:last-of-type) {
+	margin-bottom: 3rem;
+	margin-right: 3rem;
 }
 
-.weather-now__item {
+.weather__item {
 }
-.weather-now__item:not(:last-of-type) {
-	margin-bottom: 1rem;
+.weather__item:not(:last-of-type) {
+	margin-bottom: 0.7rem;
 }
-.weather-now__time {
+.weather__time {
 	font-style: italic;
 }
-.weather-now__description {
+.weather__description {
 	text-transform: capitalize;
 	font-size: 1.8rem;
 }
-.weather-now__temperature {
+.weather__temperature {
 	font-size: 1.8rem;
 }

@@ -201,7 +201,7 @@ function setPollution(idStation) {
 					if (!lastMeasurement) {
 						dataText = "informacion no disponible";
 					} else {
-						dataText = `<span>${lastMeasurement} μg/m3</span> <span>medido por ${element.technique}</span> <em>(${element.period})</em>`;
+						dataText = `<span>${lastMeasurement} μg/m3</span> <span>medido por ${element.technique}</span><br> <em>(${element.period})</em>`;
 					}
 
 					let liDOM = document.createElement("li");
@@ -247,8 +247,8 @@ function setWeather(idStation) {
 			articleDOM.setAttribute("class", "page__article");
 
 			const dataList = data.list;
-			dataList.forEach((value, index) => {
-				const element = value;
+			for (let index = 0; index < dataList.length; index++) {
+				const element = dataList[index];
 				const dataWeather = {
 					date: element.dt_txt,
 					description: element.weather[0].description,
@@ -260,12 +260,12 @@ function setWeather(idStation) {
 					windDeg: element.wind.deg,
 					windSpeed: element.wind.speed
 				};
-				let text = `<div class="weather-now">
-								<p class="weather-now__item"><time class="weather-now__time">${moment(dataWeather.date, 'DD-MM-YYYY HH:00:00')}</time> (datos cada 3horas)</p>
-								<p class="weather-now__item"><span class="weather-now__description">${dataWeather.description}</span> <span class="weather-now__temperature">${dataWeather.temperature}°C</span></p>
-								<p class="weather-now__item"><strong>Min:</strong> ${dataWeather.temperatureMin}°C | <strong>Max:</strong> ${dataWeather.temperatureMax}°C</p>
-								<p class="weather-now__item"><strong>Humedad:</strong> ${dataWeather.humidity} + % | <strong>Presión:</strong> ${dataWeather.pressure} psi</p>
-								<p class="weather-now__item"><strong>Viento:</strong> ${dataWeather.windDeg}º | ${dataWeather.windSpeed} km/h</p>
+				let text = `<div class="weather">
+								<p class="weather__item"><time class="weather__time" datetime="${dataWeather.date}">${dataWeather.date}</time><br> (datos cada 3horas)</p>
+								<p class="weather__item"><span class="weather__description">${dataWeather.description}</span> <span class="weather__temperature">${dataWeather.temperature}°C</span></p>
+								<p class="weather__item"><strong>Min:</strong> ${dataWeather.temperatureMin}°C | <strong>Max:</strong> ${dataWeather.temperatureMax}°C</p>
+								<p class="weather__item"><strong>Humedad:</strong> ${dataWeather.humidity} + % | <strong>Presión:</strong> ${dataWeather.pressure} psi</p>
+								<p class="weather__item"><strong>Viento:</strong> ${dataWeather.windDeg}º | ${dataWeather.windSpeed} km/h</p>
 							</div>`;
 
 				const nowDate = moment().format('YYYY-MM-DD HH:00:00');
@@ -275,8 +275,13 @@ function setWeather(idStation) {
 				if (nowDateArr[0] === dateArr[0] && nowDateArr[1] === dateArr[1]) {
 					let textNode = document.createRange().createContextualFragment(text);
 					articleDOM.appendChild(textNode);
+				} else {
+					++index;
+					let textNode = document.createRange().createContextualFragment(text);
+					articleDOM.appendChild(textNode);
+					break;
 				}
-			});
+			};
 
 			contentDOM.appendChild(articleDOM);
 			section.appendChild(contentDOM);
@@ -307,12 +312,45 @@ function setForecastWeather(idStation) {
 			const articleDOM = document.createElement("article");
 			articleDOM.setAttribute("class", "page__article");
 
-			const ulDOM = document.createElement("ul");
-			ulDOM.setAttribute("class", "list");
+			const dataList = data.list;
+			for (let index = 0, counter = 0; index < dataList.length; index++) {
+				const element = dataList[index];
+				const dataWeather = {
+					date: element.dt_txt,
+					description: element.weather[0].description,
+					humidity: element.main.humidity,
+					pressure: element.main.pressure,
+					temperature: element.main.temp,
+					temperatureMax: element.main.temp_max,
+					temperatureMin: element.main.temp_min,
+					windDeg: element.wind.deg,
+					windSpeed: element.wind.speed
+				};
 
+				const nowDate = moment().format('YYYY-MM-DD HH:00:00');
+				const nowDateArr = nowDate.split(" ");
+				const dateArr = dataWeather.date.split(" ");
+
+				let text = `<div class="weather">
+								<p class="weather__item"><time class="weather__time" datetime="">${dataWeather.date}</time><br> (datos cada 3horas)</p>
+								<p class="weather__item"><span class="weather__description">${dataWeather.description}</span> <span class="weather__temperature">${dataWeather.temperature}°C</span></p>
+								<p class="weather__item"><strong>Min:</strong> ${dataWeather.temperatureMin}°C | <strong>Max:</strong> ${dataWeather.temperatureMax}°C</p>
+								<p class="weather__item"><strong>Humedad:</strong> ${dataWeather.humidity} + % | <strong>Presión:</strong> ${dataWeather.pressure} psi</p>
+								<p class="weather__item"><strong>Viento:</strong> ${dataWeather.windDeg}º | ${dataWeather.windSpeed} km/h</p>
+							</div>`;
+
+
+				while (counter < 5) {
+					counter++;
+					index = index + 7;
+					let textNode = document.createRange().createContextualFragment(text);
+					articleDOM.appendChild(textNode);
+					break;
+				}
+			};
 
 			contentDOM.appendChild(articleDOM);
-			articleDOM.appendChild(ulDOM);
+			section.appendChild(contentDOM);
 
 			document.getElementById("pageMain").appendChild(section);
 		});
@@ -371,8 +409,7 @@ export const set = () => {
 
 		setWeather(station.id);
 		setPollution(station.id);
-
-		// setForecastWeather(station.id);
+		setForecastWeather(station.id);
 	});
 
 	setCameraDGT();
