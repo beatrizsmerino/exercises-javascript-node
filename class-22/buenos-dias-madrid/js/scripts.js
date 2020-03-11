@@ -155,13 +155,35 @@ function setStations() {
 
 
 
+function lastMeasurementPollution(item) {
+	let nowHour = new Date().getHours();
+	let measurements = item.values;
+
+	if (
+		typeof (measurements) === "object" &&
+		Array.isArray(measurements)
+	) {
+
+		while (measurements[nowHour].estado !== "Pasado") {
+			nowHour--;
+			continue;
+		}
+
+		return measurements[nowHour].valor;
+	}
+}
+
+
+
+
+
 function setPollution(idStation) {
 	const url = `${aireMadAPI}pollution/${idStation}`;
 	// console.log(url);
 
 	const dataPollution = getData(url)
 		.then(data => {
-			// console.info("Pollution: ", data);
+			console.info("Pollution: ", data);
 
 			const section = createSection("pollution");
 
@@ -174,24 +196,6 @@ function setPollution(idStation) {
 			articleDOM.setAttribute("class", "page__article");
 
 			articleDOM.appendChild(createSectionSubtitle(`#${data.id}. Estacion de ${data.name}`));
-
-			function lastMeasurementPollution(item) {
-				let nowHour = new Date().getHours();
-				let measurements = item.values;
-
-				if (
-					typeof (measurements) === "object" &&
-					Array.isArray(measurements)
-				) {
-
-					while (measurements[nowHour].estado !== "Pasado") {
-						nowHour--;
-						continue;
-					}
-
-					return measurements[nowHour].valor;
-				}
-			}
 
 			const ulDOM = document.createElement("ul");
 			ulDOM.setAttribute("class", "list");
@@ -231,7 +235,7 @@ function setPollution(idStation) {
 
 
 
-function setWeather(idStation) {
+function setNowWeather(idStation) {
 	const url = `${aireMadAPI}weather/${idStation}`;
 	// console.log(url);
 
@@ -278,8 +282,9 @@ function setWeather(idStation) {
 				if (nowDateArr[0] === dateArr[0] && nowDateArr[1] === dateArr[1]) {
 					let textNode = document.createRange().createContextualFragment(text);
 					articleDOM.appendChild(textNode);
+					break;
 				} else {
-					++index;
+					--index;
 					let textNode = document.createRange().createContextualFragment(text);
 					articleDOM.appendChild(textNode);
 					break;
@@ -409,15 +414,15 @@ function setCameraDGT() {
 (function () {
 	clock();
 	setStations();
+	setCameraDGT();
 
 	getData(aireMadAPI + "station").then(data => {
 		const stations = data;
 		const station = randomData(stations);
 
-		setWeather(station.id);
 		setPollution(station.id);
+		setNowWeather(station.id);
 		setForecastWeather(station.id);
 	});
 
-	setCameraDGT();
 })();
