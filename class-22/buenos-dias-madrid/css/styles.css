@@ -78,12 +78,31 @@ img {
 
 /************ WEATHER NOW ************/
 .weather {
+	width: calc(33.333% - 3rem);
+	min-height: 200px;
+	padding: 2rem;
 	font-size: 1.5rem;
 	float: left;
+	border: 1px solid #000;
 }
+
 .weather:not(:last-of-type) {
 	margin-bottom: 3rem;
 	margin-right: 3rem;
+}
+@media (max-width: 1200px) {
+	.weather {
+		width: calc(50% - 3rem);
+	}
+}
+@media (max-width: 800px) {
+	.weather {
+		width: 100%;
+		min-height: auto;
+	}
+	.weather:not(:last-of-type) {
+		margin-right: 0;
+	}
 }
 
 .weather__item {
