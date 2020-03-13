@@ -62,7 +62,7 @@ time {
 
 .button--back {
   width: fit-content;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 1rem;
 }
 
@@ -82,7 +82,7 @@ time {
 }
 
 .page__title {
-  margin-bottom: 2rem;
+  margin-bottom: 2vh;
   text-align: center;
   font-size: 3rem;
   font-weight: 800;
@@ -90,7 +90,7 @@ time {
 }
 
 .page__subtitle {
-  margin-bottom: 1rem;
+  margin-bottom: 1vh;
   text-align: center;
   font-size: 1.8rem;
 }
@@ -164,7 +164,13 @@ time {
 
 .scroll-content {
   overflow-y: auto;
-  max-height: 50vh;
+  height: 50vh;
+}
+
+@media (max-height: 800px) {
+  .scroll-content {
+    height: 40vh;
+  }
 }
 
 .station__total {
@@ -218,7 +224,14 @@ time {
   }
 }
 
+/****************** PAGE-STATION ******************/
 /*** STATION INFO ***/
+#pageStation .page__content {
+  margin-bottom: 8rem;
+  overflow: auto;
+  height: auto;
+}
+
 .station-info {
   max-width: 50rem;
   margin: 2rem auto;
@@ -234,6 +247,7 @@ time {
   color: #000;
   border-bottom: 1px solid #000;
 }
+
 .station-info__subtitle {
   margin-bottom: 0.5rem;
   padding-bottom: 0.2rem;
@@ -248,6 +262,7 @@ time {
   width: 48%;
   padding-right: 2rem;
 }
+
 .station-info__group:not(:last-of-type) {
   margin-bottom: 1rem;
 }
@@ -288,6 +303,7 @@ time {
   padding: 1rem;
   background-color: var(--color-brand-4);
 }
+
 .station-weather .station-info__item:not(:nth-last-of-type(-n + 2)) {
   margin-bottom: 1.5rem;
 }
@@ -296,9 +312,11 @@ time {
   .station-weather .station-info__item {
     width: 100%;
   }
+
   .station-weather .station-info__item:not(:nth-last-of-type(-n + 2)) {
     margin-bottom: 0;
   }
+
   .station-weather .station-info__item:not(:last-of-type) {
     margin-bottom: 1rem;
   }
@@ -332,6 +350,7 @@ time {
   .station-pollen .station-info__group {
     width: 100%;
   }
+
   .station-pollen .station-info__item {
     min-height: auto;
   }
@@ -340,14 +359,17 @@ time {
 /*** STATION POLLUTION ***/
 .station-pollution {
 }
+
 .station-pollution .station-info__content {
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;
 }
+
 .station-pollution .station-info__group {
   width: 48%;
 }
+
 .station-pollution .station-acustic__list {
   list-style-type: circle;
 }
@@ -361,15 +383,18 @@ time {
 /*** STATION ACUSTIC ***/
 .station-acustic {
 }
+
 .station-acustic .station-info__content {
   max-height: 16rem;
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;
 }
+
 .station-acustic .station-info__list {
   list-style-type: circle;
 }
+
 .station-acustic .station-info__group {
   width: 25%;
 }
@@ -378,9 +403,11 @@ time {
   .station-acustic .station-info__content {
     max-height: 14rem;
   }
+
   .station-acustic .station-info__group {
     width: 50%;
   }
+
   .station-acustic .station-info__group:not(:nth-last-of-type(-n + 2)) {
     margin-bottom: 1.5rem;
   }
@@ -390,9 +417,11 @@ time {
   .station-acustic .station-info__group {
     width: 100%;
   }
+
   .station-acustic .station-info__group:not(:nth-last-of-type(-n + 2)) {
     margin-bottom: 0;
   }
+
   .station-acustic .station-info__group:not(:last-of-type) {
     margin-bottom: 1.5rem;
   }
@@ -410,8 +439,7 @@ time {
 }
 
 #pageError404 img {
-  width: 70%;
-  max-width: 60rem;
+  max-height: 30vh;
 }
 
 #pageError404 .page__section {
@@ -421,6 +449,7 @@ time {
 /****************** FOOTER ******************/
 .page__footer {
   width: 100%;
+  height: 5rem;
   padding: 1.2rem 5%;
   position: fixed;
   left: 0;

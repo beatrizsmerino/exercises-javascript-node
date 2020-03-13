@@ -17,5 +17,5 @@
  */
 (function () {
     setRouter();
-    document.addEventListener("keydown", disableF5);
+    // document.addEventListener("keydown", disableF5);
 })();

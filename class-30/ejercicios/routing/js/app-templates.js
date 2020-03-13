@@ -47,9 +47,12 @@ function setContentPageHome() {
         urlPagejs: "https://visionmedia.github.io/page.js/",
         urlHandlebars: "https://handlebarsjs.com/"
     });
-    // console.log(compiledHTML);
+    // console.log(typeof compiledHTML);
 
-    document.getElementById("app").innerHTML = compiledHTML;
+    let compiledHTMLCleanned = DOMPurify.sanitize(compiledHTML);
+    // console.log("DOMPurify", compiledHTMLClean);
+
+    document.getElementById("app").innerHTML = compiledHTMLCleanned;
 }
 
 
@@ -72,9 +75,12 @@ function setContentPageStations() {
             // console.log(data);
 
             let compiledHTML = compile(data);
-            // console.log(compiledHTML);
+            // console.log(typeof compiledHTML);
 
-            document.getElementById("app").innerHTML = compiledHTML;
+            let compiledHTMLClean = DOMPurify.sanitize(compiledHTML);
+            // console.log("DOMPurify", compiledHTMLClean);
+
+            document.getElementById("app").innerHTML = compiledHTMLClean;
         })
 }
 
@@ -127,9 +133,12 @@ function setContentPageStation(ctx) {
 
 
             let compiledHTML = compile(dataResponses);
-            // console.log(compiledHTML);
+            // console.log(typeof compiledHTML);
 
-            document.getElementById("app").innerHTML = compiledHTML;
+            let compiledHTMLClean = DOMPurify.sanitize(compiledHTML);
+            // console.log("DOMPurify", compiledHTMLClean);
+
+            document.getElementById("app").innerHTML = compiledHTMLClean;
         });
 
 }
@@ -157,7 +166,10 @@ function setContentPageError404() {
     // console.log(randomImage);
 
     let compiledHTML = compile({ image: randomImage });
-    // console.log(compiledHTML);
+    // console.log(typeof compiledHTML);
 
-    document.getElementById("app").innerHTML = compiledHTML;
+    let compiledHTMLClean = DOMPurify.sanitize(compiledHTML);
+    // console.log("DOMPurify", compiledHTMLClean);
+
+    document.getElementById("app").innerHTML = compiledHTMLClean;
 }
