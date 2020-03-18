@@ -7,6 +7,76 @@ const buttonSave = document.getElementById("buttonSave");
 
 
 
+function validateName(name) {
+	const regex = new RegExp(/^[A-Za-z ÑñÁÉÍÓÚáéíóú]{1,50}$/);
+	return regex.test(name);
+}
+
+
+
+function validatePhone(phone) {
+	const regex = new RegExp(/^(1[ \-\+]{0,3}|\+1[ -\+]{0,3}|\+1|\+)?((\(\+?1-[2-9][0-9]{1,2}\))|(\(\+?[2-8][0-9][0-9]\))|(\(\+?[1-9][0-9]\))|(\(\+?[17]\))|(\([2-9][2-9]\))|([ \-\.]{0,3}[0-9]{2,4}))?([ \-\.][0-9])?([ \-\.]{0,3}[0-9]{2,4}){2,3}$/);
+	return regex.test(phone);
+}
+
+
+
+function validateEmail(email) {
+	const regex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+	return regex.test(email);
+}
+
+
+
+
+function validateForm() {
+	const listErrorsId = "listErrors";
+	const listErrorsClass = "list-errors";
+	const listErrorsDOM = document.getElementById(listErrorsId);
+
+	if (listErrorsDOM) {
+		listErrorsDOM.remove();
+	}
+
+	if (
+		!validateName(nameContact.value) ||
+		!validatePhone(phoneContact.value) ||
+		!validateName(nameContact.value)
+	) {
+		console.warn("Error validation form");
+
+		const listErrors = document.createElement("ul");
+		listErrors.setAttribute("id", listErrorsId);
+		listErrors.setAttribute("class", listErrorsClass);
+
+		function itemError(message) {
+			let item = document.createElement("li");
+			let itemText = document.createTextNode(message);
+			item.appendChild(itemText);
+			listErrors.appendChild(item);
+		}
+
+		if (!validateName(nameContact.value)) {
+			// console.info(nameContact.value, validateName(nameContact.value));
+			itemError("Name not valid. Only maximum 50 characters of uppercase and lowercase letters, and spaces are valid.");
+		}
+		if (!validatePhone(phoneContact.value)) {
+			// console.info(phoneContact.value, validatePhone(phoneContact.value));
+			itemError("Phone not valid");
+		}
+		if (!validateEmail(emailContact.value)) {
+			// console.info(emailContact.value, validateEmail(emailContact.value));
+			itemError("Email not valid");
+		}
+
+		return listErrors;
+	} else {
+		return true;
+	}
+}
+
+
+
 function emptyForm() {
 	idContact.value = "";
 	nameContact.value = "";
@@ -17,25 +87,29 @@ function emptyForm() {
 
 
 function saveContact() {
-	const avatarURl = `http://api.adorable.io/avatars/80/${emailContact.value}.png`;
+	let checkForm = validateForm();
+	if (checkForm === true) {
+		const dataContact = {
+			"phone": phoneContact.value,
+			"email": emailContact.value,
+			"avatar": `http://api.adorable.io/avatars/80/${emailContact.value}.png`
+		}
 
-	const dataContact = {
-		"phone": phoneContact.value,
-		"email": emailContact.value,
-		"avatar": avatarURl
-	}
-
-	if (idContact.value !== "") {
-		if (localStorage.key(idContact.value)) {
-			localStorage.removeItem(localStorage.key(idContact.value));
+		if (idContact.value !== "") {
+			if (localStorage.key(idContact.value)) {
+				localStorage.removeItem(localStorage.key(idContact.value));
+				localStorage.setItem(nameContact.value, JSON.stringify(dataContact));
+			}
+		} else {
 			localStorage.setItem(nameContact.value, JSON.stringify(dataContact));
 		}
-	} else {
-		localStorage.setItem(nameContact.value, JSON.stringify(dataContact));
-	}
 
-	emptyForm();
-	setContacts();
+		emptyForm();
+		setContacts();
+	} else {
+		const listErrors = checkForm;
+		document.querySelector("#formSaveContact").appendChild(listErrors);
+	}
 }
 
 
@@ -53,7 +127,7 @@ function editContact($this) {
 	emailContact.value = dataContact.email;
 	dataContact.avatar = `http://api.adorable.io/avatars/80/${dataContact.email}.png`;
 
-	setContacts();
+	updateContacts();
 }
 
 
@@ -62,14 +136,14 @@ function removeContact($this) {
 	let itemIndex = $this.getAttribute("data-index");
 	let nameContact = localStorage.key(parseInt(itemIndex));
 	localStorage.removeItem(nameContact);
-	setContacts();
+	updateContacts();
 }
 
 
 
 function removeAllContacts() {
 	localStorage.clear();
-	init();
+	updateContacts();
 }
 
 
@@ -154,18 +228,23 @@ function setContacts() {
 
 
 
-function init() {
+function updateContacts() {
 	const listContactDOM = document.getElementById("listContact");
-
-	buttonSave.addEventListener("click", function () {
-		saveContact();
-	});
-
 	if (localStorage.length !== 0) {
 		setContacts();
 	} else {
 		listContactDOM.innerHTML = "";
 	}
+}
+
+
+
+function init() {
+	buttonSave.addEventListener("click", function () {
+		saveContact();
+	});
+
+	updateContacts();
 }
 
 

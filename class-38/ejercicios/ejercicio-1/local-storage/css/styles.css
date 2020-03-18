@@ -60,3 +60,11 @@
 body {
 	padding-bottom: 72px;
 }
+
+.jumbotron h1 {
+	line-height: 100%;
+}
+
+.list-errors {
+	color: var(--color-danger);
+}
