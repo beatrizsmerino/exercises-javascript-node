@@ -43,20 +43,20 @@ let keyAPI = "XXXXXXXXX";
  * @param {String} url - root of the API
  * @param {String} action - name of the action to excute
  * @return {Object}
- * @see Used inside: {@link addLoader}, {@link removeLoader}, {@link setAction}, {@link error404}
+ * @see Used inside: {@link activeLoader.add}, {@link activeLoader.remove}, {@link setAction}, {@link error404}
  * @see Used in: {@link functionAnonimAutoExecuted}
  */
 function ajaxHandler(url, action) {
 	// console.info(url);
 
-	addLoader();
+	activeLoader.add();
 
 	fetch(url)
 		.then(function (response) {
 			if (response.status === 200) {
 				response.json().then(function (data) {
 					let timer = setInterval(function () {
-						removeLoader();
+						activeLoader.remove();
 						console.info(data);
 						setAction(action, data);
 						clearInterval(timer);
@@ -66,7 +66,7 @@ function ajaxHandler(url, action) {
 			} else if (response.status === 404) {
 				console.warn(response.status);
 				let timer = setInterval(function () {
-					removeLoader();
+					activeLoader.remove();
 					error404();
 					clearInterval(timer);
 					return response.status;
@@ -102,32 +102,46 @@ function setAction(action, responseData) {
 //////////////////////////////////
 
 /**
- * @function addLoader
- * @description Add loading animation.
+ * @namespace activeLoader
+ * @description Add/remove loader animation.
+ * @returns {Object} Functions and properties publics
  * @see Used in: {@link ajaxHandler}
  */
-function addLoader() {
-	let loader = document.getElementById("loader");
-	if (!loader) {
-		let loader = document.createElement("div");
-		loader.setAttribute("id", "loader");
-		loader.setAttribute("class", "loader");
-		document.body.appendChild(loader);
+const activeLoader = (function () {
+	/**
+	 * @method activeLoader~add
+	 * @description Add loading animation.
+	 */
+	function add() {
+		let loader = document.getElementById("loader");
+		if (!loader) {
+			let loader = document.createElement("div");
+			loader.setAttribute("id", "loader");
+			loader.setAttribute("class", "loader");
+			document.body.appendChild(loader);
+		}
 	}
-}
 
-
-/**
- * @function removeLoader
- * @description Remove loading animation.
- * @see Used in: {@link ajaxHandler}
- */
-function removeLoader() {
-	let loader = document.getElementById("loader");
-	if (loader) {
-		document.body.removeChild(loader);
+	/**
+	 * @method activeLoader~remove
+	 * @description Remove loading animation.
+	 */
+	function remove() {
+		let loader = document.getElementById("loader");
+		if (loader) {
+			document.body.removeChild(loader);
+		}
 	}
-}
+
+	/**
+	 * @public
+	 * @see {@link method:activeLoader~add}, {@link method:activeLoader~remove}
+	 */
+	return {
+		add: add,
+		remove: remove
+	}
+})();
 
 
 
