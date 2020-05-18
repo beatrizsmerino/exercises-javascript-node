@@ -87,12 +87,8 @@ function ajaxHandler(url, action) {
  * @see Used in: {@link ajaxHandler}
  */
 function setAction(action, responseData) {
-	switch (action) {
-		case "setDataBooks":
-			setDataBooks(responseData);
-			break;
-		default:
-			break;
+	if (action === "setDataBooks") {
+		setDataBooks(responseData);
 	}
 }
 
