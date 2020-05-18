@@ -1,6 +1,6 @@
-# Clase 17
+# Class 17.
 
-## Ejercicio: New York Times. Hardcore fiction
+# Exercise: New York Times. Hardcore fiction
 
 Utilizando la API del NYTimes vamos a crear una web que nos muestre los libros más vendidos de la categoria
 Hardcover Fiction
@@ -22,3 +22,26 @@ Hardcover Fiction
     [https://developer.nytimes.com/get-started](https://developer.nytimes.com/get-started)
 -   Usa el Books API:
     [https://developer.nytimes.com/my-apps/new-app](https://developer.nytimes.com/my-apps/new-app)
+
+## Project setup
+
+### Install packages npm
+
+```
+npm install
+```
+
+### Generate the documentation JSDOCS
+
+```
+npm run docs
+```
+
+### Add the API KEY
+
+In the `js/scripts.js` file change the string `XXXXXXXXX` by the API KEY:
+
+1. Go to your account: https://developer.nytimes.com/accounts/login
+2. Go to the link: https://developer.nytimes.com/my-apps
+3. Find your app or create one new
+4. Copy the API KEY generated or create one new
