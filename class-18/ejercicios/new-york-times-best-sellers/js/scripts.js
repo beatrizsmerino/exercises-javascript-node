@@ -11,10 +11,15 @@
 /**
  * @const keyAPI
  * @description API token 'New York Times Best Sellers'.
+ * Change the string 'XXXXXXXXX' by the API KEY
+ *   1 - Go to your account: https://developer.nytimes.com/accounts/login
+ *   2 - Go to the link: https://developer.nytimes.com/my-apps
+ *   3 - Find your app or create one new
+ *   4 - Copy the API KEY generated or create one new
  * @type {String}
  * @see Used in: {@link functionAnonimAutoExecuted}
  */
-let keyAPI = "RiUeh7HSSb30pr2EOZeY2JIJ1oiM67Yo";
+let keyAPI = "XXXXXXXXX";
 
 
 /**
