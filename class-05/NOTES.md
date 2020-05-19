@@ -1,0 +1,4 @@
+# Apuntes
+
+Linguistic meaning of 'let' variable in programming
+let -> verb: "let", "letting". 1. to allow or permit:

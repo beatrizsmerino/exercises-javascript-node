@@ -1,8 +1,6 @@
-# Exercise
+# Rounting and templates
 
-## Rounting and templates
-
-### Dependencies
+## Dependencies
 
 **NPM**
 
@@ -10,15 +8,15 @@
 
 **CDN**
 
-- [page.js](https://visionmedia.github.io/page.js/)
-- [handlebars.js](https://handlebarsjs.com/)
-- [moment.js](https://momentjs.com/)
+-   [page.js](https://visionmedia.github.io/page.js/)
+-   [handlebars.js](https://handlebarsjs.com/)
+-   [moment.js](https://momentjs.com/)
 
-### APIs
+## APIs
 
-- [Airemad](https://airemad.docs.apiary.io/)
+-   [Airemad](https://airemad.docs.apiary.io/)
 
-### Compiles and hot-reloads for development
+## Compiles and hot-reloads for development
 
 ```
 npm run serve

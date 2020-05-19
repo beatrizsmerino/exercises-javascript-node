@@ -1,4 +1,4 @@
-# Class 17. Exercise: New York Times. Hardcore fiction
+# New York Times. Hardcore fiction
 
 Utilizando la API del NYTimes vamos a crear una web que nos muestre los libros más vendidos de la categoria
 Hardcover Fiction

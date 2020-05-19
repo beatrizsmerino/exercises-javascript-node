@@ -1,4 +1,4 @@
-# Class 18. Exercise: New York Times. Best Sellers
+# New York Times. Best Sellers
 
 Refactorizaremos el ejercicio anterior para ofrecer al cliente un dashboard con la listas disponibles en Books API. Especificaciones:
 
