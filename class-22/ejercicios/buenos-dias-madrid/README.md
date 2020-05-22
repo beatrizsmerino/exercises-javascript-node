@@ -1,5 +1,7 @@
 # Live Coding: Buenos días, Madrid!
 
+![Weather in your city](https://github.com/beatrizsmerino/exercises-javascript-node/blob/hotfix/class-22/class-22/ejercicios/buenos-dias-madrid/documentation/images/screenshot-2020-05-22-12.39.03.jpg?raw=true)
+
 Realizaremos una aplicación que nos facilite toda la información necesaria para tomar buenas decisiones por la mañana. Nuestra Aplicación Buenos Días, Madrid! necesitará:
 
 1. El estado de la contaminación en Madrid
