@@ -18,3 +18,5 @@
 
 		-	Trucos:
 			-	Encuentra la lógica en el nombre de las imagenes de las cámaras de tráfico para poder usar un número aleatorio.
+	- [x] 2 - Ejercicio con Ajax Fetch. 
+	The Big Bang Theory. Game: Rock-Paper-Scissors-Lizard-Spock
