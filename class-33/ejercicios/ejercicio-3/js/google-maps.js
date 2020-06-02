@@ -198,8 +198,8 @@ function addMultipleMarkers(listCoords, map) {
 */
 function addMarker(coords, title, map) {
 	const iconMarker = {
-		url: './img/location.png', // url
-		scaledSize: new google.maps.Size(50, 50), // scaled size
+		url: './img/icon-location.svg', // url
+		scaledSize: new google.maps.Size(50, 60), // scaled size
 		origin: new google.maps.Point(0, 0), // origin
 		anchor: new google.maps.Point(0, 0) // anchor
 	};

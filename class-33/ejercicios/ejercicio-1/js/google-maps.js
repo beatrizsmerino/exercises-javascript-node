@@ -129,7 +129,7 @@ export function setMap(coords) {
 	*/
 	function addMarker(contentMarker = null, coords, map) {
 		const iconMarker = {
-			url: './img/location.png', // url
+			url: './img/icon-location.svg', // url
 			scaledSize: new google.maps.Size(50, 50), // scaled size
 			// origin: new google.maps.Point(0, 0), // origin
 			// anchor: new google.maps.Point(0, 0) // anchor
