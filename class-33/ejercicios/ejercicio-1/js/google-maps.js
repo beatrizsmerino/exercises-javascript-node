@@ -46,6 +46,7 @@ export const API_KEY_MAP = "XXXXXXXXXXX";
 /**
  * @const module:googleMaps~API_KEY_STREETVIEW
  * @description Street View Static API key of 'Google Maps'
+ * IMPORTANT! This KEY do not work fot me
  * Instrucctions of use:
  * 1. Go to './google-maps.js', inside the function imageRoot() copy the url with the real data (without literal templates) without signature parameter
  * 2. Go to https://console.cloud.google.com/google/maps-apis/apis/street-view-image-backend.googleapis.com/staticmap and generate signature of the url copied
@@ -242,7 +243,7 @@ export function setImage(coords, imageSize, imageHeading, imageFov, imagePitch, 
 		source: imageSource || "default" // (optional) Limits Street View searches to selected sources | (by default: default) | (values acepted: default or outdoor)
 	};
 
-	// I removed this parametter &signature=${settings.signature} do not work fot me
+	// IMPORTANT! I removed this parametter &signature=${settings.signature} do not work fot me
 	const imageRoot = `${API}streetview?key=${settings.key}&location=${settings.location}&size=${settings.size}&heading=${settings.heading}&fov=${settings.fov}&pitch=${settings.pitch}&radius=${settings.radius}&source=${settings.source}`;
 	// console.log(imageRoot);
 	image.src = imageRoot;
