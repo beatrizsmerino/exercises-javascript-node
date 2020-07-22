@@ -7,23 +7,26 @@
 		<title>Peliculas</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.min.js"></script>
-		<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Baloo+2&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="css/style.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.2/css/swiper.min.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
 	</head>
 
 	<body class="page__body">
 		<div class="page__content">
 			<header class="page__header">
 				<h1 class="page__title">
-					Mis Peliculas favoritas
+					<!--
+						https://fontmeme.com/fonts/bebas-neue-font/
+						https://fontmeme.com/permalink/200611/4cdc1ca67614cd6e619f1c2272a04a97.png
+					-->
+					<img src="./images/title.svg" alt="Mis películas favoritas" />
 				</h1>
 				<h2 class="page__subtitle">
 					encuentra tu pelicula y guardala en tu lista de favoritos
 				</h2>
-			</header>
 
-			<main class="page__main">
 				<div class="form-group container">
 					<div class="search">
 						<input id="searchInput" class="search__input" type="text" placeholder="Search"
@@ -34,6 +37,10 @@
 						</button>
 					</div>
 				</div>
+			</header>
+
+			<main class="page__main">
+
 
 				<div id="searchResults" class="search-results"></div>
 			</main>
@@ -45,6 +52,7 @@
 			</div>
 		</footer>
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.2/js/swiper.min.js"></script>
 
 		<!-- 
 			TODO: Add SDKs for Firebase products that you want to use

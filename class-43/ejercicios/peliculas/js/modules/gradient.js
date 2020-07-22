@@ -1,5 +1,9 @@
 /**
- * @file Gradient
+ * @file gradient.js
+ * @module gradient
+ * @description Create fluid and interactive gradient animations with this small javascript library granim.js
+ * https://sarcadass.github.io/granim.js/index.html
+ * https://sarcadass.github.io/granim.js/api-v2.0.0.html
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -8,7 +12,11 @@
 
 
 
-// https://sarcadass.github.io/granim.js/api-v2.0.0.html
+/**
+ * @function add
+ * @description Added gradient
+ * @param {string} selector
+ */
 export function add(selector) {
 	let content = document.querySelector(selector);
 

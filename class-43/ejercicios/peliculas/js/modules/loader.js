@@ -1,6 +1,7 @@
 /**
- * @file Loader animation
+ * @file loader.js
  * @module loader
+ * @description Loader animation
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
