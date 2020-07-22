@@ -436,10 +436,10 @@ img {
 	overflow: hidden;
 }
 
-.page-item {
+.pagination-item {
 }
 
-.page-button {
+.pagination-button {
 	width: 4rem;
 	height: 4rem;
 	display: flex;
@@ -453,24 +453,24 @@ img {
 	outline: none;
 }
 
-.page-button--next {
+.pagination-button--next {
 }
 
-.page-button--now {
+.pagination-button--now {
 	width: 10rem;
 	background-color: var(--color-yellow);
 }
 
-.page-button--prev {
+.pagination-button--prev {
 }
 
-.page-button:hover {
+.pagination-button:hover {
 	color: var(--color-dark);
 	background-color: var(--color-yellow);
 }
 
-.page-button:disabled:hover,
-.page-button:disabled {
+.pagination-button:disabled:hover,
+.pagination-button:disabled {
 	display: none;
 }
 

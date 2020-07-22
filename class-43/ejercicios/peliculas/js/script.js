@@ -30,13 +30,13 @@ import * as gradient from './modules/gradient.js';
 	document.getElementById("searchButton").addEventListener("click", function (e) {
 		e.preventDefault();
 
-		let pageGo = 1;
+		let paginationGo = 1;
 		loader.add();
 
-		apiMovies.search(pageGo).then(data => {
+		apiMovies.search(paginationGo).then(data => {
 			setTimeout(function () {
 				loader.remove();
-				apiMovies.printSearchResults(data, pageGo);
+				apiMovies.printSearchResults(data, paginationGo);
 			}, 7000);
 		});
 	});

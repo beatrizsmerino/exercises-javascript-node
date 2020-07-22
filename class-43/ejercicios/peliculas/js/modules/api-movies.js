@@ -78,11 +78,11 @@ function saveSearchText() {
 
 /**
  * @function module:apiMovies.search
- * @description Get the movies according to the text of the input and the page to search
- * @param {Number} page
+ * @description Get the movies according to the text of the input and the pagination to search
+ * @param {Number} pagination
  * @returns {Object|String}
  */
-export async function search(page) {
+export async function search(pagination) {
 
 	// Search by the input hidden value or input value
 	const searchInput = document.getElementById("searchInput");
@@ -98,7 +98,7 @@ export async function search(page) {
 
 
 	try {
-		const url = `${apiUrl}/?type=movie&s=${valueSearch}&page=${page}&apikey=${apiKey}`;
+		const url = `${apiUrl}/?type=movie&s=${valueSearch}&page=${pagination}&apikey=${apiKey}`;
 
 		const find = await fetch(url);
 		const result = await find.json();
@@ -323,60 +323,60 @@ function setMoviesSwiper() {
  * @description Create and print pagination of results from 10 to 10
  * @param {Object} content 
  * @param {Object} data 
- * @param {Number} page 
+ * @param {Number} pagination 
  */
-function setMoviesSearchPagination(content, data, page) {
+function setMoviesSearchPagination(content, data, pagination) {
 
-	// Max number of results into page
+	// Max number of results into pagination
 	let formTo = 10;
-	let pageMax = Math.round(data.totalResults / formTo);
-	if (pageMax < 1) {
-		pageMax = 1
+	let paginationMax = Math.round(data.totalResults / formTo);
+	if (paginationMax < 1) {
+		paginationMax = 1
 	}
 
 
 	// Indicate the displayed results
-	let pagesNow = `1 - ${formTo}`;
+	let paginationNow = `1 - ${formTo}`;
 	if (data.totalResults < formTo) {
-		pagesNow = `1 - ${data.totalResults}`;
-	} else if ((Math.round(data.totalResults / formTo)) === page) {
-		pagesNow = `${(page * formTo) - formTo + 1} - ${data.totalResults}`;
+		paginationNow = `1 - ${data.totalResults}`;
+	} else if ((Math.round(data.totalResults / formTo)) === pagination) {
+		paginationNow = `${(pagination * formTo) - formTo + 1} - ${data.totalResults}`;
 	} else {
-		pagesNow = `${(page * formTo) - formTo + 1} - ${page * formTo}`;
+		paginationNow = `${(pagination * formTo) - formTo + 1} - ${pagination * formTo}`;
 	}
 
 
 	// Create and print pagination
-	const pagination = `
-		<nav class="pagination__wrapper noselect" aria-label="Page navigation example">
+	const paginationTemplate = `
+		<nav class="pagination__wrapper noselect" aria-label="Pagination">
 			<ul class="pagination">
-				<li class="page-item">
-					<button id="pageButtonPrev" class="page-button page-button--prev" data-page="${page - 1}">
-						<i class="page-button__icon fa fa-chevron-left"></i>
+				<li class="pagination-item">
+					<button id="paginationButtonPrev" class="pagination-button pagination-button--prev" data-pagination="${pagination - 1}">
+						<i class="pagination-button__icon fa fa-chevron-left"></i>
 					</button>
 				</li>
-				<li class="page-item">
-					<button id="pageButtonNow" class="page-button page-button--now" data-page="${page}">${pagesNow}</button>
+				<li class="pagination-item">
+					<button id="paginationButtonNow" class="pagination-button pagination-button--now" data-pagination="${pagination}">${paginationNow}</button>
 				</li>
-				<li class="page-item">
-					<button id="pageButtonNext" class="page-button page-button--next" data-page="${page + 1}">
-						<i class="page-button__icon fa fa-chevron-right"></i>
+				<li class="pagination-item">
+					<button id="paginationButtonNext" class="pagination-button pagination-button--next" data-pagination="${pagination + 1}">
+						<i class="pagination-button__icon fa fa-chevron-right"></i>
 					</button>
 				</li>
 			</ul>
 		</nav>
 		`;
-	let paginationNode = document.createRange().createContextualFragment(pagination);
-	content.appendChild(paginationNode);
+	let paginationTemplateNode = document.createRange().createContextualFragment(paginationTemplate);
+	content.appendChild(paginationTemplateNode);
 
 
 	// Add event got to the page... and disabled/ability buttons
-	let pageButtons = document.getElementsByClassName("page-button");
-	Array.from(pageButtons).map(button => {
+	let paginationButtons = document.getElementsByClassName("pagination-button");
+	Array.from(paginationButtons).map(button => {
 		if (
-			button.getAttribute("id") !== "pageButtonNow" &&
-			parseInt(button.getAttribute("data-page")) === 0 ||
-			parseInt(button.getAttribute("data-page")) >= pageMax + 1
+			button.getAttribute("id") !== "paginationButtonNow" &&
+			parseInt(button.getAttribute("data-pagination")) === 0 ||
+			parseInt(button.getAttribute("data-pagination")) >= paginationMax + 1
 		) {
 			button.setAttribute("disabled", "disabled");
 		} else {
@@ -384,10 +384,10 @@ function setMoviesSearchPagination(content, data, page) {
 		}
 
 		button.addEventListener("click", function () {
-			let pageGo = parseInt(this.getAttribute("data-page"));
+			let paginationGo = parseInt(this.getAttribute("data-pagination"));
 
-			if (pageGo >= 1 && pageGo < data.totalResults) {
-				search(pageGo).then(data => printSearchResults(data, pageGo));
+			if (paginationGo >= 1 && paginationGo < data.totalResults) {
+				search(paginationGo).then(data => printSearchResults(data, paginationGo));
 			}
 		});
 	});
@@ -423,9 +423,9 @@ function printError(content, textError) {
  * @function module:apiMovies.printSearchResults
  * @description Clean and print results in the interface
  * @param {Object} data 
- * @param {Number} page 
+ * @param {Number} pagination
  */
-export function printSearchResults(data, page) {
+export function printSearchResults(data, pagination) {
 	const content = document.getElementById("searchResults");
 
 	if (data.Response === "True") {
@@ -436,7 +436,7 @@ export function printSearchResults(data, page) {
 
 		setMoviesList(content, data);
 		setMoviesSwiper();
-		setMoviesSearchPagination(content, data, page);
+		setMoviesSearchPagination(content, data, pagination);
 	} else {
 		printError(content, data.Error);
 	}
