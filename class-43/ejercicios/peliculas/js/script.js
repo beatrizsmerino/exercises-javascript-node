@@ -7,6 +7,8 @@
 
 
 
+
+
 /**
  * @requires apiMovies
  * @requires loader
@@ -18,12 +20,16 @@ import * as gradient from './modules/gradient.js';
 
 
 
+
+
 (function () {
 	gradient.add("body");
 
 	let searchInput = document.getElementById("searchInput");
 
-	document.getElementById("searchButton").addEventListener("click", function () {
+	document.getElementById("searchButton").addEventListener("click", function (e) {
+		e.preventDefault();
+
 		let pageGo = 1;
 		loader.add();
 

@@ -18,7 +18,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: "Baloo 2", cursive, "sans-serif";
+	font-family: "Baloo 2", "sans-serif";
 }
 
 html,
@@ -45,8 +45,7 @@ img {
 	-khtml-user-select: none; /* Konqueror HTML */
 	-moz-user-select: none; /* Old versions of Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Opera and Firefox */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
 
 /************ PAGE ************/
@@ -103,6 +102,7 @@ img {
 }
 
 .page__subtitle {
+	font-weight: 400;
 	/*
 		font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
 	*/
@@ -189,6 +189,28 @@ img {
 	cursor: pointer;
 }
 
+/************ SEARCH INFO ************/
+
+.search-info {
+	margin: 0 0 2rem;
+	text-align: center;
+	color: #fff;
+}
+
+.search-info h3 {
+	font-weight: 600;
+	font-size: 2rem;
+}
+
+.search-info p {
+	line-height: 110%;
+	font-size: 1.8rem;
+}
+
+.search-info em {
+	font-weight: 800;
+}
+
 /************ SEARCH RESULTS ************/
 
 .search-results {
@@ -209,13 +231,6 @@ img {
 	.search-results {
 		padding: 0 2rem;
 	}
-}
-
-.total-movies {
-	margin: 0 0 1rem;
-	text-align: center;
-	font-size: 2rem;
-	color: #fff;
 }
 
 .list-movies {
@@ -332,8 +347,7 @@ img {
 .movie__image {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
-	object-position: 100% 150%;
+	position: relative;
 	overflow: hidden;
 	border: 1px solid #333;
 	border-radius: 0.5rem;
@@ -343,6 +357,10 @@ img {
 	width: auto;
 	height: 100%;
 	margin: 0 auto;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
 }
 
 .movie__body {
