@@ -12,7 +12,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap"
 			rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.2/css/swiper.min.css" rel="stylesheet">
+		<link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 	</head>
 
@@ -38,10 +38,16 @@
 						</button>
 					</div>
 				</div>
+
+				<button id="favoriteListButton" class="favorite-list__button button-favorite button"
+					aria-label="Lista de peliculas favoritas">
+					<i class="button-favorite__icon button__icon fa fa-heart"></i>
+				</button>
 			</header>
 
 			<main class="page__main">
 				<div id="searchResults" class="search-results"></div>
+				<div id="favoriteList" class="favorite-list"></div>
 			</main>
 		</div>
 
@@ -51,7 +57,7 @@
 			</div>
 		</footer>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.2/js/swiper.min.js"></script>
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 		<!-- 
 			TODO: Add SDKs for Firebase products that you want to use
