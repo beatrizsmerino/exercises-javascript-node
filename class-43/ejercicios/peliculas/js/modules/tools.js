@@ -13,10 +13,10 @@
 /**
  * @function module:tool.wrap
  * @description Wrap an HTML structure around an element
- * @param {Element} innerDOM 
- * @param {String|null} tagWrapper
- * @param {String|null} classWrapper
- * @param {String|null} idWrapper
+ * @param {Element} innerDOM Element to wrap
+ * @param {String|null} tagWrapper HTML tag of wrapper
+ * @param {String|null} classWrapper Class name for the tag of wrapper
+ * @param {String|null} idWrapper Id name for the tag of wrapper
  * @returns {Element}
  */
 export function wrap(innerDOM, tagWrapper = null, idWrapper = null, classWrapper = null) {
@@ -50,11 +50,11 @@ export function wrap(innerDOM, tagWrapper = null, idWrapper = null, classWrapper
 /**
  * @function module:tool.getClosest
  * @description Get the parent element with a specific selector
- * @param {Element} elem 
- * @param {String} selector
+ * @param {Element} childElement Child element
+ * @param {String} parentSelector Selector of the parent element
  * @returns {Element|null}
  */
-export function getClosest(elem, selector) {
+export function getClosest(childElement, parentSelector) {
 
 	// Element.matches() polyfill
 	if (!Element.prototype.matches) {
@@ -73,8 +73,8 @@ export function getClosest(elem, selector) {
 	}
 
 	// Get the closest matching element
-	for (; elem && elem !== document; elem = elem.parentNode) {
-		if (elem.matches(selector)) return elem;
+	for (; childElement && childElement !== document; childElement = childElement.parentNode) {
+		if (childElement.matches(parentSelector)) return childElement;
 	}
 	return null;
 };
@@ -84,7 +84,7 @@ export function getClosest(elem, selector) {
 /**
  * @function module:tool.stringToNode
  * @description Convert a string to node DOM
- * @param {String} String
+ * @param {String} String String to convert
  * @return {Element}
  */
 export function stringToNode(string) {
@@ -97,9 +97,8 @@ export function stringToNode(string) {
 /**
  * @function module:tool~convertNumberWith2Cifres
  * @description Convert 1 digit numbers to 2 digit numbers by adding a leading zero
- * @param {Number} number
+ * @param {Number} number Number to convert
  * @return {String|Number}
- * @see Used in: {@link tool.getCurrentDate}
  */
 function convertNumberWith2Cifres(number) {
 	var numberToString = number.toString();
@@ -119,8 +118,7 @@ function convertNumberWith2Cifres(number) {
  * @function module:tool.getCurrentDate
  * @description Get the current date in this format: 'yyyy-mm-dd hh:mm:ss'
  * @returns {String}
- * @see Used inside: {@link module:tool~convertNumberWith2Cifres}
- * @see Used in: {@link firebaseTasks~firebaseAddRecordDate}
+ * @see Used inside: {@link module:module:tool~convertNumberWith2Cifres}
  */
 export function getCurrentDate() {
 	let today = new Date();

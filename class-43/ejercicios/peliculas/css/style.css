@@ -5,6 +5,7 @@
 	--color-light: #ededed;
 	--color-yellow: #fdbb2d;
 	--color-red: #d82b08;
+	--color-red-dark: hsl(0, 100%, 30%);
 	--color-blue: #00e4ff;
 	--color-gray: #b8c5d2;
 	--color-dark: #343a40;
@@ -33,7 +34,7 @@ html {
 }
 
 body {
-	font-style: 10px;
+	font-size: 10px;
 }
 
 img {
@@ -146,11 +147,11 @@ img {
 }
 
 .button {
-	padding: 0.5rem;
+	padding: 0.5rem 1rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 0;
+	border: 1px solid transparent;
 	border-radius: 0.5rem;
 	background-color: #fff;
 	outline: none;
@@ -159,12 +160,16 @@ img {
 	transition: opacity 0.2s linear 0s;
 }
 
+.button--icon {
+	padding: 0.5rem;
+}
+
 .button__icon {
 	font-size: 2rem;
 	pointer-events: none;
 }
 
-.button-info {
+.button .button-info {
 }
 
 .button-info__icon {
@@ -176,6 +181,49 @@ img {
 
 .button-favorite__icon {
 	color: var(--color-red);
+}
+
+.button-favorite.is-hide .button-favorite__icon {
+	transition: all 0.5s ease-in-out 0s;
+}
+
+.button-delete {
+	margin: 0 auto;
+	font-weight: 900;
+	color: var(--color-light);
+	background-color: var(--color-red);
+}
+
+.button-delete:hover {
+	background-color: var(--color-red-dark);
+}
+
+.button-list-favorites {
+	margin: 2rem;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.button-list-favorites.is-hide {
+	display: none;
+}
+
+@media (max-width: 700px) {
+	.button-list-favorites {
+		margin: 1.5rem auto 0;
+		padding: 0.5rem 1.5rem;
+		position: relative;
+		top: initial;
+		right: initial;
+	}
+	.button-list-favorites:after {
+		content: "Favoritos";
+		margin-left: 1rem;
+		font-weight: 600;
+		font-size: 1.8rem;
+		color: var(--color-red);
+	}
 }
 
 /************ LOADER ************/
@@ -345,17 +393,26 @@ img {
 }
 
 .search-results .swiper-container {
-	height: 100%;
+	height: calc(100% - 0.5rem);
+	padding: 0.5rem;
 }
 
 .search-results .swiper-button-prev,
 .search-results .swiper-button-next {
 	width: 5rem;
-	height: 100%;
+	height: calc(100% - 1.5rem);
+	margin: 0.5rem;
 	top: 0;
-	margin: 0;
 	outline: none;
 	overflow: hidden;
+}
+
+.search-results .swiper-button-prev {
+	left: 0.5rem;
+}
+
+.search-results .swiper-button-next {
+	right: 0.5rem;
 }
 
 @media (max-width: 400px) {
@@ -505,10 +562,27 @@ img {
 	z-index: 9;
 }
 
+.movie__list-buttons--favorite {
+	position: relative;
+	margin-right: 1rem;
+}
+
+.movie__list-buttons--favorite .movie__button:not(:last-child) {
+	margin-right: 0;
+}
+
 .movie__button {
 }
 
 .movie__icon {
+}
+
+.movie__button.is-hide {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
 }
 
 /************ MOVIE -- STATUS ************/
@@ -623,30 +697,6 @@ img {
 	width: 100%;
 }
 
-.favorite-list__button {
-	margin: 2rem;
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-@media (max-width: 700px) {
-	.favorite-list__button {
-		margin: 1.5rem auto 0;
-		padding: 0.5rem 1.5rem;
-		position: relative;
-		top: initial;
-		right: initial;
-	}
-	.favorite-list__button:after {
-		content: "Favoritos";
-		margin-left: 1rem;
-		font-weight: 600;
-		font-size: 1.8rem;
-		color: var(--color-red);
-	}
-}
-
 .favorite-list__table {
 	margin: 0 auto;
 	border-collapse: collapse;
@@ -679,10 +729,7 @@ img {
 
 .favorite-list__table-body td {
 	padding: 1rem 2rem;
-}
-
-.favorite-list__table-body td {
-	padding: 1rem 2rem;
+	text-align: center;
 }
 
 .favorite-list__table-body tr td {
@@ -707,6 +754,11 @@ img {
 
 .favorite-list__table-foot th {
 	font-size: 1.5rem;
+}
+
+.favorite__tasks .button {
+	margin: 0 auto;
+	border-color: var(--color-red);
 }
 
 /************ FAVORITE -- STATUS ************/

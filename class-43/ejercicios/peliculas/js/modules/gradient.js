@@ -2,8 +2,7 @@
  * @file gradient.js
  * @module gradient
  * @description Create fluid and interactive gradient animations with this small javascript library granim.js
- * https://sarcadass.github.io/granim.js/index.html
- * https://sarcadass.github.io/granim.js/api-v2.0.0.html
+ * @see granim.js: {@link https://sarcadass.github.io/granim.js/index.html}, {@link https://sarcadass.github.io/granim.js/api-v2.0.0.html}
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -13,11 +12,40 @@
 
 
 /**
- * @function add
- * @description Added gradient
- * @param {string} selector
+ * @const colorGradients
+ * @description Array of colors for gradients
  */
-export function add(selector) {
+export const colorGradients = [
+	['#ff9966', '#ff5e62'],
+	['#fdbb2d', '#144D9B'],
+	['#af4d9c', '#509AF4'],
+	['#192A67', '#43bab8'],
+	['#FF4E50', '#fdbb2d'],
+	['#55d6c2', '#8E54E9'],
+	['#B3FFAB', '#4776E6'],
+	['#f2994a', '#13d8b9'],
+	['#4CB8C4', '#bc3871'],
+	['#c94936', '#3CD3AD'],
+	['#ff72ff', '#bdd38d'],
+	['#ffc300', '#6E48AA'],
+	['#7f59a3', '#518c7c'],
+	['#19607b', '#FFC837'],
+	['#24C6DC', '#514A9D'],
+	['#7d9157', '#ff72ff'],
+];
+
+
+
+
+
+/**
+ * @function add
+ * @description Added gradient with the javascript library granim.js
+ * @param {string} selector Selector name to insert it
+ * @param {Object} arrayColorGradients List of colors for create the gradient
+ * @param {string} imagePath Image path
+ */
+export function add(selector, arrayColorGradients, imagePath) {
 	let content = document.querySelector(selector);
 
 	let canvas = document.createElement("canvas");
@@ -47,30 +75,12 @@ export function add(selector) {
 		opacity: [1, 1],
 		states: {
 			"default-state": {
-				gradients: [
-					// Array of CSS gradients
-					['#ff9966', '#ff5e62'],
-					['#fdbb2d', '#144D9B'],
-					['#af4d9c', '#509AF4'],
-					['#192A67', '#43bab8'],
-					['#FF4E50', '#fdbb2d'],
-					['#55d6c2', '#8E54E9'],
-					['#B3FFAB', '#4776E6'],
-					['#f2994a', '#13d8b9'],
-					['#4CB8C4', '#bc3871'],
-					['#c94936', '#3CD3AD'],
-					['#ff72ff', '#bdd38d'],
-					['#ffc300', '#6E48AA'],
-					['#7f59a3', '#518c7c'],
-					['#19607b', '#FFC837'],
-					['#24C6DC', '#514A9D'],
-					['#7d9157', '#ff72ff'],
-				],
+				gradients: arrayColorGradients,
 				transitionSpeed: 5000
 			}
 		},
 		image: {
-			source: 'images/bg.jpg',
+			source: imagePath,
 			position: ['center', 'bottom'],
 			blendingMode: 'multiply'
 		},

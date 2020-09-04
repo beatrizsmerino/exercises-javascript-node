@@ -1,7 +1,7 @@
 /**
  * @file firebase-tasks.js
  * @module firebaseTasks
- * @description Firebase TASKS. Conexion data base and CRUD: Create, Read, Update and Delete with Firebase
+ * @description Firebase TASKS. Connexion database and CRUD: Create, Read, Update and Delete with Firebase
  * @author Beatriz Sopeña Merino <beatrizsmerino@gmail.com>
  * @copyright (2020)
  */
@@ -20,26 +20,40 @@ import * as tool from './tools.js';
 
 
 /**
- * @function module:firebaseTasks.firebaseConexionDataBase
- * @description CONEXION. Initialize Firebase
- * @param {Object} firebaseConfig
- * @see Used in: {@link firebaseTasks}
+ * @function module:firebaseTasks.firebaseConnexionDataBase
+ * @description CONNEXION. Initialize connection with database of Firebase App
+ * @param {Object} firebaseConfig Firebase configuration for access database
  */
-export function firebaseConexionDataBase(firebaseConfig) {
-	const dbConexion = firebase.initializeApp(firebaseConfig);
-	console.group("Firebase conexion");
-	console.info("Conexion data base: ", dbConexion);
-	console.groupEnd();
+export function firebaseConnexionDataBase(firebaseConfig) {
+	const dbConnexion = firebase.initializeApp(firebaseConfig);
+	console.info("Connection to Firebase Database:", dbConnexion);
+}
+
+
+
+/**
+ * @function module:firebaseTasks.firebaseReadOnValue
+ * @description READ. Get all the data from the table and manipulate it with the callback function
+ * @param {String} table Table name to get the data
+ * @param {Function} callbackFunction Function name to get the data
+ * @returns {Object}
+ */
+export function firebaseReadOnValue(table, callbackFunction) {
+	return firebase
+		.database()
+		.ref(table)
+		.once("value")
+		.then((snapshot) => snapshot.val())
+		.then((data) => callbackFunction(data));
 }
 
 
 
 /**
  * @function module:firebaseTasks.firebaseReadOnAdded
- * @description READ. Get all the data from the table when new ones are added to it
- * @param {String} table Name of the table for get the data
- * @param {Function} callbackFunction Name of function that get the data
- * @see Used in: {@link moviesCRUD.getSetFavorites}
+ * @description READ. When new data is added to the table, get it and manipulate it with the callback function
+ * @param {String} table Table name to get the data
+ * @param {Function} callbackFunction Function name to get the data
  */
 export function firebaseReadOnAdded(table, callbackFunction) {
 	firebase
@@ -47,6 +61,7 @@ export function firebaseReadOnAdded(table, callbackFunction) {
 		.ref(table)
 		.on("child_added", (data) => {
 			let dataValue = data.val();
+			console.info("Added:", dataValue);
 			callbackFunction(dataValue);
 		});
 }
@@ -54,98 +69,84 @@ export function firebaseReadOnAdded(table, callbackFunction) {
 
 
 /**
- * @function module:firebaseTasks.firebaseUpdateCounterRecords
- * @description READ. Count records
- * @param {String} table Name of the table for get the data
- * @see Used in: {@link firebaseTasks~firebaseInsert}, {@link firebaseTasks~firebaseUpdate}, {@link firebaseTasks~firebaseDeleteAll},{@link firebaseTasks~firebaseDelete},
+ * @function module:firebaseTasks.firebaseReadOnRemoved
+ * @description READ. When some data is erased to the table, get it and manipulate it with the callback function
+ * @param {String} table Table name to get the data
+ * @param {Function} callbackFunction Function name to get the data
  */
-export function firebaseUpdateCounterRecords(table) {
+export function firebaseReadOnRemoved(table, callbackFunction) {
 	firebase
 		.database()
-		.ref(`${table}/list`)
-		.on("value", function (snapshot) {
-			let totalNum = snapshot.numChildren();
-			let data = { 'num': totalNum };
-
-			firebase
-				.database()
-				.ref(`${table}/total`)
-				.set(data, (error) => {
-					if (error) {
-						console.group("Error saving data");
-						console.warn(`Error: ${error.code}`);
-						console.groupEnd();
-					} else {
-						console.group("Data saved successfully!");
-						console.info("Total records: ", totalNum);
-						console.groupEnd();
-					}
-				});
+		.ref(table)
+		.on("child_removed", (data) => {
+			let dataValue = data.val();
+			console.info("Removed:", dataValue);
+			callbackFunction(dataValue);
 		});
 }
 
 
 
 /**
- * @function module:firebaseTasks~firebaseCheckEmpty
- * @description READ. Check if the table is empty by searching for data inside it
- * @param {String} table Name of the parent table
- * @param {String} dataToFind Name of the table that has the data to search
- * @return {Boolean}
- * @see Used in: {@link firebaseTasks~firebaseAddRecordIndex}, {@link firebaseTasks~firebaseCreate}
+ * @function module:firebaseTasks~firebaseCountRecords
+ * @description READ. Count records of the table
+ * @param {String} table Table name to get the data
+ * @return {Object}
  */
-function firebaseCheckEmpty(table, dataToFind) {
+function firebaseCountRecords(table) {
+	return firebase
+		.database()
+		.ref(`${table}/list`)
+		.once("value")
+		.then((snapshot) => snapshot.numChildren());
+}
+
+
+
+/**
+ * @function module:firebaseTasks.firebaseCheckEmpty
+ * @description READ. Check if the table is empty by searching for data inside it and return true or false
+ * @param {String} table Parent table name
+ * @param {String} data Table name that has the data to search
+ * @return {Boolean}
+ */
+export function firebaseCheckEmpty(table, data) {
 	return firebase
 		.database()
 		.ref(table)
-		.child(dataToFind)
+		.child(data)
 		.once('value')
-		.then((snapshot) => {
-			if (snapshot.val() === null) {
-				return true;
-			} else {
-				return false;
-			}
-		});
+		.then((snapshot) => (snapshot.val() === null) ? true : false);
 }
 
 
 
 /**
  * @function module:firebaseTasks~firebaseFindRecord
- * @description READ. Find record by his id name and if exist get it
- * @param {String} table Name of the table for get the data
- * @param {Object} record Record to find
+ * @description READ. Find record by his id name and if exist get it else return false
+ * @param {String} table Table name to get the data
+ * @param {String} dataId Id name to find
  * @return {Object|Boolean}
- * @see Used in: {@link firebaseTasks.firebaseCreate}
  */
-function firebaseFindRecord(table, record) {
+function firebaseFindRecord(table, dataId) {
 	return firebase
 		.database()
 		.ref(table)
 		.orderByChild("id")
-		.equalTo(record.id)
+		.equalTo(dataId)
 		.once("value")
-		.then((snapshot) => {
-			if (snapshot.val() !== null) {
-				let recordData = snapshot.val();
-				return recordData;
-			} else {
-				return false;
-			}
-		});
+		.then((snapshot) => (snapshot.val() !== null) ? snapshot.val() : false);
 }
 
 
 
 /**
- * @function module:firebaseTasks~firebaseGetLastRecord
- * @description READ. Get the last record inserted
+ * @function module:firebaseTasks~firebaseGetLastRecordAdded
+ * @description READ. Get the last record added
  * @param {String} table Name of the table for get the record
  * @return {Object}
- * @see Use in: {@link firebaseTasks~firebaseAddRecordIndex}
  */
-function firebaseGetLastRecord(table) {
+function firebaseGetLastRecordAdded(table) {
 	return firebase
 		.database()
 		.ref(table)
@@ -154,9 +155,12 @@ function firebaseGetLastRecord(table) {
 		.once('value')
 		.then((snapshot) => {
 			let theLastRecord = snapshot.val();
-			console.info(theLastRecord);
-
+			console.info("The last record added:", theLastRecord);
+			return snapshot;
+		})
+		.then((snapshot) => {
 			let theLastRecordData;
+
 			snapshot.forEach(item => {
 				const dataItem = item.val();
 				theLastRecordData = dataItem;
@@ -169,24 +173,25 @@ function firebaseGetLastRecord(table) {
 
 
 /**
- * @function module:firebaseTasks~firebaseAddRecordIndex
- * @description CREATE. Create and add the next index to the data
- * @param {String} table Name of the table for get the data
+ * @function module:firebaseTasks~firebaseSetRecordIndex
+ * @description CREATE. Create and add the next index to the new record
+ * @param {String} table Table name to get the data
  * @param {Object} data New record to add index before insert it
- * @see Used inside: {@link firebaseTasks~firebaseCheckEmpty}, {@link firebaseTasks~firebaseGetLastRecord}
- * @see Used in: {@link firebaseTasks~firebaseInsert}
+ * @see Used inside: {@link module:firebaseTasks.firebaseCheckEmpty}, {@link module:firebaseTasks~firebaseGetLastRecordAdded}
  */
-async function firebaseAddRecordIndex(table, data) {
+async function firebaseSetRecordIndex(table, data) {
 	const emptyData = await firebaseCheckEmpty(table, 'list');
 	let nextIndex;
 
 	if (emptyData) {
 		nextIndex = 1;
 	} else {
-		const lastRecord = await firebaseGetLastRecord(`${table}/list`);
+		const lastRecord = await firebaseGetLastRecordAdded(`${table}/list`);
 		const lastRecordIndex = lastRecord.index;
 		nextIndex = lastRecordIndex + 1;
 	}
+
+	console.info("The index for the new record:", nextIndex);
 
 	data.index = nextIndex;
 }
@@ -194,12 +199,11 @@ async function firebaseAddRecordIndex(table, data) {
 
 
 /**
- * @function module:firebaseTasks~firebaseAddRecordDate
- * @description CREATE. Create and add the current date and the timestamp for to sort
+ * @function module:firebaseTasks~firebaseSetRecordDate
+ * @description CREATE. Create and add the current date with format and the timestamp for to sort
  * @param {Object} data New record to add date before insert it
- * @see Used in: {@link firebaseTasks~firebaseInsert}
  */
-function firebaseAddRecordDate(data) {
+function firebaseSetRecordDate(data) {
 	data.date = tool.getCurrentDate();
 	data.timestamp = JSON.parse(JSON.stringify(new Date()));
 }
@@ -211,26 +215,20 @@ function firebaseAddRecordDate(data) {
  * @description CREATE. Insert new record
  * @param {String} table Table name to insert the new record
  * @param {Object} data New record to add
- * @see Used inside: {@link firebaseTasks~firebaseAddRecordIndex}, {@link firebaseTasks~firebaseAddRecordDate}, {@link firebaseUpdateCounterRecords}
- * @see Used in: {@link firebaseTasks.firebaseCreate}
+ * @see Used inside: {@link module:firebaseTasks~firebaseSetRecordIndex}, {@link module:firebaseTasks~firebaseSetRecordDate}, {@link module:firebaseTasks.firebaseUpdateCounterRecords}
  */
 async function firebaseInsert(table, data) {
-	await firebaseAddRecordIndex(table, data);
-	firebaseAddRecordDate(data);
+	await firebaseSetRecordIndex(table, data);
+	firebaseSetRecordDate(data);
 
 	await firebase
 		.database()
 		.ref(`${table}/list`)
 		.push(data, function (error) {
 			if (error) {
-				console.group("Error saving data");
-				console.warn(`Error: ${error.code}`);
-				console.groupEnd();
+				console.warn("Error saving data! Error code:", error.code);
 			} else {
-				console.group("Data saved successfully!");
-				console.info("Data: ", data);
-				console.groupEnd();
-
+				console.info("Data saved successfully! Data:", data);
 				firebaseUpdateCounterRecords(table);
 			}
 		});
@@ -240,11 +238,10 @@ async function firebaseInsert(table, data) {
 
 /**
  * @function module:firebaseTasks.firebaseCreate
- * @description CREATE. Save data if the record already save it
+ * @description CREATE. Save data record if it has not been saved yet
  * @param {String} table Table name to save the new record
  * @param {Object} data New record to save
- * @see Used inside: {@link firebaseTasks~firebaseCheckEmpty}, {@link firebaseTasks~firebaseFindRecord}, {@link firebaseTasks~firebaseInsert}
- * @see Used in: {@link moviesCRUD~saveFavorite}
+ * @see Used inside: {@link module:firebaseTasks.firebaseCheckEmpty}, {@link module:firebaseTasks~firebaseFindRecord}, {@link module:firebaseTasks~firebaseInsert}
  */
 export async function firebaseCreate(table, data) {
 	const emptyData = await firebaseCheckEmpty(table, 'list');
@@ -252,14 +249,81 @@ export async function firebaseCreate(table, data) {
 	if (emptyData) {
 		firebaseInsert(table, data);
 	} else {
-		let recordFound = await firebaseFindRecord(`${table}/list`, data);
+		let recordFound = await firebaseFindRecord(`${table}/list`, data.id);
 
 		if (recordFound) {
-			console.group("The data cannot be saved because it already exists!");
-			console.info("Data: ", recordFound);
-			console.groupEnd();
+			console.warn("The data cannot be saved because it already exists! Data:", recordFound);
 		} else {
 			firebaseInsert(table, data);
 		}
 	}
+}
+
+
+
+/**
+ * @function module:firebaseTasks.firebaseUpdateCounterRecords
+ * @description UPDATE. Update the counter records
+ * @param {String} table Table name to get the data
+ */
+export async function firebaseUpdateCounterRecords(table) {
+	const totalNum = await firebaseCountRecords(table);
+	let data = { 'num': totalNum };
+
+	firebase
+		.database()
+		.ref(`${table}/total`)
+		.update(data, (error) => {
+			if (error) {
+				console.warn("Error to updated data! Error code:", error.code);
+			} else {
+				console.info("Data updating successfully! Total records:", totalNum);
+			}
+		});
+}
+
+
+
+/**
+ * @function module:firebaseTasks.firebaseDeleteAll
+ * @description DELETE. Remove all data table
+ * @param {String} table Table name to get the data
+ */
+export async function firebaseDeleteAll(table) {
+	await firebase
+		.database()
+		.ref(`${table}`)
+		.remove(function (error) {
+			if (error) {
+				console.warn("Error to removed all! Error code:", error.code);
+			} else {
+				console.info("Data removed all successfully! Table:", table);
+				firebaseUpdateCounterRecords(table);
+			}
+		});
+}
+
+
+
+/**
+ * @function module:firebaseTasks.firebaseDelete
+ * @description DELETE. Remove record of the table
+ * @param {String} table Table name to get the data
+ * @param {String} dataId Id name to delete it
+ */
+export async function firebaseDelete(table, dataId) {
+	let recordFound = await firebaseFindRecord(`${table}/list`, dataId);
+	let recordKey = Object.keys(recordFound);
+
+	await firebase
+		.database()
+		.ref(`${table}/list/${recordKey}`)
+		.remove(function (error) {
+			if (error) {
+				console.warn("Error to removed! Error code:", error.code);
+			} else {
+				console.info("Data removed successfully! Data:", recordFound);
+				firebaseUpdateCounterRecords(table);
+			}
+		});
 }

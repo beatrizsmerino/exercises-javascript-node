@@ -12,10 +12,12 @@
 
 /**
  * @requires tool
+ * @requires loader
+ * @requires moviesCRUD
  */
 import * as tool from './tools.js';
-
-
+import * as loader from './loader.js';
+import * as moviesCRUD from './movies-crud.js';
 
 
 
@@ -33,10 +35,10 @@ const apiUrl = "http://www.omdbapi.com";
 /**
  * @const module:moviesAPI~apiKey
  * @description KEY of OMBb API.
- * Conexion api omdapi (The Open Movie Database)
- * Create the API KEY http://www.omdbapi.com/apikey.aspx
- * Find the API KEY in the email used
- * Change this string 'XXXXXXXXXXXX' for yor data
+ * - Connexion OMBb API (The Open Movie Database)
+ * 	- Create the API KEY {@link http://www.omdbapi.com/apikey.aspx}
+ * 	- Find the API KEY in the email used
+ * 	- Change this string 'XXXXXXXXXXXX' for yor data
  * @type {String}
  */
 const apiKey = "XXXXXXXXXXXX";
@@ -44,12 +46,12 @@ const apiKey = "XXXXXXXXXXXX";
 
 
 /**
- * @function module:moviesAPI~saveSearchText
+ * @function module:moviesAPI~saveSearchTextMovie
  * @description Save search text into input hidden and find by the text #searchInput or #searchInputHidden.
  * @returns {String}
- * @see Used in: {@link moviesAPI.search}, {@link moviesAPI.printSearchResults}
+ * @see Used in: {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies}
  */
-function saveSearchText() {
+function saveSearchTextMovie() {
 	const searchInput = document.getElementById("searchInput");
 	const searchInputHidden = document.getElementById("searchInputHidden");
 	let searchInputValue = searchInput.value;
@@ -77,19 +79,19 @@ function saveSearchText() {
 
 
 /**
- * @function module:moviesAPI.search
+ * @function module:moviesAPI.searchByTextMovie
  * @description Get the movies according to the text of the input and the pagination to search
- * @param {Number} pagination
+ * @param {Number} pagination Search page number
  * @returns {Object|String}
- * @see Used inside: {@link moviesAPI~saveSearchText}
- * @see Used in: {@link moviesAPI~setMoviesSearchPagination}, {@link anominFunctionAutoEjecuted}
+ * @see Used inside: {@link module:moviesAPI~saveSearchTextMovie}
+ * @see Used in: {@link module:moviesAPI~setSearchPaginationMovies}, {@link module:moviesAPI.setEventsSearchMovies}
  */
-export async function searchByText(pagination) {
+export async function searchByTextMovie(pagination) {
 
 	// Search by the input hidden value or input value
 	const searchInput = document.getElementById("searchInput");
 	const searchInputValue = searchInput.value;
-	const searchInputHiddenValue = saveSearchText();
+	const searchInputHiddenValue = saveSearchTextMovie();
 
 	let valueSearch;
 	if (searchInputHiddenValue !== "") {
@@ -108,20 +110,20 @@ export async function searchByText(pagination) {
 		return json;
 
 	} catch (error) {
-		throw new Error(`Error: ${error}`);
+		throw new Error("Error:", error);
 	}
 }
 
 
 
 /**
- * @function module:moviesAPI.searchById
+ * @function module:moviesAPI.searchByIdMovie
  * @description Check if exist movie by id
- * @param {String} id
+ * @param {String} id Id name
  * @returns {Object|String}
- * @see Used in: {@link moviesCRUD~getMovieId}
+ * @see Used in: {@link module:moviesCRUD~getIdMovie}
  */
-export async function searchById(id) {
+export async function searchByIdMovie(id) {
 	try {
 		const url = `${apiUrl}/?type=movie&i=${id}&apikey=${apiKey}`;
 
@@ -130,18 +132,18 @@ export async function searchById(id) {
 		return json;
 
 	} catch (error) {
-		throw new Error(`Error: ${error}`);
+		throw new Error("Error:", error);
 	}
 }
 
 
 
 /**
- * @function module:moviesAPI~emptySearchInput
+ * @function module:moviesAPI~emptySearchInputMovie
  * @description Clean search input
- * @see Used in: {@link moviesAPI.printSearchResults}
+ * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
-function emptySearchInput() {
+function emptySearchInputMovie() {
 	const searchInput = document.getElementById("searchInput");
 	searchInput.value = "";
 }
@@ -149,11 +151,11 @@ function emptySearchInput() {
 
 
 /**
- * @function module:moviesAPI~emptySearchResults
+ * @function module:moviesAPI~emptySearchResultsMovies
  * @description Clean search results
- * @see Used in: {@link moviesAPI.printSearchResults}
+ * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
-function emptySearchResults() {
+function emptySearchResultsMovies() {
 	const searchResults = document.getElementById("searchResults");
 	searchResults.innerHTML = "";
 }
@@ -161,17 +163,95 @@ function emptySearchResults() {
 
 
 /**
- * @function module:moviesAPI.checkEmptySearchResults
- * @description Check if search results it is empty
+ * @function module:moviesAPI.setEventsSearchMovies
+ * @description Events for execute the search movies (input, button and pagination of the search)
+ * @see Used inside:
+ * {@link module:loader.add}, {@link module:loader.remove},
+ * {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies},
+ * {@link module:moviesCRUD.updateButtonsFavorite}, {@link module:moviesCRUD.tasksFavorite}, {@link module:moviesCRUD.hideListFavorites}
  * @see Used in: {@link anominFunctionAutoEjecuted}
  */
-export function checkEmptySearchResults(callbackSearch) {
+export function setEventsSearchMovies() {
+	const searchInput = document.getElementById("searchInput");
+	const searchButton = document.getElementById("searchButton");
+	const buttonsPagination = document.getElementsByClassName("pagination-button");
+
+
+	/**
+	 * @event {click}
+	 * @description When you click on the search button:
+	 * - Search the movie by the entered text
+	 * - Show an animation while the animation is loading
+	 * (loading time is not real, it is forced to 7 seconds to show animation longer)
+	 * - Show search results
+	 * - Update button state based on saved movies I liked or didn't like
+	 * - Adds save and delete tasks for searched movie buttons
+	 * - Force hide the favorites list if it is open
+	 */
+	searchButton.addEventListener("click", function (event) {
+		event.preventDefault();
+
+		let paginationGo = 1;
+		loader.add();
+
+		searchByTextMovie(paginationGo)
+			.then((data) => {
+				setTimeout(function () {
+					loader.remove();
+					setSearchResultsMovies(data, paginationGo);
+					moviesCRUD.updateButtonsFavorite();
+					moviesCRUD.tasksFavorite();
+					moviesCRUD.hideListFavorites();
+				}, 7000);
+			});
+	});
+
+
+	/**
+	 * @event {keyup}
+	 * @description When you press enter key:
+	 * - Trigger the event click executed on search button
+	 */
+	searchInput.addEventListener("keyup", function (event) {
+		if (event.keyCode === 13) {
+			searchButton.click();
+		}
+	});
+
+
+	/**
+	 * @event {click}
+	 * @description When you click on the page button:
+	 * - Update button state based on saved movies I liked or didn't like
+	 * - Adds save and delete tasks for searched movie buttons
+	 */
+	checkLoadSearchResultsMovies(function () {
+		Array.from(buttonsPagination).map(button => {
+			button.addEventListener("click", function () {
+				checkLoadSearchResultsMovies(function () {
+					moviesCRUD.updateButtonsFavorite();
+					moviesCRUD.tasksFavorite();
+				});
+			});
+		});
+	});
+}
+
+
+
+/**
+ * @function module:moviesAPI.checkLoadSearchResultsMovies
+ * @description Check if search results it is empty
+ * @param {String} callbackFunction Name of callback function
+ * @see Used in: {@link module:moviesCRUD.tasksFavorite}
+ */
+export function checkLoadSearchResultsMovies(callbackFunction) {
 	const searchResults = document.getElementById("searchResults");
 
 	let timerSearch = setInterval(function () {
 		if (searchResults.innerHTML !== "") {
 			clearInterval(timerSearch);
-			callbackSearch();
+			callbackFunction();
 		}
 	}, 100);
 }
@@ -179,14 +259,14 @@ export function checkEmptySearchResults(callbackSearch) {
 
 
 /**
- * @function module:moviesAPI~getSearchInfo
- * @description Create search info and return it
- * @param {Object} data
- * @returns {Element}
- * @see Used inside: {@link tool.stringToNode}
- * @see Used in: {@link moviesAPI~setMoviesList}
+ * @function module:moviesAPI~getSearchInfoMovies
+ * @description Create and return the information about the data found
+ * @param {Object} data Search results info
+ * @returns {Object}
+ * @see Used inside: {@link module:tool.stringToNode}
+ * @see Used in: {@link module:moviesAPI~setListMovies}
  */
-function getSearchInfo(data) {
+function getSearchInfoMovies(data) {
 	let searchInfo = document.createElement("div");
 	searchInfo.classList.add("search-info");
 
@@ -213,14 +293,14 @@ function getSearchInfo(data) {
 
 
 /**
- * @function module:moviesAPI~getMoviesList
- * @description Create the list of movies
- * @param {Object} data
+ * @function module:moviesAPI~getListMovies
+ * @description Create and return the list of movies
+ * @param {Object} data Search results data
  * @returns {Object}
- * @see Used inside {@link tool.stringToNode}
- * @see Use in: {@link moviesAPI~setMoviesList}
+ * @see Used inside {@link module:tool.stringToNode}
+ * @see Use in: {@link module:moviesAPI~setListMovies}
  */
-function getMoviesList(data) {
+function getListMovies(data) {
 	const list = document.createElement("ul");
 	list.setAttribute("id", "listMovies");
 	list.setAttribute("class", "list-movies");
@@ -230,12 +310,29 @@ function getMoviesList(data) {
 			<li id="${search.imdbID}" class="movie">
 				<div class="movie__content">
 					<div class="movie__list-buttons list-buttons">
-						<button class="movie__button--favorite movie__button button-favorite button" aria-label="Guardar película favorita">
-							<i class="movie__icon button-favorite__icon button__icon far fa-heart"></i>
-						</button>
+						<div class="movie__list-buttons--favorite">
+							<button class="movie__button button-favorite button button--icon"
+									data-id="${search.imdbID}"
+									data-type="favorite"
+									data-task="like"
+									aria-label="Guardar película favorita">
+								<i class="movie__icon button-favorite__icon button__icon far fa-heart animate__animated animate__bounceIn"></i>
+							</button>
 
-						<button class="movie__button--info movie__button button-info button" aria-label="Ver información de la película">
-							<i class="movie__icon button-info__icon far button__icon fa-info"></i>
+							<button class="movie__button button-favorite button button--icon is-hide"
+									data-id="${search.imdbID}"
+									data-type="favorite"
+									data-task="dislike"
+									aria-label="Eliminar película favorita">
+								<i class="movie__icon button-favorite__icon button__icon fas fa-heart animate__animated animate__bounceIn"></i>
+							</button>
+						</div>
+
+						<button class="movie__button button-info button button--icon"
+								data-id="${search.imdbID}"
+								data-type="info"
+								aria-label="Ver información de la película">
+							<i class="movie__icon button-info__icon button__icon far fa-info"></i>
 						</button>
 					</div>
 
@@ -269,32 +366,32 @@ function getMoviesList(data) {
 
 
 /**
- * @function module:moviesAPI~setMoviesList
+ * @function module:moviesAPI~setListMovies
  * @description Print Search info and results
- * @param {Object} content 
- * @param {Object} data
- * @see Used inside: {@link moviesAPI~getSearchInfo}, {@link moviesAPI~getMoviesList}
- * @see Used in: {@link moviesAPI.printSearchResults}
+ * @param {Object} content Content to insert the data
+ * @param {Object} data Search results data
+ * @see Used inside: {@link module:moviesAPI~getSearchInfoMovies}, {@link module:moviesAPI~getListMovies}
+ * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
-function setMoviesList(content, data) {
+function setListMovies(content, data) {
 	// Search info
-	let searchInfo = getSearchInfo(data);
+	let searchInfo = getSearchInfoMovies(data);
 	content.appendChild(searchInfo);
 
 	// List results
-	let searchResults = getMoviesList(data);
+	let searchResults = getListMovies(data);
 	content.appendChild(searchResults);
 }
 
 
 
 /**
- * @function module:moviesAPI~setMoviesSwiper
+ * @function module:moviesAPI~setSwiperMovies
  * @description Add structure swiper to the results search
- * @see Used inside: {@link tool.wrap}, {@link tool.stringToNode}
- * @see Used in: {@link moviesAPI.printSearchResults}
+ * @see Used inside: {@link module:tool.wrap}, {@link module:tool.stringToNode}
+ * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
-function setMoviesSwiper() {
+function setSwiperMovies() {
 
 	function addStructure() {
 		const listDom = document.getElementById("listMovies");
@@ -368,15 +465,17 @@ function setMoviesSwiper() {
 
 
 /**
- * @function module:moviesAPI~setMoviesSearchPagination
+ * @function module:moviesAPI~setSearchPaginationMovies
  * @description Create and print pagination of results from 10 to 10
- * @param {Object} content 
- * @param {Object} data 
- * @param {Number} pagination
- * @see Used inside: {@link tool.stringToNode}, {@link moviesAPI~search}, {@link moviesAPI.printSearchResults}
- * @see Used in: {@link moviesAPI.printSearchResults}
+ * @param {Object} content Content to insert the pagination
+ * @param {Object} data Data for get the data pagination
+ * @param {Number} pagination Page to go
+ * @see Used inside:
+ * {@link module:tool.stringToNode},
+ * {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies}
+ * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
-function setMoviesSearchPagination(content, data, pagination) {
+function setSearchPaginationMovies(content, data, pagination) {
 
 	// Max number of results into pagination
 	let formTo = 10;
@@ -436,13 +535,16 @@ function setMoviesSearchPagination(content, data, pagination) {
 
 		/**
 		 * @event {click}
+		 * @description When you click on the button pagination search:
+		 * - Search by text the movie and go to the prev/next page
+		 * - Set search results of the movies
 		 */
 		button.addEventListener("click", function () {
 			let paginationGo = parseInt(this.getAttribute("data-pagination"));
 
 			if (paginationGo >= 1 && paginationGo < data.totalResults) {
-				searchByText(paginationGo).then(data => {
-					printSearchResults(data, paginationGo);
+				searchByTextMovie(paginationGo).then(data => {
+					setSearchResultsMovies(data, paginationGo);
 				});
 			}
 		});
@@ -452,35 +554,20 @@ function setMoviesSearchPagination(content, data, pagination) {
 
 
 /**
- * @function module:moviesAPI.checkPaginationSearchResults
- * @description Check if pagination search results exist
- * @see Used in: {@link anominFunctionAutoEjecuted}
- */
-export function checkPaginationSearchResults(callback) {
-	const pagination = document.getElementById("moviesPagination");
-
-	let timerSearch = setInterval(function () {
-		if (pagination) {
-			clearInterval(timerSearch);
-			callback();
-		}
-	}, 100);
-}
-
-
-
-/**
  * @function module:moviesAPI~showHideInfoMovie
  * @description Show/Hide info Movie
- * @see Used in: {@link moviesAPI.printSearchResults}
+ * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
 function showHideInfoMovie() {
-	const movieInfoButton = document.getElementsByClassName("movie__button--info");
+	const movieInfoButton = document.querySelectorAll(".movie__button[data-type='info']");
 
+	/**
+	 * @event {click}
+	 * @description When you click on the button movie info:
+	 * - Show/Hide the info movie
+	 * - Hide the info movie after 10 seconds
+	 */
 	Array.from(movieInfoButton).map((button) => {
-		/**
-		 * @event {click}
-		 */
 		button.addEventListener("click", function (event) {
 			var movie = tool.getClosest(event.target, '.movie');
 			movie.classList.toggle("is-view");
@@ -495,20 +582,34 @@ function showHideInfoMovie() {
 
 
 /**
- * @function module:moviesAPI~printError
+ * @function module:moviesAPI~getSetPageErrorMovies
  * @description Create and print message error
- * @param {Object} content 
- * @param {String} textError
- * @see Used in: {@link moviesAPI.printSearchResults}
+ * @param {Object} content Content to insert the info error
+ * @param {String} textError Text error of API
+ * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
-function printError(content, textError) {
+function getSetPageErrorMovies(content, textError) {
+	let messageError;
+	switch (textError) {
+		case "Movie not found!":
+			messageError = "Película no encontrada!"
+			break;
+		case "Too many results.", "Incorrect IMDb ID.":
+			messageError = "Introduce al menos 3 caracteres para realizar la búsqueda."
+			break;
+		default:
+			break;
+	}
+
+	(typeof messageError === "undefined") ? messageError = textError : messageError;
+
 	const template = `
 			<div class="search-error">
 				<h3 class="search-error__title">
-					Error search
+					Error de búsqueda
 				</h3>
 				<h4 class="search-error__subtitle">
-					${textError}
+					${messageError}
 				</h4>
 				<img class="search-error__image" src="images/search-error.svg">
 			</div>
@@ -520,27 +621,27 @@ function printError(content, textError) {
 
 
 /**
- * @function module:moviesAPI.printSearchResults
+ * @function module:moviesAPI.setSearchResultsMovies
  * @description Clean and print results in the interface
- * @param {Object} data 
- * @param {Number} pagination
- * @see Used inside: {@link moviesAPI~saveSearchText}, {@link moviesAPI~emptySearchInput}, {@link moviesAPI~emptySearchResults}, {@link moviesAPI~setMoviesList}, {@link moviesAPI~setMoviesSwiper}, {@link moviesAPI~setMoviesSearchPagination}, {@link moviesAPI~showHideInfoMovie}, {@link moviesAPI~printError}
- * @see Used in: {@link anominFunctionAutoEjecuted}
+ * @param {Object} data Search results data
+ * @param {Number} pagination Page to go
+ * @see Used inside: {@link module:moviesAPI~saveSearchTextMovie}, {@link module:moviesAPI~emptySearchInputMovie}, {@link module:moviesAPI~emptySearchResultsMovies}, {@link module:moviesAPI~setListMovies}, {@link module:moviesAPI~setSwiperMovies}, {@link module:moviesAPI~setSearchPaginationMovies}, {@link module:moviesAPI~showHideInfoMovie}, {@link module:moviesAPI~getSetPageErrorMovies}
+ * @see Used in: {@link module:moviesAPI.setEventsSearchMovies}
  */
-export function printSearchResults(data, pagination) {
+export function setSearchResultsMovies(data, pagination) {
 	const content = document.getElementById("searchResults");
 
 	if (data.Response === "True") {
-		saveSearchText();
+		saveSearchTextMovie();
 
-		emptySearchInput();
-		emptySearchResults();
+		emptySearchInputMovie();
+		emptySearchResultsMovies();
 
-		setMoviesList(content, data);
-		setMoviesSwiper();
-		setMoviesSearchPagination(content, data, pagination);
+		setListMovies(content, data);
+		setSwiperMovies();
+		setSearchPaginationMovies(content, data, pagination);
 		showHideInfoMovie();
 	} else {
-		printError(content, data.Error);
+		getSetPageErrorMovies(content, data.Error);
 	}
 }
