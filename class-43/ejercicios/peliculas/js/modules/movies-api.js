@@ -25,7 +25,7 @@ import * as moviesCRUD from './movies-crud.js';
 
 /**
  * @const module:moviesAPI~apiUrl
- * @description URL of OMBb API.
+ * @description URL of OMDb API.
  * @type {String}
  */
 const apiUrl = "http://www.omdbapi.com";
@@ -34,8 +34,8 @@ const apiUrl = "http://www.omdbapi.com";
 
 /**
  * @const module:moviesAPI~apiKey
- * @description KEY of OMBb API.
- * - Connexion OMBb API (The Open Movie Database)
+ * @description KEY of OMDb API.
+ * - Connexion OMDb API (The Open Movie Database)
  * 	- Create the API KEY {@link http://www.omdbapi.com/apikey.aspx}
  * 	- Find the API KEY in the email used
  * 	- Change this string 'XXXXXXXXXXXX' for yor data
@@ -84,7 +84,7 @@ function saveSearchTextMovie() {
  * @param {Number} pagination Search page number
  * @returns {Object|String}
  * @see Used inside: {@link module:moviesAPI~saveSearchTextMovie}
- * @see Used in: {@link module:moviesAPI~setSearchPaginationMovies}, {@link module:moviesAPI.setEventsSearchMovies}
+ * @see Used in: {@link module:moviesAPI~getSetSearchPaginationMovies}, {@link module:moviesAPI.setEventsSearchMovies}
  */
 export async function searchByTextMovie(pagination) {
 
@@ -259,35 +259,109 @@ export function checkLoadSearchResultsMovies(callbackFunction) {
 
 
 /**
- * @function module:moviesAPI~getSearchInfoMovies
+ * @function module:moviesAPI~templateInfoMovies
+ * @description Create template to the info movies
+ * @param {String} textSearch Text found
+ * @param {String} totalSearch Total number results found
+ * @returns {String}
+ * @see Used in: {@link module:moviesAPI~getSetSearchInfoMovies}
+ */
+function templateInfoMovies(textSearch, totalSearch) {
+	const template = `
+		<div class="search-info">
+			<h3>
+				Resultados encontados:
+			</h3>
+			<p class="search-info__text">
+				Con el texto: <em>${textSearch}</em>
+			</p>
+			<p class="search-info__total">
+				Total: <em>${totalSearch}</em>
+			</p>
+		</div>
+	`;
+
+	return template;
+}
+
+
+
+/**
+ * @function module:moviesAPI~getSetSearchInfoMovies
  * @description Create and return the information about the data found
  * @param {Object} data Search results info
  * @returns {Object}
- * @see Used inside: {@link module:tool.stringToNode}
+ * @see Used inside: {@link module:tool.stringToNode}, {@link module:moviesAPI~templateInfoMovies}
  * @see Used in: {@link module:moviesAPI~setListMovies}
  */
-function getSearchInfoMovies(data) {
-	let searchInfo = document.createElement("div");
-	searchInfo.classList.add("search-info");
-
-	let searchInfoTitleElem = document.createElement("h3");
-	let searchInfoTitleText = document.createTextNode("Resultados encontados:");
-	searchInfoTitleElem.appendChild(searchInfoTitleText);
-	searchInfo.appendChild(searchInfoTitleElem);
-
-	// Search info. Results found with text:
+function getSetSearchInfoMovies(data) {
 	const searchInputHidden = document.getElementById("searchInputHidden");
-	let searchInputHiddenValue = searchInputHidden.value;
-	let textSearch = `<p class="search-info__text">Con el texto: <em>${searchInputHiddenValue}</em></p>`;
-	let textSearchNode = tool.stringToNode(textSearch);
-	searchInfo.appendChild(textSearchNode);
 
-	// Search info. Total results found:
-	let totalSearch = `<p class="search-info__total">Total: <em>${data.totalResults}</em></p>`;
-	let totalSearchNode = tool.stringToNode(totalSearch);
-	searchInfo.appendChild(totalSearchNode);
+	const textSearch = searchInputHidden.value;
+	const totalSearch = data.totalResults;
 
-	return searchInfo;
+	let template = templateInfoMovies(textSearch, totalSearch);
+	let templateNode = tool.stringToNode(template);
+
+	return templateNode;
+}
+
+
+
+/**
+ * @function module:moviesAPI~templateItemMovie
+ * @description Create template to the item list movies
+ * @param {Object} data Data movie
+ * @returns {String}
+ * @see Used in: {@link module:moviesAPI~getListMovies}
+ */
+function templateItemMovie(data) {
+	const template = `
+		<li id="${data.imdbID}" class="movie">
+			<div class="movie__content">
+				<div class="movie__list-buttons list-buttons">
+					<div class="movie__list-buttons--favorite">
+						<button class="movie__button button-favorite button button--icon"
+								data-id="${data.imdbID}"
+								data-type="favorite"
+								data-task="like"
+								aria-label="Guardar película favorita">
+							<i class="movie__icon button-favorite__icon button__icon far fa-heart animate__animated animate__bounceIn"></i>
+						</button>
+
+						<button class="movie__button button-favorite button button--icon is-hide"
+								data-id="${data.imdbID}"
+								data-type="favorite"
+								data-task="dislike"
+								aria-label="Eliminar película favorita">
+							<i class="movie__icon button-favorite__icon button__icon fas fa-heart animate__animated animate__bounceIn"></i>
+						</button>
+					</div>
+
+					<button class="movie__button button-info button button--icon"
+							data-id="${data.imdbID}"
+							data-type="info"
+							aria-label="Ver información de la película">
+						<i class="movie__icon button-info__icon button__icon far fa-info"></i>
+					</button>
+				</div>
+
+				<div class="movie__image">
+					<img src="${(data.Poster === "N/A") ? "images/movie-image-not-found.png" : data.Poster}" alt="${data.Title}">
+				</div>
+				
+				<div class="movie__body">
+					<h3 class="movie__title">
+						${data.Title}
+						<span class="movie__year">
+							(${data.Year})
+						</span>
+					</h3>
+				</div>
+			</div>
+		</li>
+		`;
+	return template;
 }
 
 
@@ -297,7 +371,9 @@ function getSearchInfoMovies(data) {
  * @description Create and return the list of movies
  * @param {Object} data Search results data
  * @returns {Object}
- * @see Used inside {@link module:tool.stringToNode}
+ * @see Used inside:
+ * {@link module:tool.stringToNode},
+ * {@link module:moviesAPI~templateItemMovie}
  * @see Use in: {@link module:moviesAPI~setListMovies}
  */
 function getListMovies(data) {
@@ -306,51 +382,7 @@ function getListMovies(data) {
 	list.setAttribute("class", "list-movies");
 
 	const items = data.Search.map(search => {
-		let item = `
-			<li id="${search.imdbID}" class="movie">
-				<div class="movie__content">
-					<div class="movie__list-buttons list-buttons">
-						<div class="movie__list-buttons--favorite">
-							<button class="movie__button button-favorite button button--icon"
-									data-id="${search.imdbID}"
-									data-type="favorite"
-									data-task="like"
-									aria-label="Guardar película favorita">
-								<i class="movie__icon button-favorite__icon button__icon far fa-heart animate__animated animate__bounceIn"></i>
-							</button>
-
-							<button class="movie__button button-favorite button button--icon is-hide"
-									data-id="${search.imdbID}"
-									data-type="favorite"
-									data-task="dislike"
-									aria-label="Eliminar película favorita">
-								<i class="movie__icon button-favorite__icon button__icon fas fa-heart animate__animated animate__bounceIn"></i>
-							</button>
-						</div>
-
-						<button class="movie__button button-info button button--icon"
-								data-id="${search.imdbID}"
-								data-type="info"
-								aria-label="Ver información de la película">
-							<i class="movie__icon button-info__icon button__icon far fa-info"></i>
-						</button>
-					</div>
-
-					<div class="movie__image">
-						<img src="${(search.Poster === "N/A") ? "images/movie-image-not-found.png" : search.Poster}" alt="${search.Title}">
-					</div>
-					
-					<div class="movie__body">
-						<h3 class="movie__title">
-							${search.Title}
-							<span class="movie__year">
-								(${search.Year})
-							</span>
-						</h3>
-					</div>
-				</div>
-			</li>
-			`;
+		let item = templateItemMovie(search);
 		let itemNode = tool.stringToNode(item);
 
 		return itemNode;
@@ -370,12 +402,12 @@ function getListMovies(data) {
  * @description Print Search info and results
  * @param {Object} content Content to insert the data
  * @param {Object} data Search results data
- * @see Used inside: {@link module:moviesAPI~getSearchInfoMovies}, {@link module:moviesAPI~getListMovies}
+ * @see Used inside: {@link module:moviesAPI~getSetSearchInfoMovies}, {@link module:moviesAPI~getListMovies}
  * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
 function setListMovies(content, data) {
 	// Search info
-	let searchInfo = getSearchInfoMovies(data);
+	let searchInfo = getSetSearchInfoMovies(data);
 	content.appendChild(searchInfo);
 
 	// List results
@@ -465,17 +497,50 @@ function setSwiperMovies() {
 
 
 /**
- * @function module:moviesAPI~setSearchPaginationMovies
+ * @function module:moviesAPI~templatePaginationMovies
+ * @description Create template to the pagination search
+ * @param {Object} data Data pagination
+ * @returns {String}
+ * @see {@link module:moviesAPI~getSetSearchPaginationMovies}
+ */
+function templatePaginationMovies(data) {
+	const template = `
+		<nav id="moviesPagination" class="pagination__wrapper noselect" aria-label="Pagination">
+			<ul class="pagination">
+				<li class="pagination-item">
+					<button id="paginationButtonPrev" class="pagination-button pagination-button--prev" data-pagination="${data.prev}">
+						<i class="pagination-button__icon fa fa-chevron-left"></i>
+					</button>
+				</li>
+				<li class="pagination-item">
+					<button id="paginationButtonNow" class="pagination-button pagination-button--now" data-pagination="${data.now}">${data.pages}</button>
+				</li>
+				<li class="pagination-item">
+					<button id="paginationButtonNext" class="pagination-button pagination-button--next" data-pagination="${data.next}">
+						<i class="pagination-button__icon fa fa-chevron-right"></i>
+					</button>
+				</li>
+			</ul>
+		</nav>
+	`;
+
+	return template;
+}
+
+
+
+/**
+ * @function module:moviesAPI~getSetSearchPaginationMovies
  * @description Create and print pagination of results from 10 to 10
  * @param {Object} content Content to insert the pagination
  * @param {Object} data Data for get the data pagination
  * @param {Number} pagination Page to go
  * @see Used inside:
  * {@link module:tool.stringToNode},
- * {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies}
+ * {@link module:moviesAPI~templatePaginationMovies}, {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies}
  * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
-function setSearchPaginationMovies(content, data, pagination) {
+function getSetSearchPaginationMovies(content, data, pagination) {
 
 	// Max number of results into pagination
 	let formTo = 10;
@@ -486,36 +551,26 @@ function setSearchPaginationMovies(content, data, pagination) {
 
 
 	// Indicate the displayed results
-	let paginationNow = `1 - ${formTo}`;
+	let paginationPages = `1 - ${formTo}`;
 	if (data.totalResults < formTo) {
-		paginationNow = `1 - ${data.totalResults}`;
+		paginationPages = `1 - ${data.totalResults}`;
 	} else if ((Math.round(data.totalResults / formTo)) === pagination) {
-		paginationNow = `${(pagination * formTo) - formTo + 1} - ${data.totalResults}`;
+		paginationPages = `${(pagination * formTo) - formTo + 1} - ${data.totalResults}`;
 	} else {
-		paginationNow = `${(pagination * formTo) - formTo + 1} - ${pagination * formTo}`;
+		paginationPages = `${(pagination * formTo) - formTo + 1} - ${pagination * formTo}`;
+	}
+
+
+	const paginationData = {
+		"pages": paginationPages,
+		"prev": pagination - 1,
+		"now": pagination,
+		"next": pagination + 1,
 	}
 
 
 	// Create and print pagination
-	const paginationTemplate = `
-		<nav id="moviesPagination" class="pagination__wrapper noselect" aria-label="Pagination">
-			<ul class="pagination">
-				<li class="pagination-item">
-					<button id="paginationButtonPrev" class="pagination-button pagination-button--prev" data-pagination="${pagination - 1}">
-						<i class="pagination-button__icon fa fa-chevron-left"></i>
-					</button>
-				</li>
-				<li class="pagination-item">
-					<button id="paginationButtonNow" class="pagination-button pagination-button--now" data-pagination="${pagination}">${paginationNow}</button>
-				</li>
-				<li class="pagination-item">
-					<button id="paginationButtonNext" class="pagination-button pagination-button--next" data-pagination="${pagination + 1}">
-						<i class="pagination-button__icon fa fa-chevron-right"></i>
-					</button>
-				</li>
-			</ul>
-		</nav>
-		`;
+	const paginationTemplate = templatePaginationMovies(paginationData);
 	let paginationTemplateNode = tool.stringToNode(paginationTemplate);
 	content.appendChild(paginationTemplateNode);
 
@@ -582,15 +637,44 @@ function showHideInfoMovie() {
 
 
 /**
+ * @function module:moviesAPI~templatePageErrorMovies
+ * @description Create template to the message errors
+ * @param {String} textError Text Error
+ * @returns {String}
+ * @see Used in: {@link module:moviesAPI~getSetPageErrorMovies}
+ */
+function templatePageErrorMovies(textError) {
+	const template = `
+		<div class="search-error">
+			<h3 class="search-error__title">
+				Error de búsqueda
+			</h3>
+			<h4 class="search-error__subtitle">
+				${textError}
+			</h4>
+			<img class="search-error__image" src="images/search-error.svg">
+		</div>
+	`;
+
+	return template;
+}
+
+
+
+/**
  * @function module:moviesAPI~getSetPageErrorMovies
  * @description Create and print message error
  * @param {Object} content Content to insert the info error
  * @param {String} textError Text error of API
+ * @see Used inside: {@link module:moviesAPI~templatePageErrorMovies}
  * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
 function getSetPageErrorMovies(content, textError) {
 	let messageError;
 	switch (textError) {
+		case "Invalid API key!":
+			messageError = "¡Clave de OMDb API no válida!";
+			break;
 		case "Movie not found!":
 			messageError = "Película no encontrada!"
 			break;
@@ -603,17 +687,7 @@ function getSetPageErrorMovies(content, textError) {
 
 	(typeof messageError === "undefined") ? messageError = textError : messageError;
 
-	const template = `
-			<div class="search-error">
-				<h3 class="search-error__title">
-					Error de búsqueda
-				</h3>
-				<h4 class="search-error__subtitle">
-					${messageError}
-				</h4>
-				<img class="search-error__image" src="images/search-error.svg">
-			</div>
-		`;
+	const template = templatePageErrorMovies(messageError);
 
 	content.innerHTML = template;
 }
@@ -625,7 +699,7 @@ function getSetPageErrorMovies(content, textError) {
  * @description Clean and print results in the interface
  * @param {Object} data Search results data
  * @param {Number} pagination Page to go
- * @see Used inside: {@link module:moviesAPI~saveSearchTextMovie}, {@link module:moviesAPI~emptySearchInputMovie}, {@link module:moviesAPI~emptySearchResultsMovies}, {@link module:moviesAPI~setListMovies}, {@link module:moviesAPI~setSwiperMovies}, {@link module:moviesAPI~setSearchPaginationMovies}, {@link module:moviesAPI~showHideInfoMovie}, {@link module:moviesAPI~getSetPageErrorMovies}
+ * @see Used inside: {@link module:moviesAPI~saveSearchTextMovie}, {@link module:moviesAPI~emptySearchInputMovie}, {@link module:moviesAPI~emptySearchResultsMovies}, {@link module:moviesAPI~setListMovies}, {@link module:moviesAPI~setSwiperMovies}, {@link module:moviesAPI~getSetSearchPaginationMovies}, {@link module:moviesAPI~showHideInfoMovie}, {@link module:moviesAPI~getSetPageErrorMovies}
  * @see Used in: {@link module:moviesAPI.setEventsSearchMovies}
  */
 export function setSearchResultsMovies(data, pagination) {
@@ -639,7 +713,7 @@ export function setSearchResultsMovies(data, pagination) {
 
 		setListMovies(content, data);
 		setSwiperMovies();
-		setSearchPaginationMovies(content, data, pagination);
+		getSetSearchPaginationMovies(content, data, pagination);
 		showHideInfoMovie();
 	} else {
 		getSetPageErrorMovies(content, data.Error);

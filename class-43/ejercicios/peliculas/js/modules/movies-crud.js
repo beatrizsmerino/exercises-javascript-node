@@ -115,12 +115,12 @@ async function createArrayFavorite(event) {
 
 
 /**
- * @function module:moviesCRUD~createTableFavorites
+ * @function module:moviesCRUD~createTemplateTableFavorites
  * @description Create a table for the list of favorite movies
  * @returns {String}
  * @see Used in: {@link module:moviesCRUD~insertTableFavorites}
  */
-function createTableFavorites() {
+function createTemplateTableFavorites() {
 	const templateTable = `
 		<table id="favoriteListTable" class="favorite-list__table">
 			<thead id="favoriteListTableHead" class="favorite-list__table-head">
@@ -159,25 +159,25 @@ function createTableFavorites() {
 /**
  * @function module:moviesCRUD~insertTableFavorites
  * @description Insert list of favorite movies
- * @see Used inside: {@link module:moviesCRUD~createTableFavorites}
+ * @see Used inside: {@link module:moviesCRUD~createTemplateTableFavorites}
  * @see Used in: {@link module:moviesCRUD.getSetListFavorites}
  */
 function insertTableFavorites() {
 	const listFavorites = document.getElementById("favoriteList");
-	const template = createTableFavorites();
+	const template = createTemplateTableFavorites();
 	listFavorites.innerHTML = template;
 }
 
 
 
 /**
- * @function module:moviesCRUD~createTableRowFavorite
+ * @function module:moviesCRUD~createTemplateTableRowFavorite
  * @description Create a template for the favorite movie
  * @param {Object} favorite Data of favorite
  * @returns {String}
  * @see Used in: {@link module:moviesCRUD~addTableRowFavorite}
  */
-function createTableRowFavorite(favorite) {
+function createTemplateTableRowFavorite(favorite) {
 	const template = `
 		<tr class="favorite-list__row" data-id="${favorite.id}">
 			<td class="favorite__index">
@@ -233,12 +233,12 @@ function deleteTableRowFavorite(data) {
  * @function module:moviesCRUD~addTableRowFavorite
  * @description Create and insert Favorite
  * @param {Object} data Data favorite to insert
- * @see Used inside: {@link module:moviesCRUD~createTableRowFavorite}, {@link module:moviesCRUD~insertTableRowFavorite}, {@link module:moviesCRUD.tasksListFavorites}, {@link module:moviesCRUD.updateButtonsFavorite}, {@link module:moviesCRUD~updateListFavorites}
+ * @see Used inside: {@link module:moviesCRUD~createTemplateTableRowFavorite}, {@link module:moviesCRUD~insertTableRowFavorite}, {@link module:moviesCRUD.tasksListFavorites}, {@link module:moviesCRUD.updateButtonsFavorite}, {@link module:moviesCRUD~updateListFavorites}
  * @see Used in: {@link module:moviesCRUD.getSetListFavorites}
  */
 function addTableRowFavorite(data) {
 	if (data !== null) {
-		let templateRecord = createTableRowFavorite(data);
+		let templateRecord = createTemplateTableRowFavorite(data);
 		insertTableRowFavorite("favoriteListTableBody", templateRecord);
 		tasksListFavorites();
 		updateButtonsFavorite();
@@ -326,7 +326,7 @@ export function hideListFavorites() {
  * @function module:moviesCRUD~updateListFavorites
  * @description Hide the list of favorite movies if there is not favorites
  * @param {String} table Table name to get the data
- * @see Used inside: {@link module:moviesCRUD~hideListFavorites}
+ * @see Used inside: {@link module:moviesCRUD.hideListFavorites}
  * @see Used in: {@link module:moviesCRUD~addTableRowFavorite}, {@link module:moviesCRUD~removeTableRowFavorite}
  */
 async function updateListFavorites(table) {
