@@ -65,7 +65,9 @@ function getIdMovie(event) {
 			if (data.hasOwnProperty("Response") && data.Response !== "False") {
 				return movieId;
 			} else {
+				console.warn("%cError to find!", tool.consoleCSS.error);
 				console.warn("This id movie not exist on the API");
+				console.warn("Id movie:", movieId);
 				return false;
 			}
 		});

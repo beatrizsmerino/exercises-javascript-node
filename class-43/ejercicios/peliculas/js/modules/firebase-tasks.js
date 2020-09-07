@@ -21,12 +21,13 @@ import * as tool from './tools.js';
 
 /**
  * @function module:firebaseTasks.firebaseConnexionDataBase
- * @description CONNEXION. Initialize connection with database of Firebase App
+ * @description CONNEXION. Initialize connexion with database of Firebase App
  * @param {Object} firebaseConfig Firebase configuration for access database
  */
 export function firebaseConnexionDataBase(firebaseConfig) {
 	const dbConnexion = firebase.initializeApp(firebaseConfig);
-	console.info("Connection to Firebase Database:", dbConnexion);
+	console.info("%cConnected to Firebase Database", tool.consoleCSS.title);
+	console.info("Connexion:", dbConnexion);
 }
 
 
@@ -61,7 +62,8 @@ export function firebaseReadOnAdded(table, callbackFunction) {
 		.ref(table)
 		.on("child_added", (data) => {
 			let dataValue = data.val();
-			console.info("Added:", dataValue);
+			console.info("%cAdded:", tool.consoleCSS.info);
+			console.info("Data:", dataValue);
 			callbackFunction(dataValue);
 		});
 }
@@ -80,7 +82,8 @@ export function firebaseReadOnRemoved(table, callbackFunction) {
 		.ref(table)
 		.on("child_removed", (data) => {
 			let dataValue = data.val();
-			console.info("Removed:", dataValue);
+			console.info("%cRemoved:", tool.consoleCSS.info);
+			console.info("Data:", dataValue);
 			callbackFunction(dataValue);
 		});
 }
@@ -155,7 +158,8 @@ function firebaseGetLastRecordAdded(table) {
 		.once('value')
 		.then((snapshot) => {
 			let theLastRecord = snapshot.val();
-			console.info("The last record added:", theLastRecord);
+			console.info("%cThe last record added:", tool.consoleCSS.info);
+			console.info("Data:", theLastRecord);
 			return snapshot;
 		})
 		.then((snapshot) => {
@@ -191,7 +195,13 @@ async function firebaseSetRecordIndex(table, data) {
 		nextIndex = lastRecordIndex + 1;
 	}
 
-	console.info("The index for the new record:", nextIndex);
+	if (typeof nextIndex !== "undefined") {
+		console.info("%cAdded the index successfully to the new record!", tool.consoleCSS.success);
+		console.info("Index:", nextIndex);
+	} else {
+		console.warn("%cError adding the index to new record!", tool.consoleCSS.warn);
+		console.warn("Index:", nextIndex);
+	}
 
 	data.index = nextIndex;
 }
@@ -226,9 +236,11 @@ async function firebaseInsert(table, data) {
 		.ref(`${table}/list`)
 		.push(data, function (error) {
 			if (error) {
-				console.warn("Error saving data! Error code:", error.code);
+				console.warn("%cError saving data!", tool.consoleCSS.error);
+				console.warn("Error code:", error.code);
 			} else {
-				console.info("Data saved successfully! Data:", data);
+				console.info("%cData saved successfully!", tool.consoleCSS.success);
+				console.info("Data:", data);
 				firebaseUpdateCounterRecords(table);
 			}
 		});
@@ -252,7 +264,9 @@ export async function firebaseCreate(table, data) {
 		let recordFound = await firebaseFindRecord(`${table}/list`, data.id);
 
 		if (recordFound) {
-			console.warn("The data cannot be saved because it already exists! Data:", recordFound);
+			console.warn("%cError saving data!", tool.consoleCSS.error);
+			console.warn("The data cannot be saved because it already exists!");
+			console.warn("Data:", recordFound);
 		} else {
 			firebaseInsert(table, data);
 		}
@@ -275,9 +289,11 @@ export async function firebaseUpdateCounterRecords(table) {
 		.ref(`${table}/total`)
 		.update(data, (error) => {
 			if (error) {
-				console.warn("Error to updated data! Error code:", error.code);
+				console.warn("%cError to updated data!", tool.consoleCSS.error);
+				console.warn("Error code:", error.code);
 			} else {
-				console.info("Data updating successfully! Total records:", totalNum);
+				console.info("%cData updating successfully!", tool.consoleCSS.success);
+				console.info("Total records:", totalNum);
 			}
 		});
 }
@@ -295,9 +311,11 @@ export async function firebaseDeleteAll(table) {
 		.ref(`${table}`)
 		.remove(function (error) {
 			if (error) {
-				console.warn("Error to removed all! Error code:", error.code);
+				console.warn("%cError to removed all!", tool.consoleCSS.error);
+				console.warn("Error code:", error.code);
 			} else {
-				console.info("Data removed all successfully! Table:", table);
+				console.info("%cData removed all successfully!", tool.consoleCSS.success);
+				console.info("Table:", table);
 				firebaseUpdateCounterRecords(table);
 			}
 		});
@@ -320,9 +338,11 @@ export async function firebaseDelete(table, dataId) {
 		.ref(`${table}/list/${recordKey}`)
 		.remove(function (error) {
 			if (error) {
-				console.warn("Error to removed! Error code:", error.code);
+				console.warn("%cError to removed!", tool.consoleCSS.error);
+				console.warn("Error code:", error.code);
 			} else {
-				console.info("Data removed successfully! Data:", recordFound);
+				console.info("%cData removed successfully!", tool.consoleCSS.success);
+				console.info("Data:", recordFound);
 				firebaseUpdateCounterRecords(table);
 			}
 		});

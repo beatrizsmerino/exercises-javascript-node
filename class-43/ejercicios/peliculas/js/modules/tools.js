@@ -10,6 +10,21 @@
 
 
 
+
+/**
+ * @const consoleCSS
+ * @description CSS styles for the console.log...
+ * @type {Object}
+ */
+export const consoleCSS = {
+	"title": `padding: 0.1rem 0.5rem; color: black; background-color: white;`,
+	"info": `padding: 0.1rem 0.5rem; color: black; background-color: gold;`,
+	"error": `padding: 0.1rem 0.5rem; color: white; background-color: tomato;`,
+	"success": `padding: 0.1rem 0.5rem; color: white; background-color: teal;`
+};
+
+
+
 /**
  * @function module:tool.wrap
  * @description Wrap an HTML structure around an element
