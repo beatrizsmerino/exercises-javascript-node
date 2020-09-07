@@ -125,13 +125,13 @@ export function firebaseCheckEmpty(table, data) {
 
 
 /**
- * @function module:firebaseTasks~firebaseFindRecord
+ * @function module:firebaseTasks.firebaseFindRecord
  * @description READ. Find record by his id name and if exist get it else return false
  * @param {String} table Table name to get the data
  * @param {String} dataId Id name to find
  * @return {Object|Boolean}
  */
-function firebaseFindRecord(table, dataId) {
+export function firebaseFindRecord(table, dataId) {
 	return firebase
 		.database()
 		.ref(table)
@@ -253,7 +253,7 @@ async function firebaseInsert(table, data) {
  * @description CREATE. Save data record if it has not been saved yet
  * @param {String} table Table name to save the new record
  * @param {Object} data New record to save
- * @see Used inside: {@link module:firebaseTasks.firebaseCheckEmpty}, {@link module:firebaseTasks~firebaseFindRecord}, {@link module:firebaseTasks~firebaseInsert}
+ * @see Used inside: {@link module:firebaseTasks.firebaseCheckEmpty}, {@link module:firebaseTasks.firebaseFindRecord}, {@link module:firebaseTasks~firebaseInsert}
  */
 export async function firebaseCreate(table, data) {
 	const emptyData = await firebaseCheckEmpty(table, 'list');

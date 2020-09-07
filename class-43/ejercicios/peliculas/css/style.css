@@ -4,6 +4,7 @@
 	--color-white: #ffffff;
 	--color-light: #ededed;
 	--color-yellow: #fdbb2d;
+	--color-yellow-dark: hsl(41, 68%, 46%);
 	--color-red: #d82b08;
 	--color-red-dark: hsl(0, 100%, 30%);
 	--color-blue: #00e4ff;
@@ -226,6 +227,17 @@ img {
 	}
 }
 
+.button-close {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+	background-color: var(--color-dark);
+}
+
+.button-close__icon {
+	color: var(--color-gray);
+}
+
 /************ LOADER ************/
 
 .loader {
@@ -241,6 +253,86 @@ img {
 	background-position: center;
 	background-size: 40rem auto;
 	background-repeat: no-repeat;
+}
+
+/************ SCROLL **************/
+.scroll {
+	height: 100%;
+}
+.scroll__inner {
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.scroll__inner::-webkit-scrollbar {
+	width: 0.5rem;
+	border-radius: 0.5rem;
+}
+
+.scroll__inner::-webkit-scrollbar-thumb {
+	border-radius: 0.5rem;
+	background-color: var(--color-yellow);
+}
+
+.scroll__inner::-webkit-scrollbar-thumb:hover {
+	background-color: var(--color-red-dark);
+}
+
+.scroll__inner::-webkit-scrollbar-track {
+	border-radius: 0.5rem;
+	background-color: transparent;
+}
+
+.scroll__content {
+	padding-right: 1rem;
+}
+
+/************ MODAL ************/
+
+.modal {
+	width: 80%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal__wrapper {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal__container {
+	width: 93%;
+	height: 93%;
+	position: relative;
+}
+
+.modal__inner {
+	width: calc(100% - 1.5rem);
+	height: calc(100% - 4rem);
+	margin-top: 4rem;
+	margin-right: 1.5rem;
+}
+
+.modal__button-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.modal__content {
+	width: 100%;
+	color: var(--color-light);
 }
 
 /************ SEARCH INPUT ************/
@@ -756,13 +848,65 @@ img {
 	font-size: 1.5rem;
 }
 
-.favorite__tasks .button {
+.favorite-list__favorite-task .button {
 	margin: 0 auto;
 	border-color: var(--color-red);
+}
+
+.favorite-list__favorite-task .button-favorite {
+	border-color: var(--color-red);
+}
+
+.favorite-list__favorite-task .button-info {
+	border-color: var(--color-dark);
 }
 
 /************ FAVORITE -- STATUS ************/
 
 .favorite-list.is-view {
 	display: inline-block;
+}
+
+/************ FAVORITE DETAIL ************/
+
+.favorite-detail {
+	font-size: 1.7rem;
+}
+
+.favorite-detail__row:not(:last-child) {
+	margin-bottom: 2rem;
+}
+
+.favorite-detail__columns {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.favorite-detail__columns > *:not(:last-child) {
+	margin-right: 2rem;
+}
+
+.favorite-detail__subtitle {
+	margin-right: 1rem;
+	font-size: 1.8rem;
+	font-weight: 600;
+	color: var(--color-yellow-dark);
+}
+
+.favorite-detail__title {
+	margin-bottom: 2rem;
+	font-size: 3rem;
+	color: var(--color-yellow);
+}
+
+.favorite-detail__description {
+}
+
+.favorite-detail__language {
+}
+
+.favorite-detail__poster {
+	width: 100%;
+	max-width: 25rem;
+	margin-bottom: 2.5rem;
 }

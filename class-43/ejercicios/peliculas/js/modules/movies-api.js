@@ -316,6 +316,9 @@ function getSetSearchInfoMovies(data) {
  * @see Used in: {@link module:moviesAPI~getListMovies}
  */
 function templateItemMovie(data) {
+	console.info("%cMovie:", tool.consoleCSS.info);
+	console.info("Data:", data);
+
 	const template = `
 		<li id="${data.imdbID}" class="movie">
 			<div class="movie__content">
