@@ -13,10 +13,12 @@
 /**
  * @requires tool
  * @requires loader
+ * @requires createTemplate
  * @requires moviesCRUD
  */
 import * as tool from './tools.js';
 import * as loader from './loader.js';
+import * as createTemplate from './createTemplate.js';
 import * as moviesCRUD from './movies-crud.js';
 
 
@@ -163,83 +165,6 @@ function emptySearchResultsMovies() {
 
 
 /**
- * @function module:moviesAPI.setEventsSearchMovies
- * @description Events for execute the search movies (input, button and pagination of the search)
- * @see Used inside:
- * {@link module:loader.add}, {@link module:loader.remove},
- * {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies},
- * {@link module:moviesCRUD.updateButtonsFavorite}, {@link module:moviesCRUD.tasksFavorite}, {@link module:moviesCRUD.hideListFavorites}
- * @see Used in: {@link anominFunctionAutoEjecuted}
- */
-export function setEventsSearchMovies() {
-	const searchInput = document.getElementById("searchInput");
-	const searchButton = document.getElementById("searchButton");
-	const buttonsPagination = document.getElementsByClassName("pagination-button");
-
-
-	/**
-	 * @event {click}
-	 * @description When you click on the search button:
-	 * - Search the movie by the entered text
-	 * - Show an animation while the animation is loading
-	 * (loading time is not real, it is forced to 7 seconds to show animation longer)
-	 * - Show search results
-	 * - Update button state based on saved movies I liked or didn't like
-	 * - Adds save and delete tasks for searched movie buttons
-	 * - Force hide the favorites list if it is open
-	 */
-	searchButton.addEventListener("click", function (event) {
-		event.preventDefault();
-
-		let paginationGo = 1;
-		loader.add();
-
-		searchByTextMovie(paginationGo)
-			.then((data) => {
-				setTimeout(function () {
-					loader.remove();
-					setSearchResultsMovies(data, paginationGo);
-					moviesCRUD.updateButtonsFavorite();
-					moviesCRUD.tasksFavorite();
-					moviesCRUD.hideListFavorites();
-				}, 7000);
-			});
-	});
-
-
-	/**
-	 * @event {keyup}
-	 * @description When you press enter key:
-	 * - Trigger the event click executed on search button
-	 */
-	searchInput.addEventListener("keyup", function (event) {
-		if (event.keyCode === 13) {
-			searchButton.click();
-		}
-	});
-
-
-	/**
-	 * @event {click}
-	 * @description When you click on the page button:
-	 * - Update button state based on saved movies I liked or didn't like
-	 * - Adds save and delete tasks for searched movie buttons
-	 */
-	checkLoadSearchResultsMovies(function () {
-		Array.from(buttonsPagination).map(button => {
-			button.addEventListener("click", function () {
-				checkLoadSearchResultsMovies(function () {
-					moviesCRUD.updateButtonsFavorite();
-					moviesCRUD.tasksFavorite();
-				});
-			});
-		});
-	});
-}
-
-
-
-/**
  * @function module:moviesAPI.checkLoadSearchResultsMovies
  * @description Check if search results it is empty
  * @param {String} callbackFunction Name of callback function
@@ -259,39 +184,11 @@ export function checkLoadSearchResultsMovies(callbackFunction) {
 
 
 /**
- * @function module:moviesAPI~templateInfoMovies
- * @description Create template to the info movies
- * @param {String} textSearch Text found
- * @param {String} totalSearch Total number results found
- * @returns {String}
- * @see Used in: {@link module:moviesAPI~getSetSearchInfoMovies}
- */
-function templateInfoMovies(textSearch, totalSearch) {
-	const template = `
-		<div class="search-info">
-			<h3>
-				Resultados encontados:
-			</h3>
-			<p class="search-info__text">
-				Con el texto: <em>${textSearch}</em>
-			</p>
-			<p class="search-info__total">
-				Total: <em>${totalSearch}</em>
-			</p>
-		</div>
-	`;
-
-	return template;
-}
-
-
-
-/**
  * @function module:moviesAPI~getSetSearchInfoMovies
  * @description Create and return the information about the data found
  * @param {Object} data Search results info
  * @returns {Object}
- * @see Used inside: {@link module:tool.stringToNode}, {@link module:moviesAPI~templateInfoMovies}
+ * @see Used inside: {@link module:tool.stringToNode}, {@link module:createTemplate.infoMovies}
  * @see Used in: {@link module:moviesAPI~setListMovies}
  */
 function getSetSearchInfoMovies(data) {
@@ -300,71 +197,10 @@ function getSetSearchInfoMovies(data) {
 	const textSearch = searchInputHidden.value;
 	const totalSearch = data.totalResults;
 
-	let template = templateInfoMovies(textSearch, totalSearch);
+	let template = createTemplate.infoMovies(textSearch, totalSearch);
 	let templateNode = tool.stringToNode(template);
 
 	return templateNode;
-}
-
-
-
-/**
- * @function module:moviesAPI~templateItemMovie
- * @description Create template to the item list movies
- * @param {Object} data Data movie
- * @returns {String}
- * @see Used in: {@link module:moviesAPI~getListMovies}
- */
-function templateItemMovie(data) {
-	console.info("%cMovie:", tool.consoleCSS.info);
-	console.info("Data:", data);
-
-	const template = `
-		<li id="${data.imdbID}" class="movie">
-			<div class="movie__content">
-				<div class="movie__list-buttons list-buttons">
-					<div class="movie__list-buttons--favorite">
-						<button class="movie__button button-favorite button button--icon"
-								data-id="${data.imdbID}"
-								data-type="favorite"
-								data-task="like"
-								aria-label="Guardar película favorita">
-							<i class="movie__icon button-favorite__icon button__icon far fa-heart animate__animated animate__bounceIn"></i>
-						</button>
-
-						<button class="movie__button button-favorite button button--icon is-hide"
-								data-id="${data.imdbID}"
-								data-type="favorite"
-								data-task="dislike"
-								aria-label="Eliminar película favorita">
-							<i class="movie__icon button-favorite__icon button__icon fas fa-heart animate__animated animate__bounceIn"></i>
-						</button>
-					</div>
-
-					<button class="movie__button button-info button button--icon"
-							data-id="${data.imdbID}"
-							data-type="info"
-							aria-label="Ver información de la película">
-						<i class="movie__icon button-info__icon button__icon far fa-info"></i>
-					</button>
-				</div>
-
-				<div class="movie__image">
-					<img src="${(data.Poster === "N/A") ? "images/movie-image-not-found.png" : data.Poster}" alt="${data.Title}">
-				</div>
-				
-				<div class="movie__body">
-					<h3 class="movie__title">
-						${data.Title}
-						<span class="movie__year">
-							(${data.Year})
-						</span>
-					</h3>
-				</div>
-			</div>
-		</li>
-		`;
-	return template;
 }
 
 
@@ -376,7 +212,7 @@ function templateItemMovie(data) {
  * @returns {Object}
  * @see Used inside:
  * {@link module:tool.stringToNode},
- * {@link module:moviesAPI~templateItemMovie}
+ * {@link module:createTemplate.movie}
  * @see Use in: {@link module:moviesAPI~setListMovies}
  */
 function getListMovies(data) {
@@ -385,7 +221,7 @@ function getListMovies(data) {
 	list.setAttribute("class", "list-movies");
 
 	const items = data.Search.map(search => {
-		let item = templateItemMovie(search);
+		let item = createTemplate.movie(search);
 		let itemNode = tool.stringToNode(item);
 
 		return itemNode;
@@ -500,39 +336,6 @@ function setSwiperMovies() {
 
 
 /**
- * @function module:moviesAPI~templatePaginationMovies
- * @description Create template to the pagination search
- * @param {Object} data Data pagination
- * @returns {String}
- * @see {@link module:moviesAPI~getSetSearchPaginationMovies}
- */
-function templatePaginationMovies(data) {
-	const template = `
-		<nav id="moviesPagination" class="pagination__wrapper noselect" aria-label="Pagination">
-			<ul class="pagination">
-				<li class="pagination-item">
-					<button id="paginationButtonPrev" class="pagination-button pagination-button--prev" data-pagination="${data.prev}">
-						<i class="pagination-button__icon fa fa-chevron-left"></i>
-					</button>
-				</li>
-				<li class="pagination-item">
-					<button id="paginationButtonNow" class="pagination-button pagination-button--now" data-pagination="${data.now}">${data.pages}</button>
-				</li>
-				<li class="pagination-item">
-					<button id="paginationButtonNext" class="pagination-button pagination-button--next" data-pagination="${data.next}">
-						<i class="pagination-button__icon fa fa-chevron-right"></i>
-					</button>
-				</li>
-			</ul>
-		</nav>
-	`;
-
-	return template;
-}
-
-
-
-/**
  * @function module:moviesAPI~getSetSearchPaginationMovies
  * @description Create and print pagination of results from 10 to 10
  * @param {Object} content Content to insert the pagination
@@ -540,7 +343,7 @@ function templatePaginationMovies(data) {
  * @param {Number} pagination Page to go
  * @see Used inside:
  * {@link module:tool.stringToNode},
- * {@link module:moviesAPI~templatePaginationMovies}, {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies}
+ * {@link module:createTemplate.paginationMovies}, {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies}
  * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
 function getSetSearchPaginationMovies(content, data, pagination) {
@@ -573,7 +376,7 @@ function getSetSearchPaginationMovies(content, data, pagination) {
 
 
 	// Create and print pagination
-	const paginationTemplate = templatePaginationMovies(paginationData);
+	const paginationTemplate = createTemplate.paginationMovies(paginationData);
 	let paginationTemplateNode = tool.stringToNode(paginationTemplate);
 	content.appendChild(paginationTemplateNode);
 
@@ -603,6 +406,8 @@ function getSetSearchPaginationMovies(content, data, pagination) {
 			if (paginationGo >= 1 && paginationGo < data.totalResults) {
 				searchByTextMovie(paginationGo).then(data => {
 					setSearchResultsMovies(data, paginationGo);
+					moviesCRUD.tasksFavorite();
+					moviesCRUD.updateButtonsFavorite();
 				});
 			}
 		});
@@ -630,36 +435,9 @@ function showHideInfoMovie() {
 			var movie = tool.getClosest(event.target, '.movie');
 			movie.classList.toggle("is-view");
 
-			setTimeout(function () {
-				movie.classList.remove("is-view");
-			}, 10000);
+			setTimeout(() => movie.classList.remove("is-view"), 10000);
 		});
 	});
-}
-
-
-
-/**
- * @function module:moviesAPI~templatePageErrorMovies
- * @description Create template to the message errors
- * @param {String} textError Text Error
- * @returns {String}
- * @see Used in: {@link module:moviesAPI~getSetPageErrorMovies}
- */
-function templatePageErrorMovies(textError) {
-	const template = `
-		<div class="search-error">
-			<h3 class="search-error__title">
-				Error de búsqueda
-			</h3>
-			<h4 class="search-error__subtitle">
-				${textError}
-			</h4>
-			<img class="search-error__image" src="images/search-error.svg">
-		</div>
-	`;
-
-	return template;
 }
 
 
@@ -669,7 +447,7 @@ function templatePageErrorMovies(textError) {
  * @description Create and print message error
  * @param {Object} content Content to insert the info error
  * @param {String} textError Text error of API
- * @see Used inside: {@link module:moviesAPI~templatePageErrorMovies}
+ * @see Used inside: {@link module:createTemplate.pageErrorMovies}
  * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
 function getSetPageErrorMovies(content, textError) {
@@ -690,7 +468,7 @@ function getSetPageErrorMovies(content, textError) {
 
 	(typeof messageError === "undefined") ? messageError = textError : messageError;
 
-	const template = templatePageErrorMovies(messageError);
+	const template = createTemplate.pageErrorMovies(messageError);
 
 	content.innerHTML = template;
 }
@@ -721,4 +499,63 @@ export function setSearchResultsMovies(data, pagination) {
 	} else {
 		getSetPageErrorMovies(content, data.Error);
 	}
+}
+
+
+
+/**
+ * @function module:moviesAPI.setEventsSearchMovies
+ * @description Events for execute the search movies (input, button and pagination of the search)
+ * @see Used inside:
+ * {@link module:loader.add}, {@link module:loader.remove},
+ * {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies},
+ * {@link module:moviesCRUD.updateButtonsFavorite}, {@link module:moviesCRUD.tasksFavorite}, {@link module:moviesCRUD.hideListFavorites}
+ * @see Used in: {@link anominFunctionAutoEjecuted}
+ */
+export function setEventsSearchMovies() {
+	const searchInput = document.getElementById("searchInput");
+	const searchButton = document.getElementById("searchButton");
+	const buttonsPagination = document.getElementsByClassName("pagination-button");
+
+
+	/**
+	 * @event {click}
+	 * @description When you click on the search button:
+	 * - Search the movie by the entered text
+	 * - Show an animation while the animation is loading
+	 * (loading time is not real, it is forced to 7 seconds to show animation longer)
+	 * - Show search results
+	 * - Update button state based on saved movies I liked or didn't like
+	 * - Adds save and delete tasks for searched movie buttons
+	 * - Force hide the favorites list if it is open
+	 */
+	searchButton.addEventListener("click", function (event) {
+		event.preventDefault();
+
+		let paginationGo = 1;
+		loader.add();
+
+		searchByTextMovie(paginationGo)
+			.then((data) => {
+				setTimeout(function () {
+					loader.remove();
+					setSearchResultsMovies(data, paginationGo);
+					moviesCRUD.updateButtonsFavorite();
+					moviesCRUD.tasksFavorite();
+					moviesCRUD.hideListFavorites();
+				}, 7000);
+			});
+	});
+
+
+	/**
+	 * @event {keyup}
+	 * @description When you press enter key:
+	 * - Trigger the event click executed on search button
+	 */
+	searchInput.addEventListener("keyup", function (event) {
+		if (event.keyCode === 13) {
+			searchButton.click();
+		}
+	});
 }

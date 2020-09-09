@@ -10,10 +10,20 @@
 
 
 
+/**
+ * @requires iconsPaths
+ * @requires createTemplate
+ */
+import * as iconsPaths from './iconsPaths.js';
+import * as createTemplate from './createTemplate.js';
+
+
+
+
 
 /**
  * @const consoleCSS
- * @description CSS styles for the console.log...
+ * @description CSS styles for the console.log, console.info, console.warn...
  * @type {Object}
  */
 export const consoleCSS = {
@@ -22,6 +32,21 @@ export const consoleCSS = {
 	"error": `padding: 0.1rem 0.5rem; color: white; background-color: tomato;`,
 	"success": `padding: 0.1rem 0.5rem; color: white; background-color: teal;`
 };
+
+
+
+/**
+ * @function module:tool.findTextArray
+ * @description Find by a part of text into array
+ * @param {Object} array Array to search in
+ * @param {String} text Text to find
+ * @returns {Object}
+ */
+export function findTextInArray(array, text) {
+	let dataFound = array.filter(item => item.includes(text));
+	console.info("Data found:", dataFound);
+	return dataFound;
+}
 
 
 
@@ -114,6 +139,7 @@ export function stringToNode(string) {
  * @description Convert 1 digit numbers to 2 digit numbers by adding a leading zero
  * @param {Number} number Number to convert
  * @return {String|Number}
+ * @see Used in: {@link module:tool.getCurrentDate}
  */
 function convertNumberWith2Cifres(number) {
 	var numberToString = number.toString();
@@ -134,6 +160,7 @@ function convertNumberWith2Cifres(number) {
  * @description Get the current date in this format: 'yyyy-mm-dd hh:mm:ss'
  * @returns {String}
  * @see Used inside: {@link module:module:tool~convertNumberWith2Cifres}
+ * @see Used in: {@link module:tool.getCurrentDateRealTime}
  */
 export function getCurrentDate() {
 	let today = new Date();
@@ -155,6 +182,59 @@ export function getCurrentDate() {
 
 	let dateTime = `${date} ${time}`;
 
-	console.info("Current date: ", dateTime);
+	// console.info("Current date: ", dateTime);
 	return dateTime;
+}
+
+
+
+/**
+ * @function module:tool.getCurrentDateRealTime
+ * @description Get the current time in real time in this format: 'yyyy-mm-dd hh:mm:ss'
+ * @see Used inside: {@link module:tool.getCurrentDate}
+ * @see Used in: {@link}
+ */
+export function getCurrentDateRealTime() {
+	let contentDOM = document.querySelectorAll(".timer");
+	setInterval(function () {
+		let currentDate = getCurrentDate();
+		[...contentDOM].map(item => item.innerHTML = currentDate);
+	}, 100);
+}
+
+
+
+/**
+ * @function module:tool.findCreateIconsFlags
+ * @description Find the country in the icon routes and create an image label with the flag icons
+ * @param {String} stringLang Text to find
+ * @param {String} classCSS Class name
+ * @return {String}
+ * @see Used inside: {@link module:createTemplate.iconFlag}
+ * @see Used in: {@link}
+ */
+export function findCreateIconsFlags(stringLang, classCSS) {
+	const iconsFlags = iconsPaths.flags;
+	let langs = stringLang.toLowerCase().split(", ");
+
+	let list = [];
+	[...langs].map((lang) => {
+		lang = lang.replace(" ", "-");
+
+		for (const key in iconsFlags) {
+			if (iconsFlags.hasOwnProperty(key)) {
+				if (key === lang) {
+					const element = iconsFlags[key];
+					list.push({ lang: lang, flag: element });
+				}
+			}
+		}
+	});
+
+	let template = "";
+	[...list].map((item) => {
+		template += createTemplate.iconFlag(item, classCSS)
+	});
+
+	return template;
 }

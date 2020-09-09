@@ -3,10 +3,11 @@
 :root {
 	--color-white: #ffffff;
 	--color-light: #ededed;
-	--color-yellow: #fdbb2d;
-	--color-yellow-dark: hsl(41, 68%, 46%);
+	--color-yellow-light: #f1e767;
+	--color-yellow: #feb645;
+	--color-yellow-dark: #c59326;
 	--color-red: #d82b08;
-	--color-red-dark: hsl(0, 100%, 30%);
+	--color-red-dark: #b10202;
 	--color-blue: #00e4ff;
 	--color-gray: #b8c5d2;
 	--color-dark: #343a40;
@@ -170,12 +171,16 @@ img {
 	pointer-events: none;
 }
 
-.button .button-info {
+/*** BUTTON INFO ***/
+
+.button-info {
 }
 
 .button-info__icon {
 	color: var(--color-dark);
 }
+
+/*** BUTTON FAVORITE ***/
 
 .button-favorite {
 }
@@ -188,6 +193,8 @@ img {
 	transition: all 0.5s ease-in-out 0s;
 }
 
+/*** BUTTON DELETE ***/
+
 .button-delete {
 	margin: 0 auto;
 	font-weight: 900;
@@ -198,6 +205,8 @@ img {
 .button-delete:hover {
 	background-color: var(--color-red-dark);
 }
+
+/*** BUTTON LIST ***/
 
 .button-list-favorites {
 	margin: 2rem;
@@ -226,6 +235,8 @@ img {
 		color: var(--color-red);
 	}
 }
+
+/*** BUTTON CLOSE ***/
 
 .button-close {
 	width: 3rem;
@@ -256,6 +267,7 @@ img {
 }
 
 /************ SCROLL **************/
+
 .scroll {
 	height: 100%;
 }
@@ -272,11 +284,11 @@ img {
 
 .scroll__inner::-webkit-scrollbar-thumb {
 	border-radius: 0.5rem;
-	background-color: var(--color-yellow);
+	background-color: var(--color-yellow-dark);
 }
 
 .scroll__inner::-webkit-scrollbar-thumb:hover {
-	background-color: var(--color-red-dark);
+	background-color: var(--color-yellow);
 }
 
 .scroll__inner::-webkit-scrollbar-track {
@@ -286,6 +298,154 @@ img {
 
 .scroll__content {
 	padding-right: 1rem;
+}
+
+/************ TABLE ************/
+
+.table__wrapper {
+	max-width: 90%;
+}
+
+.table {
+	width: 100%;
+	display: block;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 1.5rem;
+	background-color: var(--color-white);
+}
+
+.table__head,
+.table__foot {
+	width: 100%;
+	display: table;
+	text-align: center;
+	background: var(--color-yellow-light);
+	background: -moz-linear-gradient(
+		left,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	background: -webkit-gradient(
+		left top,
+		right top,
+		color-stop(0%, var(--color-yellow-light)),
+		color-stop(100%, var(--color-yellow))
+	);
+	background: -webkit-linear-gradient(
+		left,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	background: -o-linear-gradient(
+		left,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	background: -ms-linear-gradient(
+		left,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	background: linear-gradient(
+		to right,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#var(--color-yellow-light)', endColorstr='#var(--color-yellow)', GradientType=1 );
+}
+
+.table__body {
+	display: block;
+	overflow-x: auto;
+}
+
+.table__tr {
+}
+
+.table__head .table__th {
+	padding: 2rem 5rem;
+	font-size: 2rem;
+}
+
+.table__body .table__th {
+	padding: 1rem 2rem;
+	color: #fff;
+	background-color: var(--color-dark);
+}
+
+.table__body .table__td {
+	padding: 1rem 2rem;
+}
+
+.table__body .table__tr .table__td {
+}
+
+.table__body .table__tr:hover .table__td {
+	background-color: var(--color-gray);
+}
+
+.table__body .table__tr:nth-child(even) {
+	background-color: var(--color-white);
+}
+
+.table__body .table__tr:nth-child(odd) {
+	background-color: var(--color-light);
+}
+
+.table__foot {
+	background: var(--color-yellow-light);
+	background: -moz-linear-gradient(
+		left,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	background: -webkit-gradient(
+		left top,
+		right top,
+		color-stop(0%, var(--color-yellow-light)),
+		color-stop(100%, var(--color-yellow))
+	);
+	background: -webkit-linear-gradient(
+		left,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	background: -o-linear-gradient(
+		left,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	background: -ms-linear-gradient(
+		left,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	background: linear-gradient(
+		to right,
+		var(--color-yellow-light) 0%,
+		var(--color-yellow) 100%
+	);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#var(--color-yellow-light)', endColorstr='#var(--color-yellow)', GradientType=1 );
+}
+
+.table__foot .table__td {
+	padding: 1rem 5rem;
+	font-size: 1.5rem;
+}
+
+.table__foot .timer {
+	width: 10rem;
+	height: 2.7rem;
+	line-height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/************ TABLE -- STATUS ************/
+
+.table-body__tr.is-removed {
+	transition: all 0.5s ease-in-out 0s;
 }
 
 /************ MODAL ************/
@@ -308,7 +468,7 @@ img {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal__container {
@@ -669,6 +829,8 @@ img {
 .movie__icon {
 }
 
+/************ MOVIE -- STATUS ************/
+
 .movie__button.is-hide {
 	display: none;
 	position: absolute;
@@ -676,8 +838,6 @@ img {
 	left: 0;
 	pointer-events: none;
 }
-
-/************ MOVIE -- STATUS ************/
 
 .movie.is-view {
 }
@@ -782,70 +942,37 @@ img {
 	margin: 1rem auto 0;
 }
 
-/************ FAVORITE MOVIES ************/
+/************ FAVORITE LIST ************/
 
 .favorite-list {
 	display: none;
-	width: 100%;
 }
 
-.favorite-list__table {
-	margin: 0 auto;
-	border-collapse: collapse;
-	text-align: center;
-	font-size: 1.5rem;
-	background-color: var(--color-white);
+.favorite-list__index,
+.favorite-list__favorite-index {
+	min-width: 6rem;
 }
 
-.favorite-list__table-head,
-.favorite-list__table-footer {
-	width: 100%;
-	text-align: center;
-	background-color: var(--color-yellow);
+.favorite-list__date,
+.favorite-list__favorite-date {
+	min-width: 12rem;
+	line-height: 110%;
 }
 
-.favorite-list__table-head th,
-.favorite-list__table-footer td {
-	padding: 2rem 5rem;
+.favorite-list__title,
+.favorite-list__favorite-title {
+	text-align: left;
+	white-space: nowrap;
 }
 
-.favorite-list__table-head th {
-	font-size: 2rem;
+.favorite-list__task-info,
+.favorite-list__favorite-task-info {
+	min-width: 10rem;
 }
 
-.favorite-list__table-body th {
-	padding: 1rem 2rem;
-	color: #fff;
-	background-color: var(--color-dark);
-}
-
-.favorite-list__table-body td {
-	padding: 1rem 2rem;
-	text-align: center;
-}
-
-.favorite-list__table-body tr td {
-	cursor: pointer;
-}
-
-.favorite-list__table-body tr:hover td {
-	background-color: var(--color-gray);
-}
-
-.favorite-list__table-body tr:nth-child(even) {
-	background-color: var(--color-white);
-}
-
-.favorite-list__table-body tr:nth-child(odd) {
-	background-color: var(--color-light);
-}
-
-.favorite-list__table-foot {
-	background-color: var(--color-yellow);
-}
-
-.favorite-list__table-foot th {
-	font-size: 1.5rem;
+.favorite-list__task-delete,
+.favorite-list__favorite-task-delete {
+	min-width: 15rem;
 }
 
 .favorite-list__favorite-task .button {
@@ -861,10 +988,11 @@ img {
 	border-color: var(--color-dark);
 }
 
-/************ FAVORITE -- STATUS ************/
+/************ FAVORITE LIST -- STATUS ************/
 
 .favorite-list.is-view {
-	display: inline-block;
+	display: flex;
+	justify-content: center;
 }
 
 /************ FAVORITE DETAIL ************/
@@ -873,8 +1001,13 @@ img {
 	font-size: 1.7rem;
 }
 
+.favorite-detail__item {
+	display: flex;
+	align-items: center;
+}
+
 .favorite-detail__row:not(:last-child) {
-	margin-bottom: 2rem;
+	margin-bottom: 2.5rem;
 }
 
 .favorite-detail__columns {
@@ -883,7 +1016,7 @@ img {
 }
 
 .favorite-detail__columns > *:not(:last-child) {
-	margin-right: 2rem;
+	margin-right: 2.5rem;
 }
 
 .favorite-detail__subtitle {
@@ -893,20 +1026,26 @@ img {
 	color: var(--color-yellow-dark);
 }
 
+.favorite-detail__icon {
+	margin-left: 1rem;
+}
+
+.favorite-detail__icon--flag {
+	width: 100%;
+	max-width: 2.5rem;
+}
+
 .favorite-detail__title {
 	margin-bottom: 2rem;
 	font-size: 3rem;
+	line-height: 100%;
 	color: var(--color-yellow);
 }
 
 .favorite-detail__description {
 }
 
-.favorite-detail__language {
-}
-
 .favorite-detail__poster {
 	width: 100%;
-	max-width: 25rem;
-	margin-bottom: 2.5rem;
+	max-width: 30rem;
 }
