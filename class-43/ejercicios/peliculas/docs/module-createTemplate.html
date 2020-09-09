@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: tool</title>
+    <title>JSDoc: Module: createTemplate</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: tool</h1>
+    <h1 class="page-title">Module: createTemplate</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Helper functions</p></div>
+            <div class="description"><p>Templates html</p></div>
         
 
         
@@ -97,7 +97,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line1">line 1</a>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -144,82 +144,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~consoleCSS"><span class="type-signature">(inner, constant) </span>consoleCSS<span class="type-signature"> :Object</span></h4>
-
-
-
-
-<div class="description">
-    <p>CSS styles for the console.log, console.info, console.warn...</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -230,7 +154,7 @@
     
 
     
-    <h4 class="name" id=".findCreateIconsFlags"><span class="type-signature">(static) </span>findCreateIconsFlags<span class="signature">(stringLang, classCSS)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id=".detailFavorite"><span class="type-signature">(static) </span>detailFavorite<span class="signature">(data)</span><span class="type-signature"> &rarr; {String}</span></h4>
     
 
     
@@ -238,7 +162,7 @@
 
 
 <div class="description">
-    <p>Find the country in the icon routes and create an image label with the flag icons</p>
+    <p>Create template to detail favorite</p>
 </div>
 
 
@@ -274,13 +198,13 @@
 
         <tr>
             
-                <td class="name"><code>stringLang</code></td>
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Object</span>
 
 
             
@@ -290,7 +214,171 @@
 
             
 
-            <td class="description last"><p>Text to find</p></td>
+            <td class="description last"><p>Data favorite</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line315">line 315</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Used inside: <a href="module-tool.html#.findCreateIconsFlags">module:tool.findCreateIconsFlags</a></li>
+        
+            <li>Used in: <a href="module-moviesCRUD.html#~setDetailFavorite">module:moviesCRUD~setDetailFavorite</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".iconFlag"><span class="type-signature">(static) </span>iconFlag<span class="signature">(data, classCSS)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a template to icon flag</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Data flag</p></td>
         </tr>
 
     
@@ -354,7 +442,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line207">line 207</a>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -364,9 +452,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li>Used inside: <a href="module-createTemplate.html#.iconFlag">module:createTemplate.iconFlag</a></li>
-        
-            <li>Used in: {@link}</li>
+            <li>Used in: <a href="module-tool.html#.findCreateIconsFlags">module:tool.findCreateIconsFlags</a></li>
         </ul>
     </dd>
     
@@ -417,7 +503,7 @@
     
 
     
-    <h4 class="name" id=".findTextArray"><span class="type-signature">(static) </span>findTextArray<span class="signature">(array, text)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".infoMovies"><span class="type-signature">(static) </span>infoMovies<span class="signature">(textSearch, totalSearch)</span><span class="type-signature"> &rarr; {String}</span></h4>
     
 
     
@@ -425,7 +511,7 @@
 
 
 <div class="description">
-    <p>Find by a part of text into array</p>
+    <p>Create template to the info movies</p>
 </div>
 
 
@@ -461,7 +547,215 @@
 
         <tr>
             
-                <td class="name"><code>array</code></td>
+                <td class="name"><code>textSearch</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Text found</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>totalSearch</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Total number results found</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Used in: <a href="module-moviesAPI.html#~getSetSearchInfoMovies">module:moviesAPI~getSetSearchInfoMovies</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".modal"><span class="type-signature">(static) </span>modal<span class="signature">(idModal, data)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create template to modal window</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>idModal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Id name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
@@ -477,30 +771,7 @@
 
             
 
-            <td class="description last"><p>Array to search in</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>text</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Text to find</p></td>
+            <td class="description last"><p>Data modal</p></td>
         </tr>
 
     
@@ -541,12 +812,19 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line38">line 38</a>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Used in: <a href="module-modal.html#~insertModal">module:modal~insertModal</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -577,77 +855,77 @@
     </dt>
     <dd>
         
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".movie"><span class="type-signature">(static) </span>movie<span class="signature">(data)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create template to the item list movies</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">Object</span>
 
 
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getClosest"><span class="type-signature">(static) </span>getClosest<span class="signature">(childElement, parentSelector)</span><span class="type-signature"> &rarr; {Element|null}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Get the parent element with a specific selector</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>childElement</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Element</span>
-
-
             
             </td>
 
@@ -655,30 +933,7 @@
 
             
 
-            <td class="description last"><p>Child element</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>parentSelector</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Selector of the parent element</p></td>
+            <td class="description last"><p>Data movie</p></td>
         </tr>
 
     
@@ -719,116 +974,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line90">line 90</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Element</span>
-|
-
-<span class="param-type">null</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getCurrentDate"><span class="type-signature">(static) </span>getCurrentDate<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Get the current date in this format: 'yyyy-mm-dd hh:mm:ss'</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line158">line 158</a>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line98">line 98</a>
     </li></ul></dd>
     
 
@@ -838,9 +984,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li>Used inside: <a href="module-tool.html#~convertNumberWith2Cifres">module:tool~convertNumberWith2Cifres</a></li>
-        
-            <li>Used in: <a href="module-tool.html#.getCurrentDateRealTime">module:tool.getCurrentDateRealTime</a></li>
+            <li>Used in: <a href="module-moviesAPI.html#~getListMovies">module:moviesAPI~getListMovies</a></li>
         </ul>
     </dd>
     
@@ -891,7 +1035,7 @@
     
 
     
-    <h4 class="name" id=".getCurrentDateRealTime"><span class="type-signature">(static) </span>getCurrentDateRealTime<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".pageErrorMovies"><span class="type-signature">(static) </span>pageErrorMovies<span class="signature">(textError)</span><span class="type-signature"> &rarr; {String}</span></h4>
     
 
     
@@ -899,7 +1043,7 @@
 
 
 <div class="description">
-    <p>Get the current time in real time in this format: 'yyyy-mm-dd hh:mm:ss'</p>
+    <p>Create template to the message errors</p>
 </div>
 
 
@@ -908,6 +1052,55 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>textError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Text Error</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -943,7 +1136,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line191">line 191</a>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -953,541 +1146,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li>Used inside: <a href="module-tool.html#.getCurrentDate">module:tool.getCurrentDate</a></li>
-        
-            <li>Used in: {@link}</li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".stringToNode"><span class="type-signature">(static) </span>stringToNode<span class="signature">(String)</span><span class="type-signature"> &rarr; {Element}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Convert a string to node DOM</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>String</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>String to convert</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line124">line 124</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Element</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".wrap"><span class="type-signature">(static) </span>wrap<span class="signature">(innerDOM, tagWrapper, classWrapper, idWrapper)</span><span class="type-signature"> &rarr; {Element}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Wrap an HTML structure around an element</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>innerDOM</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Element</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Element to wrap</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tagWrapper</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-|
-
-<span class="param-type">null</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>HTML tag of wrapper</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>classWrapper</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-|
-
-<span class="param-type">null</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Class name for the tag of wrapper</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>idWrapper</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-|
-
-<span class="param-type">null</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Id name for the tag of wrapper</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line53">line 53</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Element</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~convertNumberWith2Cifres"><span class="type-signature">(inner) </span>convertNumberWith2Cifres<span class="signature">(number)</span><span class="type-signature"> &rarr; {String|Number}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Convert 1 digit numbers to 2 digit numbers by adding a leading zero</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>number</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Number to convert</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_tools.js.html">modules/tools.js</a>, <a href="modules_tools.js.html#line137">line 137</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li>Used in: <a href="module-tool.html#.getCurrentDate">module:tool.getCurrentDate</a></li>
+            <li>Used in: <a href="module-moviesAPI.html#~getSetPageErrorMovies">module:moviesAPI~getSetPageErrorMovies</a></li>
         </ul>
     </dd>
     
@@ -1521,9 +1180,443 @@
     <dd>
         
 <span class="param-type">String</span>
-|
 
-<span class="param-type">Number</span>
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".paginationMovies"><span class="type-signature">(static) </span>paginationMovies<span class="signature">(data)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create template to the pagination search</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Data pagination</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line159">line 159</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Used in: <a href="module-moviesAPI.html#~getSetSearchPaginationMovies">module:moviesAPI~getSetSearchPaginationMovies</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".tableFavorites"><span class="type-signature">(static) </span>tableFavorites<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a table to the list of favorite movies</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line217">line 217</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Used in: <a href="module-moviesCRUD.html#~insertTableFavorites">module:moviesCRUD~insertTableFavorites</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".tableRowFavorite"><span class="type-signature">(static) </span>tableRowFavorite<span class="signature">(favorite)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a template to the favorite movie</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>favorite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Data of favorite</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_createTemplate.js.html">modules/createTemplate.js</a>, <a href="modules_createTemplate.js.html#line273">line 273</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Used in: <a href="module-moviesCRUD.html#~addTableRowFavorite">module:moviesCRUD~addTableRowFavorite</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
 
 
     </dd>

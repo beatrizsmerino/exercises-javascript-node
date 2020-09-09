@@ -343,7 +343,8 @@ function setSwiperMovies() {
  * @param {Number} pagination Page to go
  * @see Used inside:
  * {@link module:tool.stringToNode},
- * {@link module:createTemplate.paginationMovies}, {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies}
+ * {@link module:createTemplate.paginationMovies},
+ * {@link module:moviesAPI.searchByTextMovie}, {@link module:moviesAPI.setSearchResultsMovies}
  * @see Used in: {@link module:moviesAPI.setSearchResultsMovies}
  */
 function getSetSearchPaginationMovies(content, data, pagination) {
@@ -515,7 +516,6 @@ export function setSearchResultsMovies(data, pagination) {
 export function setEventsSearchMovies() {
 	const searchInput = document.getElementById("searchInput");
 	const searchButton = document.getElementById("searchButton");
-	const buttonsPagination = document.getElementsByClassName("pagination-button");
 
 
 	/**

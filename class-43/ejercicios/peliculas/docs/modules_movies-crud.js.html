@@ -39,11 +39,17 @@
 
 
 /**
- * @requires moviesAPI
- * @requires firebaseTasks
- */
+* @requires tool
+* @requires createTemplate
+* @requires modal
+* @requires moviesAPI
+* @requires firebaseTasks
+*/
+import * as tool from './tools.js';
+import * as createTemplate from './createTemplate.js';
 import * as moviesAPI from './movies-api.js';
 import * as firebaseTasks from './firebase-tasks.js';
+import * as modal from './modal.js';
 
 
 
@@ -130,12 +136,18 @@ function getArrayIdFavoritesSaved(data) {
  * @description Create array with the data favorite movie.
  * @param {Event} event Event to get data
  * @returns {Object|Boolean}
- * @see Used inside: {@link module:moviesCRUD~getIdMovie}
+ * @see Used inside: {@link module:moviesCRUD~getIdMovie}, {@link module:moviesCRUD~getDetailFavorite}
  * @see Used in: {@link module:moviesCRUD.tasksFavorite}
  */
 async function createArrayFavorite(event) {
 	const movieId = await getIdMovie(event);
-	const arrayData = { 'id': movieId };
+	const detailMovie = await moviesAPI.searchByIdMovie(movieId);
+
+	const arrayData = {
+		'id': detailMovie.imdbID,
+		'title': detailMovie.Title
+	};
+
 	const response = (movieId !== false) ? arrayData : false;
 	return response;
 }
@@ -143,88 +155,15 @@ async function createArrayFavorite(event) {
 
 
 /**
- * @function module:moviesCRUD~createTemplateTableFavorites
- * @description Create a table for the list of favorite movies
- * @returns {String}
- * @see Used in: {@link module:moviesCRUD~insertTableFavorites}
- */
-function createTemplateTableFavorites() {
-	const templateTable = `
-		&lt;table id="favoriteListTable" class="favorite-list__table">
-			&lt;thead id="favoriteListTableHead" class="favorite-list__table-head">
-				&lt;tr>
-					&lt;th colspan="3">
-						Mi lista de peliculas favoritas
-					&lt;/th>
-				&lt;/tr>
-			&lt;/thead>
-			&lt;tbody id="favoriteListTableBody" class="favorite-list__table-body">
-				&lt;tr>
-					&lt;th class="favorite-list__index">
-						#
-					&lt;/th>
-					&lt;th class="favorite-list__id">
-						ID
-					&lt;/th>
-					&lt;th class="favorite-list__tasks">
-						&lt;button id="buttonDeleteListFavorites" class="button-delete button"
-							data-type="favorite"
-							data-task="dislike"
-							aria-label="Eliminar todas las películas favoritas">
-							Eliminar todo
-						&lt;/button>
-					&lt;/th>
-				&lt;/tr>
-			&lt;/tbody>
-			&lt;tfoot id="favoriteListTableFooter" class="favorite-list__foot">&lt;/tfoot>
-		&lt;/table>`;
-
-	return templateTable;
-}
-
-
-
-/**
  * @function module:moviesCRUD~insertTableFavorites
  * @description Insert list of favorite movies
- * @see Used inside: {@link module:moviesCRUD~createTemplateTableFavorites}
+ * @see Used inside: {@link module:createTemplate.tableFavorites}
  * @see Used in: {@link module:moviesCRUD.getSetListFavorites}
  */
 function insertTableFavorites() {
 	const listFavorites = document.getElementById("favoriteList");
-	const template = createTemplateTableFavorites();
+	const template = createTemplate.tableFavorites();
 	listFavorites.innerHTML = template;
-}
-
-
-
-/**
- * @function module:moviesCRUD~createTemplateTableRowFavorite
- * @description Create a template for the favorite movie
- * @param {Object} favorite Data of favorite
- * @returns {String}
- * @see Used in: {@link module:moviesCRUD~addTableRowFavorite}
- */
-function createTemplateTableRowFavorite(favorite) {
-	const template = `
-		&lt;tr class="favorite-list__row" data-id="${favorite.id}">
-			&lt;td class="favorite__index">
-				${favorite.index}
-			&lt;/td>
-			&lt;td class="favorite__id">
-				${favorite.id}
-			&lt;/td>
-			&lt;td class="favorite__tasks">
-				&lt;button class="favorite__button button-favorite button"
-						data-id="${favorite.id}"
-						data-type="favorite"
-						data-task="dislike"
-						aria-label="Eliminar película favorita">
-					&lt;i class="favorite__icon button-favorite__icon button__icon fas fa-heart">&lt;/i>
-				&lt;/button>
-			&lt;/td>
-		&lt;/tr>`;
-	return template;
 }
 
 
@@ -250,9 +189,11 @@ function insertTableRowFavorite(idContent, templateFavorite) {
  * @see Used in: {@link module:moviesCRUD~removeTableRowFavorite}
  */
 function deleteTableRowFavorite(data) {
-	const row = document.querySelector(`.favorite-list__row[data-id=${data.id}]`);
+	const row = document.querySelector(`.favorite-list .table__tr[data-id=${data.id}]`);
+
 	if (row) {
-		row.parentNode.removeChild(row);
+		row.classList.add('animate__animated', 'animate__backOutRight', 'is-removed');
+		setTimeout(() => row.parentNode.removeChild(row), 500);
 	}
 }
 
@@ -261,13 +202,14 @@ function deleteTableRowFavorite(data) {
  * @function module:moviesCRUD~addTableRowFavorite
  * @description Create and insert Favorite
  * @param {Object} data Data favorite to insert
- * @see Used inside: {@link module:moviesCRUD~createTemplateTableRowFavorite}, {@link module:moviesCRUD~insertTableRowFavorite}, {@link module:moviesCRUD.tasksListFavorites}, {@link module:moviesCRUD.updateButtonsFavorite}, {@link module:moviesCRUD~updateListFavorites}
+ * @see Used inside: {@link module:createTemplate.tableRowFavorite}, {@link module:moviesCRUD~insertTableRowFavorite}, {@link module:moviesCRUD.tasksListFavorites}, {@link module:moviesCRUD.updateButtonsFavorite}, {@link module:moviesCRUD~updateListFavorites}
  * @see Used in: {@link module:moviesCRUD.getSetListFavorites}
  */
 function addTableRowFavorite(data) {
 	if (data !== null) {
-		let templateRecord = createTemplateTableRowFavorite(data);
+		let templateRecord = createTemplate.tableRowFavorite(data);
 		insertTableRowFavorite("favoriteListTableBody", templateRecord);
+		tool.getCurrentDateRealTime();
 		tasksListFavorites();
 		updateButtonsFavorite();
 		updateListFavorites("movies");
@@ -406,6 +348,7 @@ export async function updateButtonsFavorite() {
 	[...buttonsDislike].map((button) => button.classList.add('is-hide'));
 	[...buttonsLikeId].map((button) => button.classList.add('is-hide'));
 	[...buttonsDislikeId].map((button) => button.classList.remove('is-hide'));
+
 }
 
 
@@ -413,7 +356,7 @@ export async function updateButtonsFavorite() {
 /**
  * @function module:moviesCRUD~saveFavorite
  * @description Save favorite
- * @param {Event} Event Data to save
+ * @param {Event} event Event to get data
  * @see Used inside:
  * {@link module:firebaseTasks.firebaseCreate}
  * {@link module:moviesCRUD~createArrayFavorite}
@@ -460,6 +403,66 @@ async function deleteFavorite(event) {
 
 
 /**
+ * @function module:moviesCRUD~getDetailFavorite
+ * @description Get the favorite id selected, check if exist in the API, check if saved get the data and return it
+ * @param {Event} event Event to get data
+ * @return {Object}
+ * @see Used inside:
+ * {@link module:moviesAPI.searchByIdMovie},
+ * {@link module:moviesCRUD~getIdMovie},
+ * {@link module:firebaseTasks.firebaseFindRecord}
+ * @see Used in: {@link module:moviesCRUD~setDetailFavorite}
+ */
+async function getDetailFavorite(event) {
+	const movieId = await getIdMovie(event);
+
+	if (movieId !== false) {
+		let recordFound = await firebaseTasks.firebaseFindRecord(`movies/list`, movieId);
+
+		if (recordFound !== false) {
+			let recordFoundData;
+
+			for (const key in recordFound) {
+				if (recordFound.hasOwnProperty(key)) {
+					const element = recordFound[key];
+					recordFoundData = element;
+				}
+			}
+
+			let detailFavorite = await moviesAPI.searchByIdMovie(recordFoundData.id);
+
+			if (typeof detailFavorite !== null) {
+				console.info("%cThe data was obtained successfully!", tool.consoleCSS.success);
+				console.info("Data:", detailFavorite);
+				return detailFavorite;
+			} else {
+				console.info("%cError to get the data!", tool.consoleCSS.error);
+				console.info("Data:", detailFavorite);
+			}
+		}
+	}
+}
+
+
+
+/**
+ * @function module:moviesCRUD~setDetailFavorite
+ * @description Create the favorite detail template and insert it into modal window
+ * @see Used inside:
+ * {@link module:moviesCRUD~getDetailFavorite},
+ * {@link module:createTemplate.detailFavorite}
+ * {@link module:modal.getSetModal}
+ * @see Used in: {@link module:moviesCRUD.tasksListFavorites}
+ */
+async function setDetailFavorite(event) {
+	const detailFavorite = await getDetailFavorite(event);
+	const template = createTemplate.detailFavorite(detailFavorite);
+	modal.getSetModal("favoriteList", template);
+}
+
+
+
+/**
  * @function module:moviesCRUD.tasksFavorite
  * @description Events to save and remove favorite movie
  * @see Used inside: {@link module:moviesCRUD~saveFavorite}, {@link module:moviesCRUD~deleteFavorite}
@@ -497,23 +500,12 @@ export function tasksFavorite() {
  * @function module:moviesCRUD.tasksListFavorites
  * @description Event save and remove favorite movies
  * @see Used inside:
- * {@link module:moviesCRUD.getSetListFavorites}, {@link module:moviesCRUD~deleteListFavorites}, {@link module:moviesCRUD~deleteFavorite}
+ * {@link module:moviesCRUD.getSetListFavorites}, {@link module:moviesCRUD~deleteListFavorites}, {@link module:moviesCRUD~deleteFavorite}, {@link module:moviesCRUD~setDetailFavorite}
  * @see Used in: {@link module:moviesCRUD~addTableRowFavorite}
  */
 export function tasksListFavorites() {
-	const buttonListFavorites = document.getElementById('buttonListFavorites');
 	const buttonDeleteListFavorites = document.getElementById('buttonDeleteListFavorites');
 	const buttonsFavorite = document.querySelectorAll(".favorite__button");
-
-
-	/**
-	 * @event {click}
-	 * @description When you click on the button of the list favorites:
-	 * - Get and set data of the list favorites saved
-	 */
-	buttonListFavorites.addEventListener('click', function () {
-		getSetListFavorites();
-	});
 
 
 	/**
@@ -545,7 +537,7 @@ export function tasksListFavorites() {
 
 				}
 			} else if (button.getAttribute("data-type") === "info") {
-
+				setDetailFavorite(event);
 			}
 		});
 	});
@@ -559,13 +551,13 @@ export function tasksListFavorites() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-firebaseTasks.html">firebaseTasks</a></li><li><a href="module-gradient.html">gradient</a></li><li><a href="module-loader.html">loader</a></li><li><a href="module-moviesAPI.html">moviesAPI</a></li><li><a href="module-moviesCRUD.html">moviesCRUD</a></li><li><a href="module-tool.html">tool</a></li></ul><h3>Events</h3><ul><li><a href="module-moviesCRUD.html#~event:%257Bclick%257D">{click}</a></li><li><a href="module-moviesAPI.html#~event:%257Bkeyup%257D">{keyup}</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anominFunctionAutoEjecuted">anominFunctionAutoEjecuted</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-createTemplate.html">createTemplate</a></li><li><a href="module-firebaseTasks.html">firebaseTasks</a></li><li><a href="module-gradient.html">gradient</a></li><li><a href="module-iconsPaths.html">iconsPaths</a></li><li><a href="module-loader.html">loader</a></li><li><a href="module-modal.html">modal</a></li><li><a href="module-moviesAPI.html">moviesAPI</a></li><li><a href="module-moviesCRUD.html">moviesCRUD</a></li><li><a href="module-tool.html">tool</a></li></ul><h3>Events</h3><ul><li><a href="module-moviesCRUD.html#~event:%257Bclick%257D">{click}</a></li><li><a href="module-moviesAPI.html#~event:%257Bkeyup%257D">{keyup}</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anominFunctionAutoEjecuted">anominFunctionAutoEjecuted</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Mon Sep 07 2020 10:16:18 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Wed Sep 09 2020 07:35:36 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

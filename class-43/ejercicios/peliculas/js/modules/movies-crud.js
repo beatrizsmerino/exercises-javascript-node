@@ -421,7 +421,7 @@ async function getDetailFavorite(event) {
  * @function module:moviesCRUD~setDetailFavorite
  * @description Create the favorite detail template and insert it into modal window
  * @see Used inside:
- * {@link module:moviesCRUD.getDetailFavorite},
+ * {@link module:moviesCRUD~getDetailFavorite},
  * {@link module:createTemplate.detailFavorite}
  * {@link module:modal.getSetModal}
  * @see Used in: {@link module:moviesCRUD.tasksListFavorites}

@@ -161,7 +161,7 @@ export function movie(data) {
  * @description Create template to the pagination search
  * @param {Object} data Data pagination
  * @returns {String}
- * @see {@link module:moviesAPI~getSetSearchPaginationMovies}
+ * @see Used in: {@link module:moviesAPI~getSetSearchPaginationMovies}
  */
 export function paginationMovies(data) {
 	const template = `

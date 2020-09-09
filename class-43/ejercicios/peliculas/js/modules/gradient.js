@@ -39,7 +39,7 @@ export const colorGradients = [
 
 
 /**
- * @function add
+ * @function module:gradient.add
  * @description Added gradient with the javascript library granim.js
  * @param {string} selector Selector name to insert it
  * @param {Object} arrayColorGradients List of colors for create the gradient

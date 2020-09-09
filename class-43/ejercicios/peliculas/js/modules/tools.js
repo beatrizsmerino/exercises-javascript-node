@@ -159,7 +159,7 @@ function convertNumberWith2Cifres(number) {
  * @function module:tool.getCurrentDate
  * @description Get the current date in this format: 'yyyy-mm-dd hh:mm:ss'
  * @returns {String}
- * @see Used inside: {@link module:module:tool~convertNumberWith2Cifres}
+ * @see Used inside: {@link module:tool~convertNumberWith2Cifres}
  * @see Used in: {@link module:tool.getCurrentDateRealTime}
  */
 export function getCurrentDate() {

@@ -603,7 +603,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li>Used inside: <a href="module-firebaseTasks.html#.firebaseCheckEmpty">module:firebaseTasks.firebaseCheckEmpty</a>, <a href="module-firebaseTasks.html#~firebaseFindRecord">module:firebaseTasks~firebaseFindRecord</a>, <a href="module-firebaseTasks.html#~firebaseInsert">module:firebaseTasks~firebaseInsert</a></li>
+            <li>Used inside: <a href="module-firebaseTasks.html#.firebaseCheckEmpty">module:firebaseTasks.firebaseCheckEmpty</a>, <a href="module-firebaseTasks.html#.firebaseFindRecord">module:firebaseTasks.firebaseFindRecord</a>, <a href="module-firebaseTasks.html#~firebaseInsert">module:firebaseTasks~firebaseInsert</a></li>
         </ul>
     </dd>
     
@@ -922,6 +922,187 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".firebaseFindRecord"><span class="type-signature">(static) </span>firebaseFindRecord<span class="signature">(table, dataId)</span><span class="type-signature"> &rarr; {Object|Boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>READ. Find record by his id name and if exist get it else return false</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>table</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Table name to get the data</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dataId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Id name to find</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="modules_firebase-tasks.js.html">modules/firebase-tasks.js</a>, <a href="modules_firebase-tasks.js.html#line127">line 127</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1723,187 +1904,6 @@
     
 
     
-    <h4 class="name" id="~firebaseFindRecord"><span class="type-signature">(inner) </span>firebaseFindRecord<span class="signature">(table, dataId)</span><span class="type-signature"> &rarr; {Object|Boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>READ. Find record by his id name and if exist get it else return false</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>table</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Table name to get the data</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>dataId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Id name to find</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="modules_firebase-tasks.js.html">modules/firebase-tasks.js</a>, <a href="modules_firebase-tasks.js.html#line127">line 127</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="~firebaseGetLastRecordAdded"><span class="type-signature">(inner) </span>firebaseGetLastRecordAdded<span class="signature">(table)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
@@ -2540,13 +2540,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-firebaseTasks.html">firebaseTasks</a></li><li><a href="module-gradient.html">gradient</a></li><li><a href="module-loader.html">loader</a></li><li><a href="module-moviesAPI.html">moviesAPI</a></li><li><a href="module-moviesCRUD.html">moviesCRUD</a></li><li><a href="module-tool.html">tool</a></li></ul><h3>Events</h3><ul><li><a href="module-moviesCRUD.html#~event:%257Bclick%257D">{click}</a></li><li><a href="module-moviesAPI.html#~event:%257Bkeyup%257D">{keyup}</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anominFunctionAutoEjecuted">anominFunctionAutoEjecuted</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-createTemplate.html">createTemplate</a></li><li><a href="module-firebaseTasks.html">firebaseTasks</a></li><li><a href="module-gradient.html">gradient</a></li><li><a href="module-iconsPaths.html">iconsPaths</a></li><li><a href="module-loader.html">loader</a></li><li><a href="module-modal.html">modal</a></li><li><a href="module-moviesAPI.html">moviesAPI</a></li><li><a href="module-moviesCRUD.html">moviesCRUD</a></li><li><a href="module-tool.html">tool</a></li></ul><h3>Events</h3><ul><li><a href="module-moviesCRUD.html#~event:%257Bclick%257D">{click}</a></li><li><a href="module-moviesAPI.html#~event:%257Bkeyup%257D">{keyup}</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anominFunctionAutoEjecuted">anominFunctionAutoEjecuted</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Mon Sep 07 2020 10:16:18 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Wed Sep 09 2020 07:35:36 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

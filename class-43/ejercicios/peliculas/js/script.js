@@ -25,10 +25,10 @@ import * as moviesCRUD from './modules/movies-crud.js';
 /**
  * @function anominFunctionAutoEjecuted
  * @description Functions for init the App
- * @see Used inside: 
- * {@link gradient.add}
- * {@link moviesAPI.setEventsSearchMovies}
- * {@link moviesCRUD.conectDataBaseMovies}, {@link moviesCRUD.getSetListFavorites}, {@link moviesCRUD.showHideListFavorites}
+ * @see Used inside:
+ * {@link module:gradient.add},
+ * {@link module:moviesAPI.setEventsSearchMovies},
+ * {@link module:moviesCRUD.conectDataBaseMovies}, {@link module:moviesCRUD.getSetListFavorites}, {@link module:moviesCRUD.showHideListFavorites}
  */
 (function () {
 	gradient.add("body", gradient.colorGradients, "images/bg.jpg");
