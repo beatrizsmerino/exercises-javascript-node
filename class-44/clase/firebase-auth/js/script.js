@@ -1,240 +1,1042 @@
-// Practicando Firebase
+// Practicando Firebase Auth
+// https://firebase.google.com/docs/auth/web/password-auth?hl=es-419
 
 // 0. Datos para conectar con la base de datos de mi proyecto en Firebase
 // Change this string 'XXXXXXXXXXXX' for yor data
 // Your web app's Firebase configuration
-var firebaseConfig = {
-    apiKey: "XXXXXXXXXXXX",
-    authDomain: "XXXXXXXXXXXX",
-    databaseURL: "XXXXXXXXXXXX",
-    projectId: "fXXXXXXXXXXXX",
-    storageBucket: "XXXXXXXXXXXX",
-    messagingSenderId: "XXXXXXXXXXXX",
-    appId: "XXXXXXXXXXXX"
+const firebaseConfig = {
+	apiKey: "XXXXXXXXXXXX",
+	authDomain: "XXXXXXXXXXXX",
+	databaseURL: "XXXXXXXXXXXX",
+	projectId: "XXXXXXXXXXXX",
+	storageBucket: "XXXXXXXXXXXX",
+	messagingSenderId: "XXXXXXXXXXXX",
+	appId: "XXXXXXXXXXXX"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-console.log(firebase);
+console.info("Firebase Conexion:", firebase);
 
 
 
 
 
-// AUTH - REGISTER user with email and password
-function registerUser(email, password) {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((res) => {
-            console.log(res);
-
-            console.group("Register!");
-            var user = firebase.auth().currentUser;
-            user.providerData.forEach(function (profile) {
-                console.log("Sign-in provider: " + profile.providerId);
-                console.log("Provider-specific UID: " + profile.uid);
-                console.log("Email: " + profile.email);
-            });
-            console.groupEnd();
-
-            alert(`"Thanks for register!`);
-        })
-        .catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-
-            let mng = null;
-            switch (errorCode) {
-                case "auth/email-already-in-use":
-                    mng = errorMessage;
-                    break;
-                default:
-                    break;
-            }
-
-
-            if (mng !== null) {
-                alert(mng);
-            }
-        });
+/**
+ * @function stringToNode
+ * @description Convert string to DOM node
+ * @param {String} string String to convert
+ * @returns {Element}
+ */
+function stringToNode(string) {
+	const nodeDOM = document.createRange().createContextualFragment(string);
+	return nodeDOM;
 }
 
-// registerUser("usuario@gmail.com", "myPass12345");
 
+/**
+ * @function labelAnimation
+ * @description Add animation to label of the focus field
+ * @param {Element} field
+ */
+function labelAnimation(field) {
+	const formFields = document.getElementsByClassName("c-form__field");
+	const inputValue = field.value;
 
+	// Reset all empty fields on focus/blur
+	[...formFields].map((item) => {
+		const fieldValue = item.value;
+		if (fieldValue === "") {
+			item.parentNode.classList.remove("is-focus");
+		}
+	});
 
+	// This empty field on focus/blur
+	if (inputValue === "") {
+		field.parentNode.classList.remove("is-focus");
+	}
 
-
-// AUTH - LOGIN user with email and password
-function loginUser(email, password) {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((res) => {
-            console.log(res);
-            var user = firebase.auth().currentUser;
-
-            console.group("Login!");
-            user.providerData.forEach(function (profile) {
-                console.log("Sign-in provider: " + profile.providerId);
-                console.log("Provider-specific UID: " + profile.uid);
-                console.log("Email: " + profile.email);
-            });
-            console.groupEnd();
-
-            alert(`"Welcome! ${profile.email}`);
-        })
-        .catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-
-            let mng = null;
-            switch (errorCode) {
-                case "auth/wrong-password":
-                    mng = errorMessage;
-                    break;
-                case "auth/user-not-found":
-                    mng = errorMessage;
-                default:
-                    break;
-            }
-
-            if (mng !== null) {
-                alert(mng);
-            }
-        });
+	// The field on focus/blur
+	field.parentNode.classList.add("is-focus");
 }
 
-// loginUser("usuario@gmail.com", "myPass12345");
 
+/**
+ * @function addEventsLabelAnimation
+ * @description Added events to label animated
+ */
+function addEventsLabelAnimation() {
+	const formFields = document.getElementsByClassName("c-form__field");
+	[...formFields].map((field) => {
+		labelAnimation(field);
 
+		field.addEventListener("focus", function (event) {
+			labelAnimation(event.target);
+		});
 
-
-
-// AUTH - LOGOUT user with email and password
-function logoutUser(email, password) {
-    console.log("Saliendo del sistema: " + firebase.auth().currentUser.email);
-
-    firebase.auth().signOut(email, password)
-        .then((res) => {
-            console.log(res);
-            var user = firebase.auth().currentUser;
-
-            console.group("Logout!");
-            user.providerData.forEach(function (profile) {
-                console.log("Sign-in provider: " + profile.providerId);
-                console.log("Provider-specific UID: " + profile.uid);
-                console.log("Email: " + profile.email);
-            });
-            console.groupEnd();
-
-            alert(`"Good bye! ${profile.email}`);
-        })
-        .catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-            console.log("Error deslogueado");
-        });
+		field.addEventListener("blur", function (event) {
+			labelAnimation(event.target);
+		});
+	});
 }
 
-// logoutUser("usuario@gmail.com", "myPass12345");
+
+/**
+ * @function resetShowSections
+ * @description Reset status of sections hide it
+ */
+function resetShowSections() {
+	const sections = document.getElementsByClassName("c-page__article");
+	[...sections].map((section) => section.classList.remove("is-active"));
+}
+
+
+/**
+ * @function showRegister
+ * @description Show the register section and hide the others
+ */
+function showRegister() {
+	const section = document.getElementById("register");
+	resetShowSections();
+	section.classList.add("is-active");
+}
+
+
+/**
+ * @function showLogIn
+ * @description Show the login section and hide the others
+ */
+function showLogIn() {
+	const section = document.getElementById("logIn");
+	resetShowSections();
+	section.classList.add("is-active");
+}
+
+
+/**
+ * @function showAccount
+ * @description Show the account sections and hide the others
+ */
+function showAccount() {
+	const section = document.getElementById("account");
+
+	resetShowSections();
+	section.classList.add("is-active");
+}
+
+
+/**
+ * @function showUpdate
+ * @description Show the update sections and hide the others
+ */
+function showUpdate() {
+	const section = document.getElementById("update");
+
+	resetShowSections();
+	section.classList.add("is-active");
+}
+
+
+/**
+ * @function showDelete
+ * @description Show the delete sections and hide the others
+ */
+function showDelete() {
+	const section = document.getElementById("delete");
+
+	resetShowSections();
+	section.classList.add("is-active");
+}
+
+
+/**
+ * @function message
+ * @description Create, insert and add events for the message component
+ * @param {Object} data Message data
+ */
+function message(data) {
+
+	function insertTemplate() {
+		const template = `
+		<div id="message" class="c-message ${data.className}">
+			<div id="messageButtonClose" class="c-message__inner">
+				<button class="c-message__close">
+					<i class="fas fa-times"></i>
+				</button>
+				<h6 class="c-message__title">
+					${data.title}
+				</h6>
+				<p class="c-message__description">
+					${data.description}
+				</p>
+			</div>
+		</div>
+		`;
+
+		const nodeTemplate = stringToNode(template);
+		document.getElementById("body").appendChild(nodeTemplate);
+	}
+
+	function removeTemplate() {
+		const message = document.getElementById("message");
+
+		if (message) {
+			message.parentNode.removeChild(message);
+		}
+	}
+
+	function showHideAnimation() {
+		setTimeout(function () {
+			const message = document.getElementById("message");
+			message.classList.add("is-show");
+		}, 100);
+
+		setTimeout(function () {
+			removeTemplate();
+		}, 10500);
+	}
+
+	function addEventClose() {
+		const buttonClose = document.getElementById("messageButtonClose");
+		buttonClose.addEventListener("click", function () {
+			setTimeout(function () {
+				const message = document.getElementById("message");
+				message.classList.remove("is-show");
+			}, 0);
+
+			setTimeout(function () {
+				removeTemplate();
+			}, 100);
+		});
+	}
+
+	removeTemplate();
+	insertTemplate();
+	showHideAnimation();
+	addEventClose();
+}
+
+
+/**
+ * @function createPhotoDefault
+ * @description Create photo default with the API Adorable Avatars
+ */
+function createPhotoDefault(email) {
+	const photoDefault = `https://api.adorable.io/avatars/285/${email}.png`;
+	return photoDefault;
+}
+
+
+/**
+ * @function createArrayDataUser
+ * @description Obtain registered user data
+ * @param {Object} data User data
+ * @returns {Object|Boolean}
+ */
+function createArrayDataUser(data) {
+	if (data != null) {
+		const userData = {
+			id: data.uid,
+			creationTime: data.metadata.creationTime,
+			lastSignInTime: data.metadata.lastSignInTime,
+			name: data.displayName,
+			email: data.email,
+			phone: data.phoneNumber,
+			photo: data.photoURL,
+			emailVerified: data.emailVerified,
+			isAnonymous: data.isAnonymous,
+			providerData: data.providerData
+		};
+
+		return userData;
+	} else {
+		return false;
+	}
+}
+
+
+/**
+ * @function createTemplateAccount
+ * @description Create template with user data
+ * @param {Object} data User data
+ */
+function createTemplateAccount(data) {
+	const dataUser = createArrayDataUser(data);
+
+	if (dataUser !== false) {
+		let templateName, templateEmail, templatePhone, templatePhoto;
+
+		if (dataUser.name !== null) {
+			templateName = `
+				<div class="account-data__item">
+					<p>
+						<strong class="account-data__title">
+							Name:
+						</strong>
+						${dataUser.name}
+					</p>
+				</div>
+				`;
+		} else {
+			templateName = "";
+		}
+
+		if (dataUser.email !== null) {
+			templateEmail = `
+				<div class="account-data__item">
+					<p>
+						<strong class="account-data__title">
+							Email:
+						</strong>
+						${dataUser.email}
+					</p>
+				</div>
+				`;
+		} else {
+			templateEmail = "";
+		}
+
+		if (dataUser.phone !== null) {
+			templatePhone = `
+				<div class="account-data__item">
+					<p>
+						<strong class="account-data__title">
+							Phone:
+						</strong>
+						${dataUser.phone}
+					</p>
+				</div>
+				`;
+		} else {
+			templatePhone = "";
+		}
+
+		if (dataUser.photo !== null && dataUser.name) {
+			templatePhoto = `
+				<div class="account-data__item">
+					<img class="account-data__photo" src="${dataUser.photo}" alt="${dataUser.name}">
+				</div>
+				`;
+		} else {
+			templatePhoto = "";
+		}
+
+
+		const template = `
+			<article id="account" class="c-page__article is-active">
+				<div class="account-data">
+					<div class="account-data__inner">
+						<div class="account-data__column">
+							<div class="account-data__row">
+								${templatePhoto}
+							</div>
+							<div class="account-data__row">
+								<div class="c-list-buttons c-list c-list--justify">
+									<button id="buttonUpdateShow" class="c-button--edit c-button c-list__item">
+										Edit
+									</button>
+									<button id="buttonDeleteShow" class="c-button--delete c-button c-list__item">
+										Delete
+									</button>
+									<button id="buttonLogOut" class="c-button--logOut c-button c-list__item">
+										LogOut
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="account-data__column">
+							<h2 class="c-title">
+								Account
+							</h2>
+							<div class="account-data__row">
+								<div class="account-data__item">
+									<p>
+										<strong class="account-data__title">
+											Creation Time:
+										</strong>
+										${dataUser.creationTime}
+									</p>
+								</div>
+								<div class="account-data__item">
+									<p>
+										<strong class="account-data__title">
+											Last SingIn Time:
+										</strong>
+										${dataUser.lastSignInTime}
+									</p>
+								</div>
+							</div>
+
+							<div class="account-data__row">
+								${templateName}
+								${templateEmail}
+								${templatePhone}
+							</div>
+
+							<div class="account-data__row">
+								<div class="account-data__item">
+									<p>
+										<strong class="account-data__title">
+											Email verified:
+										</strong>
+										${dataUser.emailVerified}
+									</p>
+								</div>
+								<div class="account-data__item">
+									<p>
+										<strong class="account-data__title">
+											Anonymous:
+										</strong>
+										${dataUser.isAnonymous}
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</article>
+			`;
+
+		return template;
+	} else {
+		message({
+			title: "Error!",
+			description: "Failed to get user data",
+			className: "is-error"
+		});
+	}
+}
+
+
+/**
+ * @function removeTemplateAccount
+ * @description Remove element DOM Account
+ */
+function removeTemplateAccount() {
+	const account = document.getElementById("account");
+	if (account) {
+		account.parentNode.removeChild(account);
+	}
+}
+
+
+/**
+ * @function getSetAccount
+ * @description Insert Account section
+ * @param {Object} data User data
+ */
+function addTemplateAccount(data) {
+	const content = document.getElementById("section");
+	const template = createTemplateAccount(data);
+	const templateNode = stringToNode(template);
+	removeTemplateAccount();
+	content.appendChild(templateNode);
+}
+
+
+/**
+ * @function createTemplateUpdate
+ * @description Create template update
+ * @param {Object} data User data
+ * @returns {String}
+ */
+function createTemplateUpdate(data) {
+	const dataUser = createArrayDataUser(data);
+
+	const name = (dataUser.name !== null) ? dataUser.name : "";
+	const phone = (dataUser.phone !== null) ? dataUser.phone : "";
+	const photo = (dataUser.photo !== null) ? dataUser.photo : "";
+
+	const template = `
+		<article id="update" class="c-page__article">
+			<form id="formUpdate" class="c-form" action="">
+				<fieldset class="c-fieldset">
+					<legend class="c-legend">
+						Update Account
+					</legend>
+
+					<div class="c-form__item">
+						<label class="c-label" for="nameUserUpdate">
+							Name
+						</label>
+						<input id="nameUserUpdate" class="c-form__field" type="text" value="${name}">
+					</div>
+
+					<div class="c-form__item">
+						<label class="c-label" for="phoneUserUpdate">
+							Phone
+						</label>
+						<input id="phoneUserUpdate" class="c-form__field" type="number" value="${phone}">
+					</div>
+
+					<div class="c-form__item">
+						<label class="c-label" for="photoUserUpdate">
+							Photo
+						</label>
+						<input id="photoUserUpdate" class="c-form__field" type="url" value="${photo}">
+					</div>
+
+					<input id="emailUserUpdate" value="${dataUser.email}" type="hidden">
+				</fieldset>
+
+				<div class="c-list c-list--justify">
+					<input id="buttonUpdate" class="c-button c-list__item" type="submit" value="UPDATE">
+					<button id="buttonAccountShow" class="c-link c-list__item">
+						Go to Account
+					</button>
+				</div>
+			</form>
+		</article>
+		`;
+	return template;
+}
+
+
+/**
+ * @function removeTemplateUpdate
+ * @description Remove if exist the template update
+ */
+function removeTemplateUpdate() {
+	const section = document.getElementById("update");
+	if (section) {
+		section.parentNode.removeChild(section);
+	}
+}
+
+
+/**
+ * @function addTemplateUpdate
+ * @description Insert Update section
+ * @param {Object} data User data
+ */
+function addTemplateUpdate(data) {
+	const content = document.getElementById("section");
+	const template = createTemplateUpdate(data);
+	const templateNode = stringToNode(template);
+	removeTemplateUpdate();
+	content.appendChild(templateNode);
+}
+
+
+/**
+ * @function createTemplateDelete
+ * @description Create template delete
+ * @returns {String}
+ */
+function createTemplateDelete() {
+	const template = `
+		<article id="delete" class="c-page__article">
+			<form id="formDelete" class="c-form" action="">
+				<fieldset class="c-fieldset">
+					<legend class="c-legend">
+						Delete Account
+					</legend>
+
+					<div class="c-form__item">
+						<label class="c-label" for="passwordUserDelete">
+							Password
+						</label>
+						<input id="passwordUserDelete" class="c-form__field" type="password">
+					</div>
+				</fieldset>
+
+				<div class="c-list c-list--justify">
+					<input id="buttonDelete" class="c-button c-list__item" type="submit" value="DELETE">
+					<button id="buttonAccountShow" class="c-link c-list__item">
+						Go to Account
+					</button>
+				</div>
+			</form>
+		</article>
+		`;
+	return template;
+}
+
+
+/**
+ * @function removeTemplateDelete
+ * @description Remove if exist the template delete
+ */
+function removeTemplateDelete() {
+	const section = document.getElementById("delete");
+	if (section) {
+		section.parentNode.removeChild(section);
+	}
+}
+
+
+/**
+ * @function addTemplateDelete
+ * @description Insert Delete section
+ */
+function addTemplateDelete() {
+	const content = document.getElementById("section");
+	const template = createTemplateDelete();
+	const templateNode = stringToNode(template);
+	removeTemplateDelete();
+	content.appendChild(templateNode);
+}
+
+
+/**
+ * @function addEventsRegister
+ * @description Function that runs after login
+ */
+function addEventsRegister() {
+	const buttonRegister = document.getElementById("buttonRegister");
+	const buttonRegisterShow = document.getElementById("buttonRegisterShow");
+	const emailUserRegister = document.getElementById("emailUserRegister");
+	const passwordUserRegister = document.getElementById("passwordUserRegister");
+
+	if (buttonRegisterShow) {
+		buttonRegisterShow.addEventListener("click", function (event) {
+			event.preventDefault();
+			showRegister();
+		});
+	}
+
+	if (buttonRegister && emailUserRegister && passwordUserRegister) {
+		buttonRegister.addEventListener("click", function (event) {
+			event.preventDefault();
+			const valueEmail = emailUserRegister.value;
+			const valuePass = passwordUserRegister.value;
+
+			if ((valueEmail !== null && valueEmail !== "") &&
+				(valuePass !== null && valuePass !== "")) {
+
+				firebaseAuthRegisterUser(valueEmail, valuePass);
+			}
+		});
+	}
+
+}
+
+
+/**
+ * @function addEventsLogIn
+ * @description Add events for Login form
+ */
+function addEventsLogIn() {
+	const buttonLogIn = document.getElementById("buttonLogIn");
+	const buttonLogInShow = document.getElementById("buttonLogInShow");
+	const emailUserLogIn = document.getElementById("emailUserLogIn");
+	const passwordUserLogIn = document.getElementById("passwordUserLogIn");
+
+	if (buttonLogInShow) {
+		buttonLogInShow.addEventListener("click", function (event) {
+			event.preventDefault();
+			showLogIn();
+		});
+	}
+
+	if (buttonLogIn && emailUserLogIn && passwordUserLogIn) {
+		buttonLogIn.addEventListener("click", function (event) {
+			event.preventDefault();
+			const valueEmail = emailUserLogIn.value;
+			const valuePass = passwordUserLogIn.value;
+
+			if ((valueEmail !== null && valueEmail !== "") &&
+				(valuePass !== null && valuePass !== "")) {
+
+				firebaseAuthLogInUser(valueEmail, valuePass);
+				afterLogged();
+			}
+		});
+	}
+
+}
+
+
+/**
+ * @function addEventsAccount
+ * @description Add events for Account form
+ */
+function addEventsAccount() {
+	const buttonAccountShow = document.getElementById("buttonAccountShow");
+
+	if (buttonAccountShow) {
+		buttonAccountShow.addEventListener("click", function (event) {
+			event.preventDefault();
+			showAccount();
+		});
+	}
+}
+
+
+/**
+ * @function addEventsLogOut
+ * @description Add events for Logout form
+ */
+function addEventsLogOut() {
+	const buttonLogOut = document.getElementById("buttonLogOut");
+
+	if (buttonLogOut) {
+		buttonLogOut.addEventListener("click", function (event) {
+			event.preventDefault();
+			firebaseAuthLogOutUser();
+		});
+	}
+}
+
+
+/**
+ * @function addEventsUpdate
+ * @description Add events for Update form
+ */
+function addEventsUpdate() {
+	const buttonUpdateShow = document.getElementById("buttonUpdateShow");
+	const buttonUpdate = document.getElementById("buttonUpdate");
+	const nameUserUpdate = document.getElementById("nameUserUpdate");
+	const phoneUserUpdate = document.getElementById("phoneUserUpdate");
+	const photoUserUpdate = document.getElementById("photoUserUpdate");
+
+
+	if (buttonUpdateShow) {
+		buttonUpdateShow.addEventListener("click", function (event) {
+			event.preventDefault();
+			showUpdate();
+		});
+	}
+
+	if (buttonUpdate && nameUserUpdate && phoneUserUpdate && photoUserUpdate) {
+		buttonUpdate.addEventListener("click", function (event) {
+			event.preventDefault();
+			const valueEmail = emailUserUpdate.value;
+			const valueName = nameUserUpdate.value;
+			const valuePhone = phoneUserUpdate.value;
+			const valuePhoto = photoUserUpdate.value;
+			const photoDefault = createPhotoDefault(valueEmail);
+
+			if ((valueName !== null && valueName !== "") ||
+				(valuePhone !== null && valuePhone !== "")) {
+
+				const photo = (valuePhoto == null || valuePhoto === "") ? photoDefault : valuePhoto;
+				firebaseAuthUpdateUser(valueName, valuePhone, photo);
+			}
+		});
+	}
+}
+
+
+/**
+ * @function addEventsDelete
+ * @description Add events for Delete form
+ */
+function addEventsDelete() {
+	const buttonDeleteShow = document.getElementById("buttonDeleteShow");
+	const buttonDelete = document.getElementById("buttonDelete");
+	const passwordUserDelete = document.getElementById("passwordUserDelete");
+
+	if (buttonDeleteShow) {
+		buttonDeleteShow.addEventListener("click", function (event) {
+			event.preventDefault();
+			showDelete();
+		});
+	}
+
+	if (buttonDelete && passwordUserDelete) {
+		buttonDelete.addEventListener("click", function (event) {
+			event.preventDefault();
+			const valuePass = passwordUserDelete.value;
+
+			if ((valuePass !== null && valuePass !== "")) {
+				firebaseAuthDeleteUser(valuePass);
+			}
+		});
+	}
+}
+
+
+/**
+ * @function afterLogged
+ * @param {Object} user User data
+ * @description Function that execute after logged
+ */
+function afterLogged(user) {
+	// DOM
+	resetShowSections();
+	addTemplateAccount(user);
+	addTemplateUpdate(user);
+	addTemplateDelete();
+	addEventsLabelAnimation();
+
+	// EVENTS
+	addEventsAccount();
+	addEventsUpdate();
+	addEventsDelete();
+	addEventsLogOut();
+}
 
 
 
 
-// Listenners of logins
-// bug -> NOT WORKING
-// functions.auth.user().onCreate((user) => {
-//     const resgister = document.getElementById("register");
-//     const login = document.getElementById("login");
-//     const logout = document.getElementById("logout");
 
-//     if (user) {
-//         resgister.classList.remove("is-active");
-//         login.classList.add("is-active");
-//         logout.classList.remove("is-active");
-//     }
-// });
+/**
+ * @function firebaseAuthRegisterUser
+ * @description FIREBASE AUTH - REGISTER user with email and password
+ * @param {String} email Email data obtained from the register form
+ * @param {String} password Password data obtained from the register form
+ */
+async function firebaseAuthRegisterUser(email, password) {
+	let userCredential = await firebase
+		.auth()
+		.createUserWithEmailAndPassword(email, password)
+		.then((res) => {
+			const user = firebase.auth().currentUser;
+			const userData = user.providerData;
 
-firebase.auth().onAuthStateChanged(function (user) {
-    const resgister = document.getElementById("register");
-    const login = document.getElementById("login");
-    const logout = document.getElementById("logout");
+			console.group("Register!");
+			console.info("Email: " + email, "Password: " + password);
 
-    // console.log(resgister);
-    // console.log(login);
-    // console.log(logout);
+			userData.forEach(function (profile) {
+				message({
+					title: "Thanks for register!",
+					description: `${profile.email}`,
+					className: "is-success"
+				});
+			});
+			console.groupEnd();
+		})
+		.catch(function (error) {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+
+			message({
+				title: "Error for register!",
+				description: `${errorMessage}`,
+				className: "is-error"
+			});
+		});
+}
 
 
-    resgister.classList.add("is-active");
-    login.classList.remove("is-active");
-    logout.classList.remove("is-active");
+/**
+ * @function firebaseAuthLogInUser
+ * @description FIREBASE AUTH - LOGIN user with email and password
+ * @param {String} email Email data obtained from the login form
+ * @param {String} password Password data obtained from the login form
+ */
+async function firebaseAuthLogInUser(email, password) {
+	let userCredential = await firebase
+		.auth()
+		.signInWithEmailAndPassword(email, password)
+		.then((res) => {
+			const user = firebase.auth().currentUser;
+			const userData = user.providerData;
 
-    if (user) {
-        // User signed in!
-        var uid = user.uid;
-        resgister.classList.add("is-active");
-        login.classList.add("is-active");
-        logout.classList.remove("is-active");
-    } else {
-        // User logged out
-        resgister.classList.remove("is-active");
-        login.classList.remove("is-active");
-        logout.classList.add("is-active");
-    }
-});
+			console.group("LogIn!");
+			userData.forEach(function (profile) {
+				message({
+					title: "Welcome!",
+					description: `${profile.email}`,
+					className: "is-success"
+				});
+			});
+			console.groupEnd();
 
+			afterLogged(user);
+		})
+		.catch(function (error) {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+
+			console.group("Error!");
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+			console.groupEnd();
+
+			message({
+				title: "Error!",
+				description: `${errorMessage}`,
+				className: "is-error"
+			});
+		});
+}
+
+
+/**
+ * @function firebaseAuthUpdateUser
+ * @description FIREBASE AUTH - Update account
+ * @param {String} name Name data obtained from the update form
+ * @param {String} phone Phone data obtained from the update form
+ * @param {String} photo Photo data obtained from the update form
+ */
+function firebaseAuthUpdateUser(name, phone, photo) {
+	const user = firebase.auth().currentUser;
+
+	user.updateProfile({
+		displayName: name,
+		photoURL: photo,
+		phoneNumber: phone
+	}).then(function () {
+		const user = firebase.auth().currentUser;
+		const userData = user.providerData;
+
+		console.group("Updated!");
+		userData.forEach(function (profile) {
+			message({
+				title: "Account updated!",
+				description: `Provider-specific UID: profile.uid<br> Name: ${profile.displayName}<br> Email: ${profile.email}<br> Phone: ${profile.phoneNumber}<br> Photo: ${profile.photoURL}`,
+				className: "is-success"
+			});
+		});
+		console.groupEnd();
+
+		afterLogged(user);
+	}).catch(function (error) {
+		// Handle Errors here.
+		const errorCode = error.code;
+		const errorMessage = error.message;
+		console.warn("Error code:", errorCode);
+		console.warn("Error message:", errorMessage);
+
+		message({
+			title: "Error for update!",
+			description: `${errorMessage}`,
+			className: "is-error"
+		});
+	});
+}
+
+
+/**
+ * @function firebaseAuthDeleteUser
+ * @description FIREBASE AUTH - Delete account
+ */
+function firebaseAuthDeleteUser(password) {
+	const user = firebase.auth().currentUser;
+	const userData = user.providerData;
+
+	const credential = firebase.auth.EmailAuthProvider.credential(
+		user.email,
+		password
+	);
+	user.reauthenticateWithCredential(credential).then(function () {
+		console.group("Reauthenticate!");
+		userData.forEach(function (profile) {
+			message({
+				title: "Reauthenticate user account!",
+				description: `${profile.email}`,
+				className: "is-success"
+			});
+		});
+		console.groupEnd();
+
+		user.delete().then(function () {
+			console.group("Deleted!");
+			userData.forEach(function (profile) {
+				message({
+					title: "Account deleted :(",
+					description: `${profile.email}`,
+					className: "is-success"
+				});
+			});
+			console.groupEnd();
+		}).catch(function (error) {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+
+			console.group("Fail delete user!");
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+			console.groupEnd();
+
+			message({
+				title: "Error!",
+				description: `${errorMessage}`,
+				className: "is-error"
+			});
+		});
+	}).catch(function (error) {
+		const errorCode = error.code;
+		const errorMessage = error.message;
+
+		console.group("Fail reauthenticate!");
+		console.warn("Error code:", errorCode);
+		console.warn("Error message:", errorMessage);
+		console.groupEnd();
+
+		message({
+			title: "Error!",
+			description: `${errorMessage}`,
+			className: "is-error"
+		});
+	});
+}
+
+
+/**
+ * @function firebaseAuthLogOutUser
+ * @description FIREBASE AUTH - LOGOUT user with email and password
+ * @param {String} email Email data obtained from the logout form
+ * @param {String} password Password data obtained from the logout form
+ */
+async function firebaseAuthLogOutUser() {
+	const userEmail = firebase.auth().currentUser.email;
+	console.info("Saliendo del sistema:", userEmail);
+
+	let userCredential = await firebase
+		.auth()
+		.signOut()
+		.then((res) => {
+			message({
+				title: "Good bye!",
+				description: `${userEmail}`,
+				className: "is-success"
+			});
+		})
+		.catch(function (error) {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+
+			console.group("Logged out error!");
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+			console.groupEnd();
+
+			message({
+				title: "Error!",
+				description: `${errorMessage}`,
+				className: "is-error"
+			});
+		});
+}
+
+
+/**
+ * @function addEventsAuth
+ * @description FIREBASE AUTH - Add events auth: onAuthStateChanged
+ */
+function addEventsAuth() {
+	firebase
+		.auth()
+		.onAuthStateChanged(function (user) {
+			showRegister();
+
+			if (user) {
+				console.info("User is signed in!");
+				afterLogged(user);
+			} else {
+				console.info("No user is signed in!");
+				resetShowSections();
+				showRegister();
+			}
+		});
+}
 
 
 
 
 
 (function () {
-    // REGISTER
-    document.getElementById("buttonRegister").addEventListener("click", function (e) {
-        e.preventDefault();
-        const formDom = document.getElementById("formRegister");
-        const emailDom = document.getElementById("emailUserRegister").value;
-        const passwordDom = document.getElementById("passwordUserRegister").value;
-
-        if ((emailDom !== null && emailDom !== "") &&
-            (passwordDom !== null && passwordDom !== "")) {
-
-            registerUser(emailDom, passwordDom);
-        }
-    });
-
-    // LOGIN
-    document.getElementById("buttonLogin").addEventListener("click", function (e) {
-        e.preventDefault();
-        const formDom = document.getElementById("formLogin");
-        const emailDom = document.getElementById("emailUserLogin").value;
-        const passwordDom = document.getElementById("passwordUserLogin").value;
-
-        if ((emailDom !== null && emailDom !== "") &&
-            (passwordDom !== null && passwordDom !== "")) {
-
-            loginUser(emailDom, passwordDom);
-        }
-    });
-
-    // LOGOUT
-    document.getElementById("buttonLogout").addEventListener("click", function (e) {
-        e.preventDefault();
-        const formDom = document.getElementById("formLogout");
-        const emailDom = document.getElementById("emailUserLogout").value;
-        const passwordDom = document.getElementById("passwordUserLogout").value;
-
-        if ((emailDom !== null && emailDom !== "") &&
-            (passwordDom !== null && passwordDom !== "")) {
-
-            logoutUser(emailDom, passwordDom);
-        }
-    });
+	addEventsLabelAnimation();
+	addEventsRegister();
+	addEventsLogIn();
+	addEventsAuth();
 })();
