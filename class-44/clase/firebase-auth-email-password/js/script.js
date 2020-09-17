@@ -755,6 +755,8 @@ function firebaseAuthUpdateUser(name, photo) {
 				});
 			});
 			console.groupEnd();
+
+			afterLogged(user);
 		})
 		.catch(function (error) {
 			// Handle Errors here.
