@@ -217,11 +217,9 @@ function createArrayDataUser(data) {
 			lastSignInTime: data.metadata.lastSignInTime,
 			name: data.displayName,
 			email: data.email,
-			phone: data.phoneNumber,
 			photo: data.photoURL,
 			emailVerified: data.emailVerified,
-			isAnonymous: data.isAnonymous,
-			providerData: data.providerData
+			isAnonymous: data.isAnonymous
 		};
 
 		return userData;
@@ -240,7 +238,7 @@ function createTemplateAccount(data) {
 	const dataUser = createArrayDataUser(data);
 
 	if (dataUser !== false) {
-		let templateName, templateEmail, templatePhone, templatePhoto;
+		let templateName, templateEmail, templatePhoto;
 
 		if (dataUser.name !== null) {
 			templateName = `
@@ -270,21 +268,6 @@ function createTemplateAccount(data) {
 				`;
 		} else {
 			templateEmail = "";
-		}
-
-		if (dataUser.phone !== null) {
-			templatePhone = `
-				<div class="account-data__item">
-					<p>
-						<strong class="account-data__title">
-							Phone:
-						</strong>
-						${dataUser.phone}
-					</p>
-				</div>
-				`;
-		} else {
-			templatePhone = "";
 		}
 
 		if (dataUser.photo !== null && dataUser.name) {
@@ -346,7 +329,6 @@ function createTemplateAccount(data) {
 							<div class="account-data__row">
 								${templateName}
 								${templateEmail}
-								${templatePhone}
 							</div>
 
 							<div class="account-data__row">
@@ -394,7 +376,6 @@ function createTemplateUpdate(data) {
 	const dataUser = createArrayDataUser(data);
 
 	const name = (dataUser.name !== null) ? dataUser.name : "";
-	const phone = (dataUser.phone !== null) ? dataUser.phone : "";
 	const photo = (dataUser.photo !== null) ? dataUser.photo : "";
 
 	const template = `
@@ -410,13 +391,6 @@ function createTemplateUpdate(data) {
 							Name
 						</label>
 						<input id="nameUserUpdate" class="c-form__field" type="text" value="${name}">
-					</div>
-
-					<div class="c-form__item">
-						<label class="c-label" for="phoneUserUpdate">
-							Phone
-						</label>
-						<input id="phoneUserUpdate" class="c-form__field" type="number" value="${phone}">
 					</div>
 
 					<div class="c-form__item">
@@ -585,7 +559,6 @@ function addEventsUpdate() {
 	const buttonUpdateShow = document.getElementById("buttonUpdateShow");
 	const buttonUpdate = document.getElementById("buttonUpdate");
 	const nameUserUpdate = document.getElementById("nameUserUpdate");
-	const phoneUserUpdate = document.getElementById("phoneUserUpdate");
 	const photoUserUpdate = document.getElementById("photoUserUpdate");
 
 
@@ -596,20 +569,18 @@ function addEventsUpdate() {
 		});
 	}
 
-	if (buttonUpdate && nameUserUpdate && phoneUserUpdate && photoUserUpdate) {
+	if (buttonUpdate && nameUserUpdate && photoUserUpdate) {
 		buttonUpdate.addEventListener("click", function (event) {
 			event.preventDefault();
 			const valueEmail = emailUserUpdate.value;
 			const valueName = nameUserUpdate.value;
-			const valuePhone = phoneUserUpdate.value;
 			const valuePhoto = photoUserUpdate.value;
 			const photoDefault = createAdorableAvatar(valueEmail);
 
-			if ((valueName !== null && valueName !== "") ||
-				(valuePhone !== null && valuePhone !== "")) {
+			if ((valueName !== null && valueName !== "")) {
 
 				const photo = (valuePhoto == null || valuePhoto === "") ? photoDefault : valuePhoto;
-				firebaseAuthUpdateUser(valueName, valuePhone, photo);
+				firebaseAuthUpdateUser(valueName, photo);
 			}
 		});
 	}
@@ -674,9 +645,7 @@ function afterLogged(user) {
  * @param {String} password Password data obtained from the register form
  */
 async function firebaseAuthRegisterUser(email, password) {
-	let userCredential = await firebase
-		.auth()
-		.createUserWithEmailAndPassword(email, password)
+	let userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password)
 		.then((res) => {
 			const user = firebase.auth().currentUser;
 			const userData = user.providerData;
@@ -716,9 +685,7 @@ async function firebaseAuthRegisterUser(email, password) {
  * @param {String} password Password data obtained from the login form
  */
 async function firebaseAuthLogInUser(email, password) {
-	let userCredential = await firebase
-		.auth()
-		.signInWithEmailAndPassword(email, password)
+	let userCredential = await firebase.auth().signInWithEmailAndPassword(email, password)
 		.then((res) => {
 			const user = firebase.auth().currentUser;
 			const userData = user.providerData;
@@ -758,44 +725,47 @@ async function firebaseAuthLogInUser(email, password) {
  * @function firebaseAuthUpdateUser
  * @description FIREBASE AUTH - Update account
  * @param {String} name Name data obtained from the update form
- * @param {String} phone Phone data obtained from the update form
  * @param {String} photo Photo data obtained from the update form
  */
-function firebaseAuthUpdateUser(name, phone, photo) {
+function firebaseAuthUpdateUser(name, photo) {
 	const user = firebase.auth().currentUser;
 
-	user.updateProfile({
+	const dataUserUpdated = {
 		displayName: name,
-		photoURL: photo,
-		phoneNumber: phone
-	}).then(function () {
-		const user = firebase.auth().currentUser;
-		const userData = user.providerData;
+		photoURL: photo
+	};
 
-		console.group("Updated!");
-		userData.forEach(function (profile) {
+
+	user.updateProfile(dataUserUpdated)
+		.then(function () {
+			const user = firebase.auth().currentUser;
+			const userData = user.providerData;
+
+			console.group("Updated!");
+			userData.forEach(function (profile) {
+				message({
+					title: "Account updated!",
+					description: `Provider-specific UID: profile.uid<br> Name: ${profile.displayName}<br> Email: ${profile.email}<br> Photo: ${profile.photoURL}`,
+					className: "is-success"
+				});
+			});
+			console.groupEnd();
+
+			afterLogged(user);
+		})
+		.catch(function (error) {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+
 			message({
-				title: "Account updated!",
-				description: `Provider-specific UID: profile.uid<br> Name: ${profile.displayName}<br> Email: ${profile.email}<br> Phone: ${profile.phoneNumber}<br> Photo: ${profile.photoURL}`,
-				className: "is-success"
+				title: "Error for update!",
+				description: `${errorMessage}`,
+				className: "is-error"
 			});
 		});
-		console.groupEnd();
-
-		afterLogged(user);
-	}).catch(function (error) {
-		// Handle Errors here.
-		const errorCode = error.code;
-		const errorMessage = error.message;
-		console.warn("Error code:", errorCode);
-		console.warn("Error message:", errorMessage);
-
-		message({
-			title: "Error for update!",
-			description: `${errorMessage}`,
-			className: "is-error"
-		});
-	});
 }
 
 
@@ -812,33 +782,53 @@ function firebaseAuthDeleteUser(password) {
 		user.email,
 		password
 	);
-	user.reauthenticateWithCredential(credential).then(function () {
-		console.group("Reauthenticate!");
-		userData.forEach(function (profile) {
-			message({
-				title: "Reauthenticate user account!",
-				description: `${profile.email}`,
-				className: "is-success"
-			});
-		});
-		console.groupEnd();
 
-		user.delete().then(function () {
-			console.group("Deleted!");
+	user.reauthenticateWithCredential(credential)
+		.then(function () {
+			console.group("Reauthenticate!");
 			userData.forEach(function (profile) {
 				message({
-					title: "Account deleted :(",
+					title: "Reauthenticate user account!",
 					description: `${profile.email}`,
 					className: "is-success"
 				});
 			});
 			console.groupEnd();
-		}).catch(function (error) {
-			// Handle Errors here.
+
+			user.delete()
+				.then(function () {
+					console.group("Deleted!");
+					userData.forEach(function (profile) {
+						message({
+							title: "Account deleted :(",
+							description: `${profile.email}`,
+							className: "is-success"
+						});
+					});
+					console.groupEnd();
+				})
+				.catch(function (error) {
+					// Handle Errors here.
+					const errorCode = error.code;
+					const errorMessage = error.message;
+
+					console.group("Fail delete user!");
+					console.warn("Error code:", errorCode);
+					console.warn("Error message:", errorMessage);
+					console.groupEnd();
+
+					message({
+						title: "Error!",
+						description: `${errorMessage}`,
+						className: "is-error"
+					});
+				});
+		})
+		.catch(function (error) {
 			const errorCode = error.code;
 			const errorMessage = error.message;
 
-			console.group("Fail delete user!");
+			console.group("Fail reauthenticate!");
 			console.warn("Error code:", errorCode);
 			console.warn("Error message:", errorMessage);
 			console.groupEnd();
@@ -849,21 +839,6 @@ function firebaseAuthDeleteUser(password) {
 				className: "is-error"
 			});
 		});
-	}).catch(function (error) {
-		const errorCode = error.code;
-		const errorMessage = error.message;
-
-		console.group("Fail reauthenticate!");
-		console.warn("Error code:", errorCode);
-		console.warn("Error message:", errorMessage);
-		console.groupEnd();
-
-		message({
-			title: "Error!",
-			description: `${errorMessage}`,
-			className: "is-error"
-		});
-	});
 }
 
 
@@ -877,9 +852,7 @@ async function firebaseAuthLogOutUser() {
 	const userEmail = firebase.auth().currentUser.email;
 	console.info("Saliendo del sistema:", userEmail);
 
-	let userCredential = await firebase
-		.auth()
-		.signOut()
+	let userCredential = await firebase.auth().signOut()
 		.then((res) => {
 			message({
 				title: "Good bye!",
@@ -911,20 +884,18 @@ async function firebaseAuthLogOutUser() {
  * @description FIREBASE AUTH - Add events auth: onAuthStateChanged
  */
 function firebaseAuthStateChanged() {
-	firebase
-		.auth()
-		.onAuthStateChanged(function (user) {
-			showSection("register");
+	firebase.auth().onAuthStateChanged(function (user) {
+		showSection("register");
 
-			if (user) {
-				console.info("User is signed in!");
-				afterLogged(user);
-			} else {
-				console.info("No user is signed in!");
-				hideAllSections();
-				showSection("register");
-			}
-		});
+		if (user) {
+			console.info("User is signed in!");
+			afterLogged(user);
+		} else {
+			console.info("No user is signed in!");
+			hideAllSections();
+			showSection("register");
+		}
+	});
 }
 
 
