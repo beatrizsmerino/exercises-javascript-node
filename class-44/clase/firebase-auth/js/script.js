@@ -125,7 +125,7 @@ function removeSection(idName) {
  */
 function insertSection(sectionName, createTemplate, data = null) {
 	const content = document.getElementById("section");
-	const template = createTemplate(data);
+	const template = (data === null) ? createTemplate() : createTemplate(data);
 	const templateNode = stringToNode(template);
 	removeSection(sectionName);
 	content.appendChild(templateNode);
@@ -362,6 +362,9 @@ function createTemplateAccount(data) {
 			description: "Failed to get user data",
 			className: "is-error"
 		});
+
+		const template = "";
+		return template;
 	}
 }
 
@@ -453,7 +456,7 @@ function createTemplateDelete() {
 
 /**
  * @function addEventsRegister
- * @description Function that runs after login
+ * @description Add events for Register form
  */
 function addEventsRegister() {
 	const buttonRegister = document.getElementById("buttonRegister");
@@ -512,7 +515,6 @@ function addEventsLogIn() {
 				(valuePass !== null && valuePass !== "")) {
 
 				firebaseAuthLogInUser(valueEmail, valuePass);
-				afterLogged();
 			}
 		});
 	}
@@ -669,11 +671,14 @@ async function firebaseAuthRegisterUser(email, password) {
 			console.warn("Error code:", errorCode);
 			console.warn("Error message:", errorMessage);
 
-			message({
-				title: "Error for register!",
-				description: `${errorMessage}`,
-				className: "is-error"
-			});
+			if (typeof errorMessage === string) {
+				message({
+					title: "Error for register!",
+					description: `${errorMessage}`,
+					className: "is-error"
+				});
+			}
+
 		});
 }
 
@@ -699,8 +704,6 @@ async function firebaseAuthLogInUser(email, password) {
 				});
 			});
 			console.groupEnd();
-
-			afterLogged(user);
 		})
 		.catch(function (error) {
 			// Handle Errors here.
@@ -712,11 +715,13 @@ async function firebaseAuthLogInUser(email, password) {
 			console.warn("Error message:", errorMessage);
 			console.groupEnd();
 
-			message({
-				title: "Error!",
-				description: `${errorMessage}`,
-				className: "is-error"
-			});
+			if (typeof errorMessage === string) {
+				message({
+					title: "Error for register!",
+					description: `${errorMessage}`,
+					className: "is-error"
+				});
+			}
 		});
 }
 
@@ -750,8 +755,6 @@ function firebaseAuthUpdateUser(name, photo) {
 				});
 			});
 			console.groupEnd();
-
-			afterLogged(user);
 		})
 		.catch(function (error) {
 			// Handle Errors here.
@@ -760,11 +763,13 @@ function firebaseAuthUpdateUser(name, photo) {
 			console.warn("Error code:", errorCode);
 			console.warn("Error message:", errorMessage);
 
-			message({
-				title: "Error for update!",
-				description: `${errorMessage}`,
-				className: "is-error"
-			});
+			if (typeof errorMessage === string) {
+				message({
+					title: "Error for register!",
+					description: `${errorMessage}`,
+					className: "is-error"
+				});
+			}
 		});
 }
 
@@ -817,11 +822,13 @@ function firebaseAuthDeleteUser(password) {
 					console.warn("Error message:", errorMessage);
 					console.groupEnd();
 
-					message({
-						title: "Error!",
-						description: `${errorMessage}`,
-						className: "is-error"
-					});
+					if (typeof errorMessage === string) {
+						message({
+							title: "Error for register!",
+							description: `${errorMessage}`,
+							className: "is-error"
+						});
+					}
 				});
 		})
 		.catch(function (error) {
@@ -833,11 +840,13 @@ function firebaseAuthDeleteUser(password) {
 			console.warn("Error message:", errorMessage);
 			console.groupEnd();
 
-			message({
-				title: "Error!",
-				description: `${errorMessage}`,
-				className: "is-error"
-			});
+			if (typeof errorMessage === string) {
+				message({
+					title: "Error for register!",
+					description: `${errorMessage}`,
+					className: "is-error"
+				});
+			}
 		});
 }
 
@@ -870,11 +879,13 @@ async function firebaseAuthLogOutUser() {
 			console.warn("Error message:", errorMessage);
 			console.groupEnd();
 
-			message({
-				title: "Error!",
-				description: `${errorMessage}`,
-				className: "is-error"
-			});
+			if (typeof errorMessage === string) {
+				message({
+					title: "Error for register!",
+					description: `${errorMessage}`,
+					className: "is-error"
+				});
+			}
 		});
 }
 

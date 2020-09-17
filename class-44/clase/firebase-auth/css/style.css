@@ -575,7 +575,7 @@ p {
 }
 
 .c-page__article:not(:last-of-type) {
-	margin-bottom: 4rem;
+	margin-bottom: 10rem;
 }
 
 .c-link {
@@ -714,24 +714,24 @@ p {
 }
 
 .c-message.is-success .c-message__close {
-	color: rgba(0, 0, 0, 0.8);
+	color: rgba(0, 0, 0, 0.6);
 }
 
 .c-message.is-error .c-message__close {
-	color: rgba(0, 0, 0, 0.8);
+	color: rgba(0, 0, 0, 0.6);
 }
 
 .c-message.is-success .c-message__title {
-	color: #f3f3f3;
+	color: #fff;
 }
 
 .c-message.is-error .c-message__title {
-	color: #f3f3f3;
+	color: #fff;
 }
 
 .c-message.is-success .c-message__description,
 .c-message.is-error .c-message__description {
-	color: #333;
+	color: #fff;
 }
 
 .c-message.is-success {
@@ -1196,7 +1196,7 @@ body {
 		width: auto;
 	}
 
-	.c-list__item:not(:last-child) {
+	.account-data .c-list__item:not(:last-child) {
 		margin-right: 0;
 		margin-bottom: 0;
 	}
