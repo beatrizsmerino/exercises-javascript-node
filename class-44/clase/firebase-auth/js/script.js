@@ -82,77 +82,60 @@ function addEventsLabelAnimation() {
 
 
 /**
- * @function resetShowSections
+ * @function hideAllSections
  * @description Reset status of sections hide it
  */
-function resetShowSections() {
+function hideAllSections() {
 	const sections = document.getElementsByClassName("c-page__article");
 	[...sections].map((section) => section.classList.remove("is-active"));
 }
 
 
 /**
- * @function showRegister
- * @description Show the register section and hide the others
+ * @function showSection
+ * @description Show section and hide the others
+ * @param {String} idName Id name selector
  */
-function showRegister() {
-	const section = document.getElementById("register");
-	resetShowSections();
+function showSection(idName) {
+	const section = document.getElementById(idName);
+	hideAllSections();
 	section.classList.add("is-active");
 }
 
 
 /**
- * @function showLogIn
- * @description Show the login section and hide the others
+ * @function removeSection
+ * @description Remove element DOM
+ * @param {String} idName Id name selector
  */
-function showLogIn() {
-	const section = document.getElementById("logIn");
-	resetShowSections();
-	section.classList.add("is-active");
+function removeSection(idName) {
+	const section = document.getElementById(idName);
+	if (section) {
+		section.parentNode.removeChild(section);
+	}
 }
 
 
 /**
- * @function showAccount
- * @description Show the account sections and hide the others
+ * @function insertSection
+ * @description Insert section
+ * @param {String} sectionName Section name
+ * @param {String} createTemplate Name of function for create template of section
+ * @param {Null|Object} data User data for the template
  */
-function showAccount() {
-	const section = document.getElementById("account");
-
-	resetShowSections();
-	section.classList.add("is-active");
-}
-
-
-/**
- * @function showUpdate
- * @description Show the update sections and hide the others
- */
-function showUpdate() {
-	const section = document.getElementById("update");
-
-	resetShowSections();
-	section.classList.add("is-active");
-}
-
-
-/**
- * @function showDelete
- * @description Show the delete sections and hide the others
- */
-function showDelete() {
-	const section = document.getElementById("delete");
-
-	resetShowSections();
-	section.classList.add("is-active");
+function insertSection(sectionName, createTemplate, data = null) {
+	const content = document.getElementById("section");
+	const template = createTemplate(data);
+	const templateNode = stringToNode(template);
+	removeSection(sectionName);
+	content.appendChild(templateNode);
 }
 
 
 /**
  * @function message
  * @description Create, insert and add events for the message component
- * @param {Object} data Message data
+ * @param {Object} data Message data for the template
  */
 function message(data) {
 
@@ -177,14 +160,6 @@ function message(data) {
 		document.getElementById("body").appendChild(nodeTemplate);
 	}
 
-	function removeTemplate() {
-		const message = document.getElementById("message");
-
-		if (message) {
-			message.parentNode.removeChild(message);
-		}
-	}
-
 	function showHideAnimation() {
 		setTimeout(function () {
 			const message = document.getElementById("message");
@@ -192,7 +167,7 @@ function message(data) {
 		}, 100);
 
 		setTimeout(function () {
-			removeTemplate();
+			removeSection("message");
 		}, 10500);
 	}
 
@@ -205,12 +180,12 @@ function message(data) {
 			}, 0);
 
 			setTimeout(function () {
-				removeTemplate();
+				removeSection("message");
 			}, 100);
 		});
 	}
 
-	removeTemplate();
+	removeSection("message");
 	insertTemplate();
 	showHideAnimation();
 	addEventClose();
@@ -218,10 +193,11 @@ function message(data) {
 
 
 /**
- * @function createPhotoDefault
+ * @function createAdorableAvatar
  * @description Create photo default with the API Adorable Avatars
+ * @param {String} email For create the photo it need a email
  */
-function createPhotoDefault(email) {
+function createAdorableAvatar(email) {
 	const photoDefault = `https://api.adorable.io/avatars/285/${email}.png`;
 	return photoDefault;
 }
@@ -230,7 +206,7 @@ function createPhotoDefault(email) {
 /**
  * @function createArrayDataUser
  * @description Obtain registered user data
- * @param {Object} data User data
+ * @param {Object} data User data for create a
  * @returns {Object|Boolean}
  */
 function createArrayDataUser(data) {
@@ -409,32 +385,6 @@ function createTemplateAccount(data) {
 
 
 /**
- * @function removeTemplateAccount
- * @description Remove element DOM Account
- */
-function removeTemplateAccount() {
-	const account = document.getElementById("account");
-	if (account) {
-		account.parentNode.removeChild(account);
-	}
-}
-
-
-/**
- * @function getSetAccount
- * @description Insert Account section
- * @param {Object} data User data
- */
-function addTemplateAccount(data) {
-	const content = document.getElementById("section");
-	const template = createTemplateAccount(data);
-	const templateNode = stringToNode(template);
-	removeTemplateAccount();
-	content.appendChild(templateNode);
-}
-
-
-/**
  * @function createTemplateUpdate
  * @description Create template update
  * @param {Object} data User data
@@ -493,32 +443,6 @@ function createTemplateUpdate(data) {
 
 
 /**
- * @function removeTemplateUpdate
- * @description Remove if exist the template update
- */
-function removeTemplateUpdate() {
-	const section = document.getElementById("update");
-	if (section) {
-		section.parentNode.removeChild(section);
-	}
-}
-
-
-/**
- * @function addTemplateUpdate
- * @description Insert Update section
- * @param {Object} data User data
- */
-function addTemplateUpdate(data) {
-	const content = document.getElementById("section");
-	const template = createTemplateUpdate(data);
-	const templateNode = stringToNode(template);
-	removeTemplateUpdate();
-	content.appendChild(templateNode);
-}
-
-
-/**
  * @function createTemplateDelete
  * @description Create template delete
  * @returns {String}
@@ -554,31 +478,6 @@ function createTemplateDelete() {
 
 
 /**
- * @function removeTemplateDelete
- * @description Remove if exist the template delete
- */
-function removeTemplateDelete() {
-	const section = document.getElementById("delete");
-	if (section) {
-		section.parentNode.removeChild(section);
-	}
-}
-
-
-/**
- * @function addTemplateDelete
- * @description Insert Delete section
- */
-function addTemplateDelete() {
-	const content = document.getElementById("section");
-	const template = createTemplateDelete();
-	const templateNode = stringToNode(template);
-	removeTemplateDelete();
-	content.appendChild(templateNode);
-}
-
-
-/**
  * @function addEventsRegister
  * @description Function that runs after login
  */
@@ -591,7 +490,7 @@ function addEventsRegister() {
 	if (buttonRegisterShow) {
 		buttonRegisterShow.addEventListener("click", function (event) {
 			event.preventDefault();
-			showRegister();
+			showSection("register");
 		});
 	}
 
@@ -625,7 +524,7 @@ function addEventsLogIn() {
 	if (buttonLogInShow) {
 		buttonLogInShow.addEventListener("click", function (event) {
 			event.preventDefault();
-			showLogIn();
+			showSection("logIn");
 		});
 	}
 
@@ -643,7 +542,6 @@ function addEventsLogIn() {
 			}
 		});
 	}
-
 }
 
 
@@ -657,7 +555,7 @@ function addEventsAccount() {
 	if (buttonAccountShow) {
 		buttonAccountShow.addEventListener("click", function (event) {
 			event.preventDefault();
-			showAccount();
+			showSection("account");
 		});
 	}
 }
@@ -694,7 +592,7 @@ function addEventsUpdate() {
 	if (buttonUpdateShow) {
 		buttonUpdateShow.addEventListener("click", function (event) {
 			event.preventDefault();
-			showUpdate();
+			showSection("update");
 		});
 	}
 
@@ -705,7 +603,7 @@ function addEventsUpdate() {
 			const valueName = nameUserUpdate.value;
 			const valuePhone = phoneUserUpdate.value;
 			const valuePhoto = photoUserUpdate.value;
-			const photoDefault = createPhotoDefault(valueEmail);
+			const photoDefault = createAdorableAvatar(valueEmail);
 
 			if ((valueName !== null && valueName !== "") ||
 				(valuePhone !== null && valuePhone !== "")) {
@@ -730,7 +628,7 @@ function addEventsDelete() {
 	if (buttonDeleteShow) {
 		buttonDeleteShow.addEventListener("click", function (event) {
 			event.preventDefault();
-			showDelete();
+			showSection("delete");
 		});
 	}
 
@@ -751,13 +649,14 @@ function addEventsDelete() {
  * @function afterLogged
  * @param {Object} user User data
  * @description Function that execute after logged
+ * @param {Object} user User data
  */
 function afterLogged(user) {
 	// DOM
-	resetShowSections();
-	addTemplateAccount(user);
-	addTemplateUpdate(user);
-	addTemplateDelete();
+	hideAllSections();
+	insertSection("account", createTemplateAccount, user);
+	insertSection("update", createTemplateUpdate, user);
+	insertSection("delete", createTemplateDelete, null);
 	addEventsLabelAnimation();
 
 	// EVENTS
@@ -766,9 +665,6 @@ function afterLogged(user) {
 	addEventsDelete();
 	addEventsLogOut();
 }
-
-
-
 
 
 /**
@@ -906,6 +802,7 @@ function firebaseAuthUpdateUser(name, phone, photo) {
 /**
  * @function firebaseAuthDeleteUser
  * @description FIREBASE AUTH - Delete account
+ * @param {String} password Password data obtained from the delete form
  */
 function firebaseAuthDeleteUser(password) {
 	const user = firebase.auth().currentUser;
@@ -1010,22 +907,22 @@ async function firebaseAuthLogOutUser() {
 
 
 /**
- * @function addEventsAuth
+ * @function firebaseAuthStateChanged
  * @description FIREBASE AUTH - Add events auth: onAuthStateChanged
  */
-function addEventsAuth() {
+function firebaseAuthStateChanged() {
 	firebase
 		.auth()
 		.onAuthStateChanged(function (user) {
-			showRegister();
+			showSection("register");
 
 			if (user) {
 				console.info("User is signed in!");
 				afterLogged(user);
 			} else {
 				console.info("No user is signed in!");
-				resetShowSections();
-				showRegister();
+				hideAllSections();
+				showSection("register");
 			}
 		});
 }
@@ -1038,5 +935,5 @@ function addEventsAuth() {
 	addEventsLabelAnimation();
 	addEventsRegister();
 	addEventsLogIn();
-	addEventsAuth();
+	firebaseAuthStateChanged();
 })();
