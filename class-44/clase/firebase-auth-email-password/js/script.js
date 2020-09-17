@@ -671,7 +671,7 @@ async function firebaseAuthRegisterUser(email, password) {
 			console.warn("Error code:", errorCode);
 			console.warn("Error message:", errorMessage);
 
-			if (typeof errorMessage === string) {
+			if (typeof errorMessage === "string") {
 				message({
 					title: "Error for register!",
 					description: `${errorMessage}`,
@@ -715,7 +715,7 @@ async function firebaseAuthLogInUser(email, password) {
 			console.warn("Error message:", errorMessage);
 			console.groupEnd();
 
-			if (typeof errorMessage === string) {
+			if (typeof errorMessage === "string") {
 				message({
 					title: "Error for register!",
 					description: `${errorMessage}`,
@@ -765,7 +765,7 @@ function firebaseAuthUpdateUser(name, photo) {
 			console.warn("Error code:", errorCode);
 			console.warn("Error message:", errorMessage);
 
-			if (typeof errorMessage === string) {
+			if (typeof errorMessage === "string") {
 				message({
 					title: "Error for register!",
 					description: `${errorMessage}`,
@@ -824,7 +824,7 @@ function firebaseAuthDeleteUser(password) {
 					console.warn("Error message:", errorMessage);
 					console.groupEnd();
 
-					if (typeof errorMessage === string) {
+					if (typeof errorMessage === "string") {
 						message({
 							title: "Error for register!",
 							description: `${errorMessage}`,
@@ -842,7 +842,7 @@ function firebaseAuthDeleteUser(password) {
 			console.warn("Error message:", errorMessage);
 			console.groupEnd();
 
-			if (typeof errorMessage === string) {
+			if (typeof errorMessage === "string") {
 				message({
 					title: "Error for register!",
 					description: `${errorMessage}`,
@@ -881,7 +881,7 @@ async function firebaseAuthLogOutUser() {
 			console.warn("Error message:", errorMessage);
 			console.groupEnd();
 
-			if (typeof errorMessage === string) {
+			if (typeof errorMessage === "string") {
 				message({
 					title: "Error for register!",
 					description: `${errorMessage}`,
