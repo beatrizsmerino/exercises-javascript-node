@@ -6,26 +6,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>
-			Firebase Auth | List users
+			Firebase Auth
 		</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 
 	<body id="body" class="c-page__body">
-		<h1 class="c-page-title c-page__title">
-			<span class="c-page-title__item">
-				Firebase Auth
-			</span>
-			<span class="c-page-title__info c-page-title__item">
-				List users
-			</span>
+		<h1 class="c-page__title">
+			Firebase Auth
 		</h1>
 
 		<main id="main" class="c-page__main">
 			<section id="section" class="c-page__section c-page__content">
 				<article id="register" class="c-page__article">
-					<form id="formRegister" class="c-form" action="">
+					<form id="formRegister" class="c-form c-box" action="">
 						<fieldset class="c-fieldset">
 							<legend class="c-legend">
 								Register
@@ -55,7 +50,7 @@
 				</article>
 
 				<article id="logIn" class="c-page__article">
-					<form id="formLogIn" class="c-form" action="">
+					<form id="formLogIn" class="c-form c-box" action="">
 						<fieldset class="c-fieldset">
 							<legend class="c-legend">
 								LogIn
@@ -82,6 +77,42 @@
 							</button>
 						</div>
 					</form>
+
+					<div class="social-media-login c-box">
+						<h2 class="social-media-login__title">
+							Log in using your existing social media account:
+						</h2>
+
+						<div class="social-media-login__inner">
+							<button id="buttonLogInGithub" class="c-button c-button--github">
+								<i class="c-button__icon c-button__icon--left fab fa-github"></i>
+								<span class="c-button__text">
+									GitHub
+								</span>
+							</button>
+
+							<button id="buttonLogInGoogle" class="c-button c-button--google">
+								<i class="c-button__icon c-button__icon--left fab fa-google"></i>
+								<span class="c-button__text">
+									Google
+								</span>
+							</button>
+
+							<button id="buttonLogInFacebook" class="c-button c-button--facebook">
+								<i class="c-button__icon c-button__icon--left fab fa-facebook"></i>
+								<span class="c-button__text">
+									Facebook
+								</span>
+							</button>
+
+							<button id="buttonLogInTwitter" class="c-button c-button--twitter">
+								<i class="c-button__icon c-button__icon--left fab fa-twitter"></i>
+								<span class="c-button__text">
+									Twitter
+								</span>
+							</button>
+						</div>
+					</div>
 				</article>
 			</section>
 		</main>

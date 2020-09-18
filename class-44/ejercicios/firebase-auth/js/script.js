@@ -345,7 +345,7 @@ function createTemplateAccount(data) {
 
 		const template = `
 			<article id="account" class="c-page__article is-active">
-				<div class="account-data">
+				<div class="account-data c-box">
 					<div class="account-data__inner">
 						<div class="account-data__column">
 							<div class="account-data__row">
@@ -445,7 +445,7 @@ function createTemplateUpdate(data) {
 
 	const template = `
 		<article id="update" class="c-page__article">
-			<form id="formUpdate" class="c-form" action="">
+			<form id="formUpdate" class="c-form c-box" action="">
 				<fieldset class="c-fieldset">
 					<legend class="c-legend">
 						Update Account
@@ -489,7 +489,7 @@ function createTemplateUpdate(data) {
 function createTemplateDelete() {
 	const template = `
 		<article id="delete" class="c-page__article">
-			<form id="formDelete" class="c-form" action="">
+			<form id="formDelete" class="c-form c-box" action="">
 				<fieldset class="c-fieldset">
 					<legend class="c-legend">
 						Delete Account
