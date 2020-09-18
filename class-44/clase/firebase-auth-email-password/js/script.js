@@ -39,43 +39,35 @@ function stringToNode(string) {
  * @description Add animation to label of the focus field
  * @param {Element} field
  */
-function labelAnimation(field) {
+function labelAnimation() {
 	const formFields = document.getElementsByClassName("c-form__field");
-	const inputValue = field.value;
 
-	// Reset all empty fields on focus/blur
-	[...formFields].map((item) => {
-		const fieldValue = item.value;
-		if (fieldValue === "") {
-			item.parentNode.classList.remove("is-focus");
-		}
-	});
-
-	// This empty field on focus/blur
-	if (inputValue === "") {
-		field.parentNode.classList.remove("is-focus");
-	}
-
-	// The field on focus/blur
-	field.parentNode.classList.add("is-focus");
-}
-
-
-/**
- * @function addEventsLabelAnimation
- * @description Added events to label animated
- */
-function addEventsLabelAnimation() {
-	const formFields = document.getElementsByClassName("c-form__field");
 	[...formFields].map((field) => {
-		labelAnimation(field);
+		// Reset all empty fields on focus/blur
+		const fieldValue = field.value;
+		if (fieldValue === "") {
+			field.parentNode.classList.remove("is-focus");
+		} else {
+			field.parentNode.classList.add("is-focus");
+		}
 
-		field.addEventListener("focus", function (event) {
-			labelAnimation(event.target);
+		// This empty field on focus
+		field.addEventListener("focus", function () {
+			const $thisField = this;
+
+			$thisField.parentNode.classList.add("is-focus");
 		});
 
-		field.addEventListener("blur", function (event) {
-			labelAnimation(event.target);
+		// This empty field on blur
+		field.addEventListener("blur", function () {
+			const $thisField = this;
+			const $thisFieldValue = $thisField.value;
+
+			if ($thisFieldValue === "") {
+				$thisField.parentNode.classList.remove("is-focus");
+			} else {
+				$thisField.parentNode.classList.add("is-focus");
+			}
 		});
 	});
 }
@@ -630,7 +622,7 @@ function afterLogged(user) {
 	insertSection("account", createTemplateAccount, user);
 	insertSection("update", createTemplateUpdate, user);
 	insertSection("delete", createTemplateDelete, null);
-	addEventsLabelAnimation();
+	labelAnimation();
 
 	// EVENTS
 	addEventsAccount();
@@ -916,8 +908,8 @@ function firebaseAuthStateChanged() {
 
 
 (function () {
-	addEventsLabelAnimation();
 	addEventsRegister();
+	labelAnimation();
 	addEventsLogIn();
 	firebaseAuthStateChanged();
 })();
