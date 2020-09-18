@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="c-page">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>
+			Firebase - Auth
+		</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+
+	<body id="body" class="c-page__body">
+		<h1 class="c-page__title">
+			Firebase - Auth
+		</h1>
+
+		<main id="main" class="c-page__main">
+			<section id="section" class="c-page__section c-page__content">
+				<article id="register" class="c-page__article">
+					<form id="formRegister" class="c-form" action="">
+						<fieldset class="c-fieldset">
+							<legend class="c-legend">
+								Register
+							</legend>
+							<div class="c-form__item">
+								<label class="c-label" for="emailUserRegister">
+									Email
+								</label>
+								<input id="emailUserRegister" class="c-form__field" type="text">
+							</div>
+
+							<div class="c-form__item">
+								<label class="c-label" for="passwordUserRegister">
+									Password
+								</label>
+								<input id="passwordUserRegister" class="c-form__field" type="password">
+							</div>
+						</fieldset>
+
+						<div class="c-list c-list--justify">
+							<input id="buttonRegister" class="c-button c-list__item" type="submit" value="REGISTER">
+							<button id="buttonLogInShow" class="c-link c-list__item">
+								Go to LogIn
+							</button>
+						</div>
+					</form>
+				</article>
+
+				<article id="logIn" class="c-page__article">
+					<form id="formLogIn" class="c-form" action="">
+						<fieldset class="c-fieldset">
+							<legend class="c-legend">
+								LogIn
+							</legend>
+							<div class="c-form__item">
+								<label class="c-label" for="emailUserLogIn">
+									Email
+								</label>
+								<input id="emailUserLogIn" class="c-form__field" type="text">
+							</div>
+
+							<div class="c-form__item">
+								<label class="c-label" for="passwordUserLogIn">
+									Password
+								</label>
+								<input id="passwordUserLogIn" class="c-form__field" type="password">
+							</div>
+						</fieldset>
+
+						<div class="c-list c-list--justify">
+							<input id="buttonLogIn" class="c-button c-list__item" type="submit" value="LOGIN">
+							<button id="buttonRegisterShow" class="c-link c-list__item">
+								Go to Register
+							</button>
+						</div>
+					</form>
+				</article>
+			</section>
+		</main>
+
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+
+		<!-- SDK de Firebase JS disponibles (de la CDN) - Realtime Database -->
+		<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+
+		<script src="js/script.js"></script>
+	</body>
+
+</html>
