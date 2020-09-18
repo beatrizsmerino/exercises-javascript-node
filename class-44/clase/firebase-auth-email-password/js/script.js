@@ -611,6 +611,12 @@ function addEventsLogOut() {
 			event.preventDefault();
 			firebaseAuthLogOutUser();
 		});
+
+		// Force logout 1h
+		const maxTime = 3600000;
+		setTimeout(function () {
+			firebaseAuthLogOutUser();
+		}, maxTime);
 	}
 }
 
