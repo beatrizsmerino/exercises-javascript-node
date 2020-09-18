@@ -517,10 +517,10 @@ function createTemplateDelete() {
 
 
 /**
- * @function addEventsRegister
+ * @function addEventsRegisterEmailPass
  * @description Add events for register form
  */
-function addEventsRegister() {
+function addEventsRegisterEmailPass() {
 	const buttonRegister = document.getElementById("buttonRegister");
 	const buttonRegisterShow = document.getElementById("buttonRegisterShow");
 	const emailUserRegister = document.getElementById("emailUserRegister");
@@ -542,7 +542,7 @@ function addEventsRegister() {
 			if ((valueEmail !== null && valueEmail !== "") &&
 				(valuePass !== null && valuePass !== "")) {
 
-				firebaseAuthRegisterUser(valueEmail, valuePass);
+				firebaseAuthRegisterUserEmailPass(valueEmail, valuePass);
 			}
 		});
 	}
@@ -551,10 +551,10 @@ function addEventsRegister() {
 
 
 /**
- * @function addEventsLogIn
- * @description Add events for login form
+ * @function addEventsLogInEmailPass
+ * @description Add events for login form with email and pass
  */
-function addEventsLogIn() {
+function addEventsLogInEmailPass() {
 	const buttonLogIn = document.getElementById("buttonLogIn");
 	const buttonLogInShow = document.getElementById("buttonLogInShow");
 	const emailUserLogIn = document.getElementById("emailUserLogIn");
@@ -576,10 +576,38 @@ function addEventsLogIn() {
 			if ((valueEmail !== null && valueEmail !== "") &&
 				(valuePass !== null && valuePass !== "")) {
 
-				firebaseAuthLogInUser(valueEmail, valuePass);
+				firebaseAuthLogInUserEmailPass(valueEmail, valuePass);
 			}
 		});
 	}
+}
+
+
+/**
+ * @function addEventsLogInGoogle
+ * @description Add events for login form with google button
+ */
+function addEventsLogInGoogle() {
+	const buttonLogIn = document.getElementById("buttonLogInGoogle");
+
+	buttonLogIn.addEventListener("click", function (event) {
+		event.preventDefault();
+		firebaseAuthLogInUserGoogle();
+	});
+}
+
+
+/**
+ * @function addEventsLogInFacebook
+ * @description Add events for login form with facebook button
+ */
+function addEventsLogInFacebook() {
+	const buttonLogIn = document.getElementById("buttonLogInFacebook");
+
+	buttonLogIn.addEventListener("click", function (event) {
+		event.preventDefault();
+		firebaseAuthLogInUserFacebook();
+	});
 }
 
 
@@ -724,12 +752,12 @@ function firebaseVerifyError(errorCode, errorMessage) {
 
 
 /**
- * @function firebaseAuthRegisterUser
+ * @function firebaseAuthRegisterUserEmailPass
  * @description FIREBASE AUTH - REGISTER user with email and password
  * @param {String} email Email data obtained from the register form
  * @param {String} password Password data obtained from the register form
  */
-function firebaseAuthRegisterUser(email, password) {
+function firebaseAuthRegisterUserEmailPass(email, password) {
 	firebase.auth().createUserWithEmailAndPassword(email, password)
 		.then(() => {
 			const user = firebase.auth().currentUser;
@@ -768,12 +796,12 @@ function firebaseAuthRegisterUser(email, password) {
 
 
 /**
- * @function firebaseAuthLogInUser
+ * @function firebaseAuthLogInUserEmailPass
  * @description FIREBASE AUTH - LOGIN user with email and password
  * @param {String} email Email data obtained from the login form
  * @param {String} password Password data obtained from the login form
  */
-function firebaseAuthLogInUser(email, password) {
+function firebaseAuthLogInUserEmailPass(email, password) {
 	firebase.auth().signInWithEmailAndPassword(email, password)
 		.then(() => {
 			const user = firebase.auth().currentUser;
@@ -790,6 +818,115 @@ function firebaseAuthLogInUser(email, password) {
 			console.groupEnd();
 		})
 		.catch(function (error) {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+
+			console.group("Error to login!");
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+			console.groupEnd();
+
+			const verifiedMessage = firebaseVerifyError(firebaseErrors[errorCode], errorMessage);
+			message({
+				title: "Error!",
+				description: verifiedMessage,
+				className: "is-error"
+			});
+		});
+}
+
+
+/**
+ * @function firebaseAuthLogInUserGoogle
+ * @description FIREBASE AUTH - LOGIN user with google account
+ * Instructions:
+ * 1. Login https://console.firebase.google.com/
+ * 2. Authentication > Sign-in method > Login Providers
+ * 3. Active Google with the email used in firebase
+ * Instructions: Error Firebase: This domain is not authorized
+ * 1. Login https://console.cloud.google.com
+ * 2. Go to APIs & Services > Credentials
+ * 3. Select API Key you are using in your app that connects to FireBase
+ * 4. Select Application restrictions: HTTP referrers (web sites)
+ * 5. Add Website restrictions: http://localhost:5500/
+ */
+function firebaseAuthLogInUserGoogle() {
+	const provider = new firebase.auth.GoogleAuthProvider();
+	firebase.auth().signInWithPopup(provider)
+		.then((result) => {
+			const token = result.credential.accessToken;
+			const user = result.user;
+
+			console.group("Google sing in!");
+			console.info("Token:", token);
+			console.info("User:", user);
+			console.groupEnd();
+
+			message({
+				title: "Thanks for registering!",
+				description: profile.email,
+				className: "is-success"
+			});
+		})
+		.catch((error) => {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+
+			console.group("Error to login!");
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+			console.groupEnd();
+
+			const verifiedMessage = firebaseVerifyError(firebaseErrors[errorCode], errorMessage);
+			message({
+				title: "Error!",
+				description: verifiedMessage,
+				className: "is-error"
+			});
+		});
+}
+
+
+/**
+ * @function firebaseAuthLogInUserFacebook
+ * @description FIREBASE AUTH - LOGIN user with facebook account
+ * Instructions:
+ * 1. Login https://console.firebase.google.com/
+ * 2. Authentication > Sign-in method > Login Providers
+ * 3. Active Facebook with the email used in firebase
+ * 4. Login https://developers.facebook.com/
+ * 5. Mis applicaciones > Crear aplicacion > Para todo lo demas (...integrar inicio de sesion con Facebook..)
+ * Add name and email used of the App Firebase
+ * 6. Inicio de sesion con Facebook > Web > URL del sitio web http://localhost:5500/
+ * 7. (Menu izq) Productos Configuracion > Si 'Acceso de OAuth de navegador insertado'
+ * 8. On the Console Firebase when Active Facebook: Copy link 'URI de redirección de OAuth'
+ * On Developers Facebook: Paste 'URI de redireccionamiento de OAuth válidos'
+ * 9. On Developers Facebook: Configuracion > Informacion basica > Copy 'Identificador de la applicacion' and 'Clave secreta de la applicacion'
+ * On the Console Firebase when Active Facebook: Paste the Id and secret App
+ * 10. Delete the user account if it is already registered with other social media:
+ * Error message: An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.
+ */
+function firebaseAuthLogInUserFacebook() {
+	const provider = new firebase.auth.FacebookAuthProvider();
+	firebase.auth().signInWithPopup(provider)
+		.then((result) => {
+			const token = result.credential.accessToken;
+			const user = result.user;
+
+			console.group("Facebook sing in!");
+			console.info("Token:", token);
+			console.info("User:", user);
+			console.groupEnd();
+
+			message({
+				title: "Thanks for registering!",
+				description: profile.email,
+				className: "is-success"
+			});
+		})
+		.catch((error) => {
 			// Handle Errors here.
 			const errorCode = error.code;
 			const errorMessage = error.message;
@@ -1001,11 +1138,11 @@ function firebaseAuthStateChanged() {
 
 
 
-
-
 (function () {
-	addEventsRegister();
-	labelAnimation();
-	addEventsLogIn();
+	addEventsRegisterEmailPass();
+	addEventsLogInGoogle();
+	addEventsLogInFacebook();
+	addEventsLogInEmailPass();
 	firebaseAuthStateChanged();
+	labelAnimation();
 })();
