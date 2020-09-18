@@ -560,6 +560,19 @@ p {
 	color: #276d4e;
 }
 
+.c-page-title {
+	display: flex;
+	flex-direction: column;
+}
+
+.c-page-title__item {
+}
+
+.c-page-title__info {
+	color: rgba(39, 109, 77, 0.7);
+	font-size: 2rem;
+}
+
 .c-page__main {
 	width: 100%;
 }
