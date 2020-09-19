@@ -611,6 +611,18 @@ function addEventsLogInFacebook() {
 }
 
 
+/**
+ * @function addEventsLogInTwitter
+ * @description Add events for login form with twitter button
+ */
+function addEventsLogInTwitter() {
+	const buttonLogIn = document.getElementById("buttonLogInTwitter");
+
+	buttonLogIn.addEventListener("click", function (event) {
+		event.preventDefault();
+		firebaseAuthLogInUserTwitter();
+	});
+}
 
 
 /**
@@ -963,6 +975,54 @@ function firebaseAuthLogInUserFacebook() {
 }
 
 
+/**
+ * @function firebaseAuthLogInUserTwitter
+ * @description FIREBASE AUTH - LOGIN user with twitter account
+ * Instructions:
+ * 1. Login https://developer.twitter.com/en/apps
+ * 2. When you create your first app, you have to answer some questions and wait for the review (less than 1 day)
+ * 3. Go to https://developer.twitter.com/en/portal/projects-and-apps
+ * Standalone Apps > Create App (name)
+ * Proyects > New proyect (name, student, description, chose the app)
+ * Authentication settings > Website url (Error to use localhost, use any domain as http://google.com, as long as it's a valid domain name it should work.)
+ * On Firebase: Authentication > Sign-in method > 'Dominios autorizados' add http://127.0.0.1/
+ */
+function firebaseAuthLogInUserTwitter() {
+	const provider = new firebase.auth.TwitterAuthProvider();
+	firebase.auth().signInWithPopup(provider)
+		.then((result) => {
+			const token = result.credential.accessToken;
+			const user = result.user;
+
+			console.group("Twitter sing in!");
+			console.info("Token:", token);
+			console.info("User:", user);
+			console.groupEnd();
+
+			message({
+				title: "Welcome!",
+				description: profile.email,
+				className: "is-success"
+			});
+		})
+		.catch((error) => {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+
+			console.group("Error to login!");
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+			console.groupEnd();
+
+			const verifiedMessage = firebaseVerifyError(firebaseErrors[errorCode], errorMessage);
+			message({
+				title: "Error!",
+				description: verifiedMessage,
+				className: "is-error"
+			});
+		});
+}
 
 
 /**
@@ -1208,10 +1268,11 @@ function firebaseAuthStateChanged() {
 
 (function () {
 	addEventsRegisterEmailPass();
+	addEventsLogInEmailPass();
 	addEventsLogInGoogle();
 	addEventsLogInFacebook();
+	addEventsLogInTwitter();
 	addEventsLogInGithub();
-	addEventsLogInEmailPass();
 	firebaseAuthStateChanged();
 	labelAnimation();
 })();
