@@ -611,6 +611,22 @@ function addEventsLogInFacebook() {
 }
 
 
+
+
+/**
+ * @function addEventsLogInGithub
+ * @description Add events for login form with github button
+ */
+function addEventsLogInGithub() {
+	const buttonLogIn = document.getElementById("buttonLogInGithub");
+
+	buttonLogIn.addEventListener("click", function (event) {
+		event.preventDefault();
+		firebaseAuthLogInUserGithub();
+	});
+}
+
+
 /**
  * @function addEventsAccount
  * @description Add events for account form
@@ -764,7 +780,8 @@ function firebaseAuthRegisterUserEmailPass(email, password) {
 			const userData = user.providerData;
 
 			console.group("Success to register!");
-			console.info("Email: " + email, "Password: " + password);
+			console.info("Email:", email);
+			console.info("Password:", password);
 
 			userData.forEach(function (profile) {
 				message({
@@ -864,7 +881,7 @@ function firebaseAuthLogInUserGoogle() {
 			console.groupEnd();
 
 			message({
-				title: "Thanks for registering!",
+				title: "Welcome!",
 				description: profile.email,
 				className: "is-success"
 			});
@@ -921,7 +938,58 @@ function firebaseAuthLogInUserFacebook() {
 			console.groupEnd();
 
 			message({
-				title: "Thanks for registering!",
+				title: "Welcome!",
+				description: profile.email,
+				className: "is-success"
+			});
+		})
+		.catch((error) => {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+
+			console.group("Error to login!");
+			console.warn("Error code:", errorCode);
+			console.warn("Error message:", errorMessage);
+			console.groupEnd();
+
+			const verifiedMessage = firebaseVerifyError(firebaseErrors[errorCode], errorMessage);
+			message({
+				title: "Error!",
+				description: verifiedMessage,
+				className: "is-error"
+			});
+		});
+}
+
+
+
+
+/**
+ * @function firebaseAuthLogInUserGithub
+ * @description FIREBASE AUTH - LOGIN user with github account
+ * Instructions:
+ * 1. Login https://github.com/settings/applications/new
+ * 2. On Github: Register a new OAuth application:
+ * - Application name: Firebase name
+ * - Homepage URL: http://localhost:5500/
+ * - Authorization callback URL: (On Console Firebase copy URL)
+ * 3. On Github copy ID de cliente and Client Secret and paste on Firebase
+ */
+function firebaseAuthLogInUserGithub() {
+	const provider = new firebase.auth.GithubAuthProvider();
+	firebase.auth().signInWithPopup(provider)
+		.then((result) => {
+			const token = result.credential.accessToken;
+			const user = result.user;
+
+			console.group("Github sing in!");
+			console.info("Token:", token);
+			console.info("User:", user);
+			console.groupEnd();
+
+			message({
+				title: "Welcome!",
 				description: profile.email,
 				className: "is-success"
 			});
@@ -1142,6 +1210,7 @@ function firebaseAuthStateChanged() {
 	addEventsRegisterEmailPass();
 	addEventsLogInGoogle();
 	addEventsLogInFacebook();
+	addEventsLogInGithub();
 	addEventsLogInEmailPass();
 	firebaseAuthStateChanged();
 	labelAnimation();
