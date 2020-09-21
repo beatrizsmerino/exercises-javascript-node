@@ -106,6 +106,15 @@ function stringToNode(string) {
 
 
 /**
+ * @function scrollTop
+ * @description Reset scroll window to top
+ */
+function scrollTop() {
+	window.scrollTo(0, 0);
+}
+
+
+/**
  * @function labelAnimation
  * @description Add animation to label of the focus field
  */
@@ -530,6 +539,7 @@ function addEventsRegisterEmailPass() {
 		buttonRegisterShow.addEventListener("click", function (event) {
 			event.preventDefault();
 			showSection("register");
+			scrollTop();
 		});
 	}
 
@@ -543,10 +553,10 @@ function addEventsRegisterEmailPass() {
 				(valuePass !== null && valuePass !== "")) {
 
 				firebaseAuthRegisterUserEmailPass(valueEmail, valuePass);
+				scrollTop();
 			}
 		});
 	}
-
 }
 
 
@@ -564,6 +574,7 @@ function addEventsLogInEmailPass() {
 		buttonLogInShow.addEventListener("click", function (event) {
 			event.preventDefault();
 			showSection("logIn");
+			scrollTop();
 		});
 	}
 
@@ -577,6 +588,7 @@ function addEventsLogInEmailPass() {
 				(valuePass !== null && valuePass !== "")) {
 
 				firebaseAuthLogInUserEmailPass(valueEmail, valuePass);
+				scrollTop();
 			}
 		});
 	}
@@ -593,6 +605,7 @@ function addEventsLogInGoogle() {
 	buttonLogIn.addEventListener("click", function (event) {
 		event.preventDefault();
 		firebaseAuthLogInUserGoogle();
+		scrollTop();
 	});
 }
 
@@ -607,6 +620,7 @@ function addEventsLogInFacebook() {
 	buttonLogIn.addEventListener("click", function (event) {
 		event.preventDefault();
 		firebaseAuthLogInUserFacebook();
+		scrollTop();
 	});
 }
 
@@ -621,6 +635,7 @@ function addEventsLogInTwitter() {
 	buttonLogIn.addEventListener("click", function (event) {
 		event.preventDefault();
 		firebaseAuthLogInUserTwitter();
+		scrollTop();
 	});
 }
 
@@ -635,6 +650,7 @@ function addEventsLogInGithub() {
 	buttonLogIn.addEventListener("click", function (event) {
 		event.preventDefault();
 		firebaseAuthLogInUserGithub();
+		scrollTop();
 	});
 }
 
@@ -650,6 +666,7 @@ function addEventsAccount() {
 		buttonAccountShow.addEventListener("click", function (event) {
 			event.preventDefault();
 			showSection("account");
+			scrollTop();
 		});
 	}
 }
@@ -666,12 +683,14 @@ function addEventsLogOut() {
 		buttonLogOut.addEventListener("click", function (event) {
 			event.preventDefault();
 			firebaseAuthLogOutUser();
+			scrollTop();
 		});
 
 		// Force logout 1h
 		const maxTime = 3600000;
 		setTimeout(function () {
 			firebaseAuthLogOutUser();
+			scrollTop();
 		}, maxTime);
 	}
 }
@@ -692,6 +711,7 @@ function addEventsUpdate() {
 		buttonUpdateShow.addEventListener("click", function (event) {
 			event.preventDefault();
 			showSection("update");
+			scrollTop();
 		});
 	}
 
@@ -707,6 +727,7 @@ function addEventsUpdate() {
 
 				const photo = (valuePhoto == null || valuePhoto === "") ? photoDefault : valuePhoto;
 				firebaseAuthUpdateUser(valueName, photo);
+				scrollTop();
 			}
 		});
 	}
@@ -726,6 +747,7 @@ function addEventsDelete() {
 		buttonDeleteShow.addEventListener("click", function (event) {
 			event.preventDefault();
 			showSection("delete");
+			scrollTop();
 		});
 	}
 
@@ -736,6 +758,7 @@ function addEventsDelete() {
 
 			if ((valuePass !== null && valuePass !== "")) {
 				firebaseAuthDeleteUser(valuePass);
+				scrollTop();
 			}
 		});
 	}
@@ -754,6 +777,7 @@ function afterLogged(user) {
 	insertSection("update", createTemplateUpdate, user);
 	insertSection("delete", createTemplateDelete, null);
 	labelAnimation();
+	scrollTop();
 
 	// EVENTS
 	addEventsAccount();
@@ -1267,6 +1291,7 @@ function firebaseAuthStateChanged() {
 
 
 (function () {
+	scrollTop();
 	addEventsRegisterEmailPass();
 	addEventsLogInEmailPass();
 	addEventsLogInGoogle();
