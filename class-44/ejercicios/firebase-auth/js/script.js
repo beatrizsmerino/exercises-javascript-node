@@ -119,7 +119,7 @@ function scrollTop() {
  * @description Add animation to label of the focus field
  */
 function labelAnimation() {
-	const formFields = document.getElementsByClassName("c-form__field");
+	const formFields = document.getElementsByClassName("c-form__field--anim");
 
 	[...formFields].map((field) => {
 		// Reset all empty fields on focus/blur
@@ -313,9 +313,9 @@ function createTemplateAccount(data) {
 
 		if (dataUser.name !== null) {
 			templateName = `
-				<div class="account-data__item">
+				<div class="c-account-data__item">
 					<p>
-						<strong class="account-data__title">
+						<strong class="c-account-data__title">
 							Name:
 						</strong>
 						${dataUser.name}
@@ -328,9 +328,9 @@ function createTemplateAccount(data) {
 
 		if (dataUser.email !== null) {
 			templateEmail = `
-				<div class="account-data__item">
+				<div class="c-account-data__item">
 					<p>
-						<strong class="account-data__title">
+						<strong class="c-account-data__title">
 							Email:
 						</strong>
 						${dataUser.email}
@@ -343,8 +343,8 @@ function createTemplateAccount(data) {
 
 		if (dataUser.photo !== null && dataUser.name) {
 			templatePhoto = `
-				<div class="account-data__item">
-					<img class="account-data__photo" src="${dataUser.photo}" alt="${dataUser.name}">
+				<div class="c-account-data__item">
+					<img class="c-account-data__photo" src="${dataUser.photo}" alt="${dataUser.name}">
 				</div>
 				`;
 		} else {
@@ -354,13 +354,13 @@ function createTemplateAccount(data) {
 
 		const template = `
 			<article id="account" class="c-page__article is-active">
-				<div class="account-data c-box">
-					<div class="account-data__inner">
-						<div class="account-data__column">
-							<div class="account-data__row">
+				<div class="c-account-data c-box">
+					<div class="c-account-data__inner">
+						<div class="c-account-data__column">
+							<div class="c-account-data__row">
 								${templatePhoto}
 							</div>
-							<div class="account-data__row">
+							<div class="c-account-data__row">
 								<div class="c-list-buttons c-list c-list--justify">
 									<button id="buttonUpdateShow" class="c-button--edit c-button c-list__item">
 										Edit
@@ -374,22 +374,22 @@ function createTemplateAccount(data) {
 								</div>
 							</div>
 						</div>
-						<div class="account-data__column">
-							<h2 class="c-title">
+						<div class="c-account-data__column">
+							<h2 class="c-page__subtitle">
 								Account
 							</h2>
-							<div class="account-data__row">
-								<div class="account-data__item">
+							<div class="c-account-data__row">
+								<div class="c-account-data__item">
 									<p>
-										<strong class="account-data__title">
+										<strong class="c-account-data__title">
 											Creation Time:
 										</strong>
 										${dataUser.creationTime}
 									</p>
 								</div>
-								<div class="account-data__item">
+								<div class="c-account-data__item">
 									<p>
-										<strong class="account-data__title">
+										<strong class="c-account-data__title">
 											Last SingIn Time:
 										</strong>
 										${dataUser.lastSignInTime}
@@ -397,23 +397,23 @@ function createTemplateAccount(data) {
 								</div>
 							</div>
 
-							<div class="account-data__row">
+							<div class="c-account-data__row">
 								${templateName}
 								${templateEmail}
 							</div>
 
-							<div class="account-data__row">
-								<div class="account-data__item">
+							<div class="c-account-data__row">
+								<div class="c-account-data__item">
 									<p>
-										<strong class="account-data__title">
+										<strong class="c-account-data__title">
 											Email verified:
 										</strong>
 										${dataUser.emailVerified}
 									</p>
 								</div>
-								<div class="account-data__item">
+								<div class="c-account-data__item">
 									<p>
-										<strong class="account-data__title">
+										<strong class="c-account-data__title">
 											Anonymous:
 										</strong>
 										${dataUser.isAnonymous}
@@ -461,17 +461,17 @@ function createTemplateUpdate(data) {
 					</legend>
 
 					<div class="c-form__item">
-						<label class="c-label" for="nameUserUpdate">
+						<label class="c-label c-label--anim" for="nameUserUpdate">
 							Name
 						</label>
-						<input id="nameUserUpdate" class="c-form__field" type="text" value="${name}">
+						<input id="nameUserUpdate" class="c-form__field c-form__field--anim" type="text" value="${name}">
 					</div>
 
 					<div class="c-form__item">
-						<label class="c-label" for="photoUserUpdate">
+						<label class="c-label c-label--anim" for="photoUserUpdate">
 							Photo
 						</label>
-						<input id="photoUserUpdate" class="c-form__field" type="url" value="${photo}">
+						<input id="photoUserUpdate" class="c-form__field c-form__field--anim" type="url" value="${photo}">
 					</div>
 
 					<input id="emailUserUpdate" value="${dataUser.email}" type="hidden">
@@ -505,10 +505,10 @@ function createTemplateDelete() {
 					</legend>
 
 					<div class="c-form__item">
-						<label class="c-label" for="passwordUserDelete">
+						<label class="c-label c-label--anim" for="passwordUserDelete">
 							Password
 						</label>
-						<input id="passwordUserDelete" class="c-form__field" type="password">
+						<input id="passwordUserDelete" class="c-form__field c-form__field--anim" type="password">
 					</div>
 				</fieldset>
 
@@ -526,10 +526,10 @@ function createTemplateDelete() {
 
 
 /**
- * @function addEventsRegisterEmailPass
+ * @function addEventsRegisterPassword
  * @description Add events for register form
  */
-function addEventsRegisterEmailPass() {
+function addEventsRegisterPassword() {
 	const buttonRegister = document.getElementById("buttonRegister");
 	const buttonRegisterShow = document.getElementById("buttonRegisterShow");
 	const emailUserRegister = document.getElementById("emailUserRegister");
@@ -552,7 +552,7 @@ function addEventsRegisterEmailPass() {
 			if ((valueEmail !== null && valueEmail !== "") &&
 				(valuePass !== null && valuePass !== "")) {
 
-				firebaseAuthRegisterUserEmailPass(valueEmail, valuePass);
+				firebaseAuthRegisterUserPassword(valueEmail, valuePass);
 				scrollTop();
 			}
 		});
@@ -561,10 +561,10 @@ function addEventsRegisterEmailPass() {
 
 
 /**
- * @function addEventsLogInEmailPass
+ * @function addEventsLogInPassword
  * @description Add events for login form with email and pass
  */
-function addEventsLogInEmailPass() {
+function addEventsLogInPassword() {
 	const buttonLogIn = document.getElementById("buttonLogIn");
 	const buttonLogInShow = document.getElementById("buttonLogInShow");
 	const emailUserLogIn = document.getElementById("emailUserLogIn");
@@ -587,7 +587,7 @@ function addEventsLogInEmailPass() {
 			if ((valueEmail !== null && valueEmail !== "") &&
 				(valuePass !== null && valuePass !== "")) {
 
-				firebaseAuthLogInUserEmailPass(valueEmail, valuePass);
+				firebaseAuthLogInUserPassword(valueEmail, valuePass);
 				scrollTop();
 			}
 		});
@@ -804,12 +804,12 @@ function firebaseVerifyError(errorCode, errorMessage) {
 
 
 /**
- * @function firebaseAuthRegisterUserEmailPass
+ * @function firebaseAuthRegisterUserPassword
  * @description FIREBASE AUTH - REGISTER user with email and password
  * @param {String} email Email data obtained from the register form
  * @param {String} password Password data obtained from the register form
  */
-function firebaseAuthRegisterUserEmailPass(email, password) {
+function firebaseAuthRegisterUserPassword(email, password) {
 	firebase.auth().createUserWithEmailAndPassword(email, password)
 		.then(() => {
 			const user = firebase.auth().currentUser;
@@ -849,12 +849,12 @@ function firebaseAuthRegisterUserEmailPass(email, password) {
 
 
 /**
- * @function firebaseAuthLogInUserEmailPass
+ * @function firebaseAuthLogInUserPassword
  * @description FIREBASE AUTH - LOGIN user with email and password
  * @param {String} email Email data obtained from the login form
  * @param {String} password Password data obtained from the login form
  */
-function firebaseAuthLogInUserEmailPass(email, password) {
+function firebaseAuthLogInUserPassword(email, password) {
 	firebase.auth().signInWithEmailAndPassword(email, password)
 		.then(() => {
 			const user = firebase.auth().currentUser;
@@ -1292,8 +1292,8 @@ function firebaseAuthStateChanged() {
 
 (function () {
 	scrollTop();
-	addEventsRegisterEmailPass();
-	addEventsLogInEmailPass();
+	addEventsRegisterPassword();
+	addEventsLogInPassword();
 	addEventsLogInGoogle();
 	addEventsLogInFacebook();
 	addEventsLogInTwitter();
