@@ -1,6 +1,8 @@
-![shieldsIO](https://img.shields.io/github/issues/beatrizsmerino/exercises-javascript-node)
-![shieldsIO](https://img.shields.io/github/forks/beatrizsmerino/exercises-javascript-node)
-![shieldsIO](https://img.shields.io/github/stars/beatrizsmerino/exercises-javascript-node)
+![GitHub last commit](https://img.shields.io/github/last-commit/beatrizsmerino/exercises-javascript-node)  
+![GitHub issues](https://img.shields.io/github/issues/beatrizsmerino/exercises-javascript-node)
+![GitHub forks](https://img.shields.io/github/forks/beatrizsmerino/exercises-javascript-node)
+![GitHub stars](https://img.shields.io/github/stars/beatrizsmerino/exercises-javascript-node)
+![GitHub watchers](https://img.shields.io/github/watchers/beatrizsmerino/exercises-javascript-node)
 
 # Exercises Javascript and Node
 
